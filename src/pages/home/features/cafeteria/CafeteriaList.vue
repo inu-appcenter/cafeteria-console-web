@@ -38,8 +38,11 @@ export default {
         return new Cafeteria({});
       },
 
-      formValidator: () => {
-        return true;
+      formValidator: (cafeteria, allCafeteria) => {
+        return cafeteria.id
+        && cafeteria.name
+        && cafeteria.display_name
+        && !(cafeteria.id in allCafeteria.map((c) => c.id));
       },
       onUpdate: (items) => {
         // When things got changed from client.
