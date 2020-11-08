@@ -58,7 +58,7 @@
       <template v-slot:activator="{ on, attrs }">
         <!-- Button -->
         <v-btn block v-bind="attrs" v-on="on" @click="onClickAddItem();">
-          카페테리아 추가
+          {{ itemDisplayName }} 추가
           <v-icon>mdi-plus</v-icon>
         </v-btn>
       </template>
@@ -66,7 +66,7 @@
       <!-- Dialog content -->
       <v-card>
         <v-card-title class="headline">
-          카페테리아 추가
+          {{ itemDisplayName }} 추가
         </v-card-title>
 
         <v-card-text>
@@ -109,9 +109,11 @@ export default {
     itemName: String,
     itemDisplayName: String,
     domainFields: Array[Field],
-    formValidator: Function,
-    itemGenerator: Function,
+
     initialItems: Array,
+    itemGenerator: Function,
+
+    formValidator: Function,
     onUpdate: Function,
   },
 
@@ -153,10 +155,14 @@ export default {
 
     onClickApplyItem(item) {
       item.editing = false;
+
+      this.onUpdate(this.allItems);
     },
 
     onClickDeleteItem(item) {
-      item;
+      this.allItems.splice(this.allItems.indexOf(item), 1); // Deleting
+
+      this.onUpdate(this.allItems);
     },
 
     onModifyItem(item) {
@@ -175,12 +181,12 @@ export default {
 
     onClickDoneAddItem() {
       this.newItemDialogVisible = false;
-
       this.newItem.loading = true;
 
       this.allItems.push(this.newItem);
-
       this.newItem = this.itemGenerator();
+
+      this.onUpdate(this.allItems);
     },
 
     onClickCancelAddItem() {
