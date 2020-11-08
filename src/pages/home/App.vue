@@ -22,11 +22,11 @@
 <script>
 import DrawerList from './components/DrawerList';
 import config from '../../../config';
-// import colors from '@/res/colors';
+import colors from '@/res/colors';
 
 function setDarkInternal(context, dark) {
   context.$vuetify.theme.dark = dark;
-  // window.document.getElementById('doc').style.backgroundColor = dark ? colors.backgroundDark : colors.backgroundWhite;
+  window.document.getElementById('root').style.backgroundColor = dark ? colors.backgroundDark : colors.backgroundWhite;
 }
 
 export default {
@@ -34,7 +34,7 @@ export default {
   components: {DrawerList},
 
   data: () => ({
-    drawer: null,
+    drawer: true,
     title: config.pageTitle,
   }),
   methods: {

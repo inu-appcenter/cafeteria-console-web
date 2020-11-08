@@ -6,12 +6,12 @@ module.exports = {
     'index': {
       entry: './src/pages/home/main.js',
       template: 'public/index.html',
-      title: 'Home',
+      title: '카페테리아 관리자 페이지',
     },
     'auth': {
       entry: './src/pages/auth/main.js',
       template: 'public/index.html',
-      title: 'Authentication',
+      title: '인증',
     },
   },
 };
