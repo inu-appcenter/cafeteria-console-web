@@ -15,7 +15,7 @@ export default {
       cafeteriaValidationParamsProps: {
         keyName: 'cafeteria_id',
         itemName: 'cafeteria_validation_params',
-        itemDisplayName: '카페테리아 할인 요청 인증 파라미터',
+        itemDisplayName: '할인 요청 인증 파라미터',
         domainFields: CafeteriaValidationParams.fields(),
 
         initialItems: [
