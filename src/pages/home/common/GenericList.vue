@@ -1,51 +1,60 @@
 <template>
   <div>
     <!-- Title -->
-    <div class="display-1 text--primary">{{ itemDisplayName }}</div>
+    <h2>{{ itemDisplayName }}</h2>
 
-    <!-- All item list -->
     <v-card v-for="item in allItems" :key="item[keyName]"
             class="my-3" raised outlined :loading="item.loading">
 
-      <!-- Contents -->
-      <v-card-text>
+      <!-- All item list -->
+      <v-list>
 
-        <!-- Fields -->
-        <div v-for="field in domainFields" :key="field.name">
-
+        <!-- Contents -->
+        <v-list-item v-for="field in domainFields" :key="field.name">
           <!-- Field name -->
-          {{ itemName }}.{{ field.name }}
+          <v-list-item-content>
+            <v-list-item-title>{{ field.name }}</v-list-item-title>
+            <v-list-item-subtitle>{{ itemName }}.{{ field.name }}</v-list-item-subtitle>
+          </v-list-item-content>
 
-          <!-- Number field -->
-          <div v-show="field.type === 'number'">
-            <v-text-field v-show="item.editing && field.mutable" type="number" v-model.number="item[field.name]" outlined @input="onModifyItem(item);" :rules="[field.validate]"/>
-            <p v-show="!(item.editing && field.mutable)" class="display-1 text--primary">{{ item[field.name] }}</p>
-          </div>
+          <!-- Values -->
+          <v-list-item-action>
+            <!-- Number field -->
+            <div v-show="field.type === 'number'">
+              <v-text-field v-show="item.editing && field.mutable" type="number" v-model.number="item[field.name]"
+                            outlined @input="onModifyItem(item);" :rules="[field.validate]"/>
+              <div v-show="!(item.editing && field.mutable)" class="title">{{ item[field.name] }}</div>
+            </div>
 
-          <!-- Text field -->
-          <div v-show="field.type === 'text'">
-            <v-text-field v-show="item.editing && field.mutable" v-model="item[field.name]" outlined @input="onModifyItem(item);" :rules="[field.validate]"/>
-            <p v-show="!(item.editing && field.mutable)" class="display-1 text--primary">{{ item[field.name] }}</p>
-          </div>
+            <!-- Text field -->
+            <div v-show="field.type === 'text'">
+              <v-text-field v-show="item.editing && field.mutable" v-model="item[field.name]" outlined
+                            @input="onModifyItem(item);" :rules="[field.validate]"/>
+              <div v-show="!(item.editing && field.mutable)" class="title">{{ item[field.name] }}</div>
+            </div>
 
-          <!-- Bool field -->
-          <div v-show="field.type === 'bool'">
-            <v-switch :disabled="!(item.editing && field.mutable)" v-model="item[field.name]" outlined @change="onModifyItem(item);" />
-          </div>
+            <!-- Bool field -->
+            <div v-show="field.type === 'bool'">
+              <v-switch :disabled="!(item.editing && field.mutable)" v-model="item[field.name]" outlined
+                        @change="onModifyItem(item);"/>
+            </div>
 
-        </div>
+          </v-list-item-action>
+        </v-list-item>
 
-      </v-card-text>
+      </v-list>
 
       <!-- Action -->
       <v-card-actions>
-        <v-btn v-if="!item.editing && !item.loading" outlined text color="orange accent-4" @click="onClickModifyItem(item)">
+        <v-btn v-if="!item.editing && !item.loading" outlined text color="orange accent-4"
+               @click="onClickModifyItem(item)">
           수정
         </v-btn>
         <v-btn v-if="item.editing" outlined text color="orange accent-4" @click="onClickCancelModifyItem(item)">
           취소
         </v-btn>
-        <v-btn v-if="item.editing" outlined :disabled="!(item.valid && item.modified)" text color="blue" @click="onClickApplyItem(item)">
+        <v-btn v-if="item.editing" outlined :disabled="!(item.valid && item.modified)" text color="blue"
+               @click="onClickApplyItem(item)">
           완료
         </v-btn>
 
@@ -85,13 +94,16 @@
           <div v-for="field in domainFields" :key="field.name">
 
             <!-- Number field -->
-            <v-text-field v-if="field.type === 'number'" type="number" v-model.number="newItem[field.name]" outlined :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
+            <v-text-field v-if="field.type === 'number'" type="number" v-model.number="newItem[field.name]" outlined
+                          :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
 
             <!-- Text field -->
-            <v-text-field v-else-if="field.type === 'text'" v-model="newItem[field.name]" outlined :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
+            <v-text-field v-else-if="field.type === 'text'" v-model="newItem[field.name]" outlined
+                          :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
 
             <!-- Bool field -->
-            <v-switch v-else-if="field.type === 'bool'" v-model="newItem[field.name]" :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
+            <v-switch v-else-if="field.type === 'bool'" v-model="newItem[field.name]"
+                      :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
           </div>
 
           <v-btn :disabled="!newItem.valid" block color="primary" @click="onClickDoneAddItem();">완료</v-btn>
