@@ -6,7 +6,7 @@
     <!-- All item list -->
     <v-card class="my-3" raised outlined :loading="loading">
 
-      <v-list two-line subheader>
+      <v-list three-line>
         <v-list-item
             v-for="item in allItems"
             :key="item[keyName]">
@@ -17,8 +17,7 @@
           </v-list-item-content>
 
           <v-list-item-action>
-            <v-switch v-model="item[toggleFieldName]" />
-
+            <v-switch v-model="item[toggleFieldName]" @change="onModifyItem(item);" />
           </v-list-item-action>
 
         </v-list-item>
@@ -55,6 +54,24 @@ export default {
 
       allItems: this.$props.initialItems,
     };
+  },
+
+  methods: {
+    async onModifyItem(item) {
+      item.modified = true;
+      item.loading = true;
+      this.setGlobalLoadingStatus();
+
+      await this.onUpdate(this.allItems);
+
+      item.modified = false;
+      item.loading = false;
+      this.setGlobalLoadingStatus();
+    },
+
+    setGlobalLoadingStatus() {
+      this.loading = (this.allItems.filter((i) => i.loading).length > 0); // At least one loading
+    }
   }
 }
 </script>
