@@ -17,7 +17,7 @@ class CafeteriaValidationParams extends GenericItem {
 
     static fields() {
         function shouldBeValidTimeTimeRangeString(timeRangeString) {
-            return /[0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9]/.test(timeRangeString) || 'Should be in \'mm:hh-mm:hh\' format.';
+            return /^[0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9]$/.test(timeRangeString) || 'Should be in \'mm:hh-mm:hh\' format.';
         }
 
         function availableMealTypeShouldBeValid(mealType) {

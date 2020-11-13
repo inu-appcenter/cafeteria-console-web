@@ -18,13 +18,13 @@
 
           <!-- Number field -->
           <div v-show="field.type === 'number'">
-            <v-text-field v-show="item.editing && field.mutable" type="number" v-model.number="item[field.name]" outlined @keydown="onModifyItem(item);" :rules="[field.validate]"/>
+            <v-text-field v-show="item.editing && field.mutable" type="number" v-model.number="item[field.name]" outlined @input="onModifyItem(item);" :rules="[field.validate]"/>
             <p v-show="!(item.editing && field.mutable)" class="display-1 text--primary">{{ item[field.name] }}</p>
           </div>
 
           <!-- Text field -->
           <div v-show="field.type === 'text'">
-            <v-text-field v-show="item.editing && field.mutable" v-model="item[field.name]" outlined @keydown="onModifyItem(item);" :rules="[field.validate]"/>
+            <v-text-field v-show="item.editing && field.mutable" v-model="item[field.name]" outlined @input="onModifyItem(item);" :rules="[field.validate]"/>
             <p v-show="!(item.editing && field.mutable)" class="display-1 text--primary">{{ item[field.name] }}</p>
           </div>
 
@@ -45,7 +45,7 @@
         <v-btn v-if="item.editing" outlined text color="orange accent-4" @click="onClickCancelModifyItem(item)">
           취소
         </v-btn>
-        <v-btn v-if="item.editing" outlined :disabled="!item.modified || !item.valid" text color="blue" @click="onClickApplyItem(item)">
+        <v-btn v-if="item.editing" outlined :disabled="!(item.valid && item.modified)" text color="blue" @click="onClickApplyItem(item)">
           완료
         </v-btn>
 
@@ -85,13 +85,13 @@
           <div v-for="field in domainFields" :key="field.name">
 
             <!-- Number field -->
-            <v-text-field v-if="field.type === 'number'" type="number" v-model.number="newItem[field.name]" outlined :label="itemName + '.' + field.name" @keydown="onFormUpdate();" :rules="[field.validate]"/>
+            <v-text-field v-if="field.type === 'number'" type="number" v-model.number="newItem[field.name]" outlined :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
 
             <!-- Text field -->
-            <v-text-field v-else-if="field.type === 'text'" v-model="newItem[field.name]" outlined :label="itemName + '.' + field.name" @keydown="onFormUpdate();" :rules="[field.validate]"/>
+            <v-text-field v-else-if="field.type === 'text'" v-model="newItem[field.name]" outlined :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
 
             <!-- Bool field -->
-            <v-switch v-else-if="field.type === 'bool'" v-model="newItem[field.name]" :label="itemName + '.' + field.name" @change="onFormUpdate();" :rules="[field.validate]"/>
+            <v-switch v-else-if="field.type === 'bool'" v-model="newItem[field.name]" :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
           </div>
 
           <v-btn :disabled="!newItem.valid" block color="primary" @click="onClickDoneAddItem();">완료</v-btn>
@@ -174,8 +174,8 @@ export default {
     },
 
     onModifyItem(item) {
-      item.modified = true;
       item.valid = this._isItemValid(item);
+      item.modified = true;
     },
 
     onClickAddItem() {
@@ -183,19 +183,23 @@ export default {
     },
 
     onFormUpdate() {
-      this.newItem.valid = this._isItemValid(this.newItem);
+      this.newItem.valid = this._isNewItemValid(this.newItem);
     },
 
     _isItemValid(item) {
       for (const field of this.$props.domainFields) {
         // Result should be pure 'true'.
         if (field.validate(item[field.name]) !== true) {
-          console.log(`${field.name} validation failed!`);
+          console.log(item[field.name]);
           return false;
         }
       }
 
-      return this.$props.formValidator(item, this.allItems);
+      return true;
+    },
+
+    _isNewItemValid(item) {
+      return this._isItemValid(item) && this.$props.formValidator(item, this.allItems);
     },
 
     onClickDoneAddItem() {
