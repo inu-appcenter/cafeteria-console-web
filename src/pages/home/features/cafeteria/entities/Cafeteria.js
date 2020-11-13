@@ -1,5 +1,6 @@
-import GenericItem from '@/pages/home/features/cafeteria/entity/GenericItem';
-import Field from '@/pages/home/features/cafeteria/Field';
+import GenericItem from '@/pages/home/common/GenericItem';
+import Field from '@/pages/home/common/Field';
+import validation from '@/pages/home/common/validation';
 
 class Cafeteria extends GenericItem {
     constructor({id = null, name = null, display_name = null, support_menu = false, support_discount = false, support_notification = false}) {
@@ -15,9 +16,9 @@ class Cafeteria extends GenericItem {
 
     static fields() {
         return [
-            new Field('id', 'number', false),
-            new Field('name', 'text', true),
-            new Field('display_name', 'text', true),
+            new Field('id', 'number', false, validation.numberOverZero),
+            new Field('name', 'text', true, validation.stringNotEmpty),
+            new Field('display_name', 'text', true, validation.stringNotEmpty),
             new Field('support_menu', 'bool', true),
             new Field('support_discount', 'bool', true),
             new Field('support_notification', 'bool', true)

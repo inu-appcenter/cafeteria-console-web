@@ -1,10 +1,10 @@
 <template>
-  <GenericList v-bind="cornerProps" ></GenericList>
+  <GenericList v-bind="cornerProps" />
 </template>
 <script>
 
-import Corner from '@/pages/home/features/cafeteria/entity/Corner';
-import GenericList from '@/pages/home/features/cafeteria/GenericList';
+import Corner from '@/pages/home/features/cafeteria/entities/Corner';
+import GenericList from '@/pages/home/common/GenericList';
 
 export default {
   name: 'CornerList',
@@ -12,6 +12,7 @@ export default {
 
   data: () => ({
     cornerProps: {
+      keyName: 'id',
       itemName: 'corner',
       itemDisplayName: '코너',
       domainFields: Corner.fields(),
