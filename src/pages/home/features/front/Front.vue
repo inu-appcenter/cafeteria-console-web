@@ -2,7 +2,16 @@
 
   <v-container class="fill-height mb-6">
     <v-row justify="center">
-      <p class="display-1 text--primary">안녕하세요</p>
+      <div>
+        <p class="display-1 text--primary">안녕하세요</p>
+
+        <p v-for="service in services"
+           :key="service.name"
+           :to="service.name">
+          <a :href="service.name">{{ service.subtitle }}</a>
+        </p>
+
+      </div>
     </v-row>
 
     <v-row justify="center">
@@ -14,6 +23,8 @@
 </template>
 
 <script>
+import config from '../../../../../config';
+
 export default {
   name: 'Front',
 
@@ -22,7 +33,8 @@ export default {
 
     return {
       packageName: packageInfo.name,
-      packageVersion: packageInfo.version
+      packageVersion: packageInfo.version,
+      services: config.services
     };
   }
 }

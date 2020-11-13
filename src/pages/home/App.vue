@@ -9,7 +9,9 @@
 
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-      <v-toolbar-title v-text="title"/>
+      <a class="nostyle" href="/">
+        <v-toolbar-title v-text="title"/>
+      </a>
     </v-app-bar>
 
     <v-main>
@@ -48,3 +50,18 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+a.nostyle:link {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: auto;
+}
+
+a.nostyle:visited {
+  text-decoration: inherit;
+  color: inherit;
+  cursor: auto;
+}
+</style>
+

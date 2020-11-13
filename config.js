@@ -8,11 +8,6 @@ export default {
             subtitle: '서비스 로그'
         },
         {
-            name: 'History',
-            icon: 'mdi-clipboard-account',
-            subtitle: '학생 할인 기록 열람'
-        },
-        {
             name: 'Rules',
             icon: 'mdi-barcode',
             subtitle: '할인 비즈니스 룰 편집',
