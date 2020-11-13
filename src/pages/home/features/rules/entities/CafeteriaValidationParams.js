@@ -16,7 +16,7 @@ class CafeteriaValidationParams extends GenericItem {
     }
 
     static fields() {
-        function shouldBeValidTimeTimeRangeString(timeRangeString) {
+        function shouldBeValidTimeRangeString(timeRangeString) {
             return /^[0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9]$/.test(timeRangeString) || 'Should be in \'mm:hh-mm:hh\' format.';
         }
 
@@ -29,9 +29,9 @@ class CafeteriaValidationParams extends GenericItem {
             new Field('token', 'text', true, validation.stringNotEmpty),
             new Field('available_meal_types', 'number', true, availableMealTypeShouldBeValid),
 
-            new Field('time_range_breakfast', 'text', true, shouldBeValidTimeTimeRangeString),
-            new Field('time_range_lunch', 'text', true, shouldBeValidTimeTimeRangeString),
-            new Field('time_range_dinner', 'text', true, shouldBeValidTimeTimeRangeString),
+            new Field('time_range_breakfast', 'text', true, shouldBeValidTimeRangeString),
+            new Field('time_range_lunch', 'text', true, shouldBeValidTimeRangeString),
+            new Field('time_range_dinner', 'text', true, shouldBeValidTimeRangeString),
         ];
     }
 }
