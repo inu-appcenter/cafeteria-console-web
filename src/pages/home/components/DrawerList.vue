@@ -1,6 +1,6 @@
 <template>
   <v-list two-line nav dense>
-    <v-list-item-group v-model="services">
+    <v-list-item-group v-model="selected">
 
       <!-- A single item -->
       <v-list-item
@@ -34,6 +34,7 @@ export default {
 
   data: () => ({
     services: config.services,
+    selected: null
   }),
 }
 </script>

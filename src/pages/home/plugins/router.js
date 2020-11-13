@@ -1,6 +1,7 @@
 import VueRouter from 'vue-router';
 import Front from '../features/front/Front';
 import Vue from 'vue';
+import Logs from '@/pages/home/features/logs/Logs';
 import Cafeteria from '@/pages/home/features/cafeteria/Cafeteria';
 
 Vue.use(VueRouter);
@@ -9,6 +10,7 @@ function createRouter() {
     const routes = [
         {path: '/', component: Front, meta: {authRequired: true}},
 
+        {path: '/Logs', component: Logs, meta: {authRequired: false}},
         {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}}
     ];
     const mode = 'history';
