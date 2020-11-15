@@ -17,7 +17,7 @@ export default {
       itemDisplayName: '코너',
       domainFields: Corner.fields(),
 
-      initialItems: [
+      fetchItems: async () => [
         new Corner({
           id: 1,
           name: '그 코너',

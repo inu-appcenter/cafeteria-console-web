@@ -5,6 +5,7 @@
 
 import Cafeteria from '@/pages/home/features/cafeteria/entities/Cafeteria';
 import GenericList from '@/pages/home/common/GenericList';
+import repository from '@/data/Repository';
 
 export default {
   name: 'CafeteriaList',
@@ -18,24 +19,7 @@ export default {
       itemDisplayName: '카페테리아',
       domainFields: Cafeteria.fields(),
 
-      initialItems: [
-        new Cafeteria({
-          id: 1,
-          name: '그냥 식당',
-          display_name: '그으으으냥 식당',
-          support_menu: true,
-          support_discount: false,
-          support_notification: false
-        }),
-        new Cafeteria({
-          id: 2,
-          name: '저냥 식당',
-          display_name: '저어어어냥 식당',
-          support_menu: true,
-          support_discount: false,
-          support_notification: false
-        })
-      ],
+      fetchItems: async () => repository.getAllCafeteria(),
       itemGenerator: () => {
         return new Cafeteria({});
       },

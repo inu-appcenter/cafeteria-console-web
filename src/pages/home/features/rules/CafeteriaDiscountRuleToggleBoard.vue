@@ -22,7 +22,7 @@ export default {
         itemDisplayName: '할인 비즈니스 룰',
         domainFields: CafeteriaDiscountRule.fields(),
 
-        initialItems: [
+        fetchItems: async () => [
           new CafeteriaDiscountRule({
             id: 1,
             name: 'requestShouldBeInMealTime',

@@ -131,7 +131,7 @@ export default {
     itemDisplayName: String,
     domainFields: Array[Field],
 
-    initialItems: Array,
+    fetchItems: Function,
     itemGenerator: Function,
 
     formValidator: Function,
@@ -140,7 +140,7 @@ export default {
 
   data() {
     return {
-      allItems: this.$props.initialItems,
+      allItems: [],
 
       // Edit cache
       itemBeforeEdit: {},
@@ -149,6 +149,12 @@ export default {
       newItem: this.$props.itemGenerator(),
       newItemDialogVisible: false,
     }
+  },
+
+  created() {
+    this.fetchItems().then((items) => {
+      this.allItems = items;
+    });
   },
 
   methods: {

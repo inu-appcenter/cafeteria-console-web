@@ -9,19 +9,23 @@ class Repository {
 
     async getAllCafeteria() {
         return this._doRequest(`
-        allCafeteria {
-            id
-            name
-            display_name
-            support_menu
-            support_discount
-            support_notification
+        {
+            allCafeteria {
+                id
+                name
+                display_name
+                support_menu
+                support_discount
+                support_notification
+            }
         }
-        `)
+        `, 'allCafeteria');
     }
 
-    async _doRequest(query) {
-        return (await request(this.endpoint, query)).data;
+    async _doRequest(query, resultFieldName) {
+        const response = await request(this.endpoint, query);
+        console.log(response);
+        return response[resultFieldName];
     }
 }
 

@@ -44,7 +44,7 @@ export default {
     itemDisplayName: String,
     domainFields: Array[Field],
 
-    initialItems: Array,
+    fetchItems: Function,
     onUpdate: Function,
   },
 
@@ -52,7 +52,7 @@ export default {
     return {
       loading: false,
 
-      allItems: this.$props.initialItems,
+      allItems: this.$props.fetchItems,
     };
   },
 

@@ -18,7 +18,7 @@ export default {
         itemDisplayName: '할인 요청 인증 파라미터',
         domainFields: CafeteriaValidationParams.fields(),
 
-        initialItems: [
+        fetchItems: async () => [
           new CafeteriaValidationParams({
             token: 'oiushfiusehfiusej',
             available_meal_types: 6,

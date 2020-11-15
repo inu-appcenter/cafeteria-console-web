@@ -32,5 +32,9 @@ export default {
             icon: 'mdi-message-reply',
             subtitle: '피드백 확인 및 답장'
         }
-    ]
+    ],
+
+    server: {
+        endpoint: 'http://10.0.1.10:8080/graphql'
+    }
 };
