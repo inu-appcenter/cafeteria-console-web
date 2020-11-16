@@ -90,7 +90,7 @@
         <!-- Contents -->
         <v-card-text>
 
-          <v-form ref="newItemForm" @submit.prevent="onClickCancelAddItem();">
+          <v-form ref="newItemForm" @submit.prevent="onClickDoneAddItem();">
             <!-- Fields -->
             <div v-for="field in domainFields" :key="field.name">
 
@@ -107,7 +107,7 @@
                         :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
             </div>
 
-            <v-btn type="submit" :disabled="!newItem.valid" block color="primary" @click="onClickDoneAddItem();">완료</v-btn>
+            <v-btn type="submit" :disabled="!newItem.valid" block color="primary">완료</v-btn>
             <p></p>
             <v-btn block @click="onClickCancelAddItem();">취소</v-btn>
 
@@ -163,8 +163,8 @@ export default {
   watch: {
     newItemDialogVisible() {
       this.$nextTick(() => {
-        this.$refs.newItemForm.reset();
-      })
+        this.$refs.newItemForm.resetValidation();
+      });
     }
   },
 
@@ -196,16 +196,20 @@ export default {
       Object.assign(item, this.itemBeforeEdit[item[this.$props.keyName]]);
     },
 
-    onClickApplyItem(item) {
+    async onClickApplyItem(item) {
       item.editing = false;
 
-      this.onUpdate(item);
+      item.loading = true;
+      await this.onUpdate(item);
+      item.loading = false;
     },
 
-    onClickDeleteItem(item) {
-      this.allItems.splice(this.allItems.indexOf(item), 1); // Deleting
+    async onClickDeleteItem(item) {
+      item.loading = true;
+      await this.onDelete(item);
+      item.loading = false;
 
-      this.onDelete(item);
+      this.allItems.splice(this.allItems.indexOf(item), 1); // Deleting
     },
 
     onModifyItem(item) {
@@ -215,6 +219,7 @@ export default {
 
     onClickAddItem() {
       this.newItem = this.itemGenerator();
+      console.log(this.newItem);
     },
 
     onFormUpdate() {
@@ -239,15 +244,14 @@ export default {
       return itemValid && itemValidAsANewItem;
     },
 
-    onClickDoneAddItem() {
+    async onClickDoneAddItem() {
       this.newItemDialogVisible = false;
-      this.newItem.loading = true;
 
       this.allItems.push(this.newItem);
-      const added = this.newItem;
-      this.newItem = this.itemGenerator();
 
-      this.onAdd(added);
+      this.newItem.loading = true;
+      await this.onAdd(this.newItem);
+      this.newItem.loading = false;
     },
 
     onClickCancelAddItem() {

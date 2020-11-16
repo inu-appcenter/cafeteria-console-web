@@ -27,15 +27,9 @@ export default {
         },
 
         onFetch: async () => cafeteriaRepository.getAllCafeteria(),
-        onAdd: (item) => {
-          console.log(item);
-        },
-        onUpdate: (item) => {
-          console.log(item);
-        },
-        onDelete: (item) => {
-          console.log(item);
-        }
+        onAdd: async (item) => cafeteriaRepository.addCafeteria(item),
+        onUpdate: async (item) => cafeteriaRepository.updateCafeteria(item),
+        onDelete: async (item) => cafeteriaRepository.deleteCafeteria(item)
       }
     };
   },

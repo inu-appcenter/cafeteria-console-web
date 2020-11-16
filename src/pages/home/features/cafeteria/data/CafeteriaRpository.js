@@ -32,7 +32,7 @@ class CafeteriaRepository extends Repository {
         `;
 
         const variables = {
-            cafeteria
+            cafeteria: cafeteria.filter(Cafeteria.fields().map((f) => f.name))
         };
 
         const result = await this._doRequest(query, variables);
@@ -48,7 +48,7 @@ class CafeteriaRepository extends Repository {
         `;
 
         const variables = {
-            cafeteria
+            cafeteria: cafeteria.filter(Cafeteria.fields().map((f) => f.name))
         };
 
         const result = await this._doRequest(query, variables);
@@ -59,7 +59,7 @@ class CafeteriaRepository extends Repository {
     async deleteCafeteria(cafeteria) {
         const query = `
             mutation DeleteCafeteria($cafeteriaId: Int) {
-                createCafeteria(cafeteriaId: $cafeteriaId)
+                deleteCafeteria(cafeteriaId: $cafeteriaId)
             }
         `;
 
