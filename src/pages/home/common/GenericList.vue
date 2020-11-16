@@ -90,25 +90,28 @@
         <!-- Contents -->
         <v-card-text>
 
-          <!-- Fields -->
-          <div v-for="field in domainFields" :key="field.name">
+          <v-form ref="newItemForm" @submit.prevent="onClickCancelAddItem();">
+            <!-- Fields -->
+            <div v-for="field in domainFields" :key="field.name">
 
-            <!-- Number field -->
-            <v-text-field v-if="field.type === 'number'" type="number" v-model.number="newItem[field.name]" outlined
-                          :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
+              <!-- Number field -->
+              <v-text-field v-show="field.type === 'number'" type="number" v-model.number="newItem[field.name]" outlined
+                            :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
 
-            <!-- Text field -->
-            <v-text-field v-else-if="field.type === 'text'" v-model="newItem[field.name]" outlined
-                          :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
+              <!-- Text field -->
+              <v-text-field v-show="field.type === 'text'" v-model="newItem[field.name]" outlined
+                            :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
 
-            <!-- Bool field -->
-            <v-switch v-else-if="field.type === 'bool'" v-model="newItem[field.name]"
-                      :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
-          </div>
+              <!-- Bool field -->
+              <v-switch v-show="field.type === 'bool'" v-model="newItem[field.name]"
+                        :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
+            </div>
 
-          <v-btn :disabled="!newItem.valid" block color="primary" @click="onClickDoneAddItem();">완료</v-btn>
-          <p></p>
-          <v-btn block @click="onClickCancelAddItem();">취소</v-btn>
+            <v-btn type="submit" :disabled="!newItem.valid" block color="primary" @click="onClickDoneAddItem();">완료</v-btn>
+            <p></p>
+            <v-btn block @click="onClickCancelAddItem();">취소</v-btn>
+
+          </v-form>
 
         </v-card-text>
 
@@ -131,11 +134,13 @@ export default {
     itemDisplayName: String,
     domainFields: Array[Field],
 
-    fetchItems: Function,
     itemGenerator: Function,
-
     formValidator: Function,
+
+    onFetch: Function,
+    onAdd: Function,
     onUpdate: Function,
+    onDelete: Function
   },
 
   data() {
@@ -152,12 +157,24 @@ export default {
   },
 
   created() {
-    this.fetchItems().then((items) => {
-      this.allItems = items;
-    });
+    this.load();
+  },
+
+  watch: {
+    newItemDialogVisible() {
+      this.$nextTick(() => {
+        this.$refs.newItemForm.reset();
+      })
+    }
   },
 
   methods: {
+    load() {
+      this.onFetch().then((items) => {
+        this.allItems = items;
+      });
+    },
+
     onClickModifyItem(item) {
       this._backupItem(item);
 
@@ -182,13 +199,13 @@ export default {
     onClickApplyItem(item) {
       item.editing = false;
 
-      this.onUpdate(this.allItems);
+      this.onUpdate(item);
     },
 
     onClickDeleteItem(item) {
       this.allItems.splice(this.allItems.indexOf(item), 1); // Deleting
 
-      this.onUpdate(this.allItems);
+      this.onDelete(item);
     },
 
     onModifyItem(item) {
@@ -208,7 +225,6 @@ export default {
       for (const field of this.$props.domainFields) {
         // Result should be pure 'true'.
         if (field.validate(item[field.name]) !== true) {
-          console.log(item[field.name]);
           return false;
         }
       }
@@ -217,7 +233,10 @@ export default {
     },
 
     _isNewItemValid(item) {
-      return this._isItemValid(item) && this.$props.formValidator(item, this.allItems);
+      const itemValid = this._isItemValid(item);
+      const itemValidAsANewItem = this.$props.formValidator(item, this.allItems);
+
+      return itemValid && itemValidAsANewItem;
     },
 
     onClickDoneAddItem() {
@@ -225,9 +244,10 @@ export default {
       this.newItem.loading = true;
 
       this.allItems.push(this.newItem);
+      const added = this.newItem;
       this.newItem = this.itemGenerator();
 
-      this.onUpdate(this.allItems);
+      this.onAdd(added);
     },
 
     onClickCancelAddItem() {

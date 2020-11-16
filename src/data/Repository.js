@@ -3,32 +3,17 @@ import request from 'graphql-request';
 
 class Repository {
 
-    constructor(endpoint) {
-        this.endpoint = endpoint;
+    constructor() {
+        this.endpoint = config.server.endpoint;
     }
 
-    async getAllCafeteria() {
-        return this._doRequest(`
-        {
-            allCafeteria {
-                id
-                name
-                display_name
-                support_menu
-                support_discount
-                support_notification
-            }
-        }
-        `, 'allCafeteria');
+    async _doRequest(query, variables) {
+        return await request(this.endpoint, query, variables)
     }
 
-    async _doRequest(query, resultFieldName) {
-        const response = await request(this.endpoint, query);
-        console.log(response);
-        return response[resultFieldName];
+    _decodeMutationResult(result) {
+        return (result === 1); // 1 means success
     }
 }
 
-const repository = new Repository(config.server.endpoint);
-
-export default repository;
+export default Repository;

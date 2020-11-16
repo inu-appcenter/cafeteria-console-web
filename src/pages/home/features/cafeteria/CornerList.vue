@@ -5,6 +5,7 @@
 
 import Corner from '@/pages/home/features/cafeteria/entities/Corner';
 import GenericList from '@/pages/home/common/GenericList';
+import cornerRepository from '@/pages/home/features/cafeteria/data/CornerRepository';
 
 export default {
   name: 'CornerList',
@@ -17,32 +18,22 @@ export default {
       itemDisplayName: '코너',
       domainFields: Corner.fields(),
 
-      fetchItems: async () => [
-        new Corner({
-          id: 1,
-          name: '그 코너',
-          display_name: '딸려있는 코너',
-          available_at: 6,
-          cafeteria_id: 1
-        }),
-        new Corner({
-          id: 2,
-          name: '그 코너 두번째',
-          display_name: '딸려있는 그 코너',
-          available_at: 6,
-          cafeteria_id: 1
-        }),
-      ],
       itemGenerator: () => {
         return new Corner({});
       },
-
-      formValidator: () => {
-        return true;
+      formValidator: (corner, allCorners) => {
+        return !allCorners.find((c) => c.id === corner.id); // should not exist.
       },
-      onUpdate: (items) => {
-        // When things got changed from client.
-        console.log(items);
+
+      onFetch: async () => cornerRepository.getAllCorners(),
+      onAdd: (item) => {
+        console.log(item);
+      },
+      onUpdate: (item) => {
+        console.log(item);
+      },
+      onDelete: (item) => {
+        console.log(item);
       }
     }
   }),
