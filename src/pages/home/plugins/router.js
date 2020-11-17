@@ -4,6 +4,7 @@ import Vue from 'vue';
 import Logs from '@/pages/home/features/logs/Logs';
 import Rules from '@/pages/home/features/rules/Rules';
 import Cafeteria from '@/pages/home/features/cafeteria/Cafeteria';
+import Parsing from '@/pages/home/features/parsing/Parsing';
 
 Vue.use(VueRouter);
 
@@ -13,7 +14,8 @@ function createRouter() {
 
         {path: '/Logs', component: Logs, meta: {authRequired: false}},
         {path: '/Rules', component: Rules, meta: {authRequired: true}},
-        {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}}
+        {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}},
+        {path: '/Parsing', component: Parsing, meta: {authRequired: true}}
     ];
     const mode = 'history';
 

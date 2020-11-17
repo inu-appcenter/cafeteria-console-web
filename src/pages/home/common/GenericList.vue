@@ -23,14 +23,14 @@
             <div v-show="field.type === 'number'">
               <v-text-field v-show="item.editing && field.mutable" type="number" v-model.number="item[field.name]"
                             outlined @input="onModifyItem(item);" :rules="[field.validate]"/>
-              <div v-show="!(item.editing && field.mutable)" class="title">{{ item[field.name] }}</div>
+              <span v-show="!(item.editing && field.mutable)" class="subtitle-1">{{ item[field.name] }}</span>
             </div>
 
             <!-- Text field -->
             <div v-show="field.type === 'text'">
               <v-text-field v-show="item.editing && field.mutable" v-model="item[field.name]" outlined
                             @input="onModifyItem(item);" :rules="[field.validate]"/>
-              <div v-show="!(item.editing && field.mutable)" class="title">{{ item[field.name] | str_limit(12) }}</div>
+              <span v-show="!(item.editing && field.mutable)" class="subtitle-1">{{ item[field.name] | str_limit(20) }}</span>
             </div>
 
             <!-- Bool field -->

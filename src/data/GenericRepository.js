@@ -33,7 +33,7 @@ class GenericRepository {
             }
         `;
 
-        console.log(`자자 뮤테이션 쿼리 날립니다! 이름은 ${taskName}, 리소스는 ${queryName}!`);
+        console.log(`자자 뮤테이션 쿼리 날립니다! 이름은 ${taskName}, 리소스는 ${queryName}, 인자는 ${variables.length}개!`);
 
         const queryVariables = {};
         for (const v of variables) {
