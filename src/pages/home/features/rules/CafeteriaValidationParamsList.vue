@@ -5,6 +5,7 @@
 <script>
 import GenericList from '@/pages/home/common/GenericList';
 import CafeteriaValidationParams from '@/pages/home/features/rules/entities/CafeteriaValidationParams';
+import validationParamsRepository from '@/pages/home/features/rules/data/ValidationParamsRepository';
 
 export default {
   name: 'CafeteriaValidationParamsList',
@@ -18,28 +19,18 @@ export default {
         itemDisplayName: '할인 요청 인증 파라미터',
         domainFields: CafeteriaValidationParams.fields(),
 
-        fetchItems: async () => [
-          new CafeteriaValidationParams({
-            token: 'oiushfiusehfiusej',
-            available_meal_types: 6,
-            time_range_breakfast: '08:00-10:00',
-            time_range_lunch: '11:00-13:00',
-            time_range_dinner: '17:00-20:00',
-            cafeteria_id: 2,
-          })
-        ],
+
         itemGenerator: () => {
           return new CafeteriaValidationParams({});
         },
-
-        // eslint-disable-next-line no-unused-vars
         formValidator: (params, allParams) => {
-          return true;
+          return !allParams.find((c) => c.cafeteria_id === params.cafeteria_id); // should not exist.
         },
-        onUpdate: (items) => {
-          // When things got changed from client.
-          console.log(items);
-        }
+
+        onFetch: async () => validationParamsRepository.getAllValidationParams(),
+        onAdd: async (item) => validationParamsRepository.addValidationParams(item),
+        onUpdate: async (item) => validationParamsRepository.updateValidationParams(item),
+        onDelete: async (item) => validationParamsRepository.deleteValidationParams(item)
       }
     };
   }

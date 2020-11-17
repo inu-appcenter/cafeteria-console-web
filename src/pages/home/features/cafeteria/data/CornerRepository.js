@@ -8,7 +8,7 @@ class CornerRepository extends GenericRepository {
     }
 
     async addCorner(corner) {
-        return this.mutate('CreateCorner', 'createCorner', [
+        return this.mutate('AddCorner', 'createCorner', [
             {
                 name: 'corner',
                 type: 'CornerInput',

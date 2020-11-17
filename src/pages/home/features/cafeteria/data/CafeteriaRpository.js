@@ -8,7 +8,7 @@ class CafeteriaRepository extends GenericRepository {
     }
 
     async addCafeteria(cafeteria) {
-        return this.mutate('CreateCafeteria', 'createCafeteria', [
+        return this.mutate('AddCafeteria', 'createCafeteria', [
             {
                 name: 'cafeteria',
                 type: 'CafeteriaInput',
