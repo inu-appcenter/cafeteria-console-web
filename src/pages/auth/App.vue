@@ -1,10 +1,10 @@
 <template>
   <v-app>
-      <v-content>
+      <v-main>
         <transition name="fade">
           <router-view></router-view>
         </transition>
-      </v-content>
+      </v-main>
   </v-app>
 </template>
 

@@ -1,10 +1,9 @@
 import config from '../../config';
-import request from 'graphql-request';
 
 class GenericRepository {
 
     constructor() {
-        this.endpoint = config.server.endpoint;
+        this.endpoint = config.server.graphql;
     }
 
     async query(taskName, queryName, type) {
@@ -19,6 +18,10 @@ class GenericRepository {
         console.log(`자자 쿼리 날립니다! 이름은 ${taskName}, 리소스는 ${queryName}!`);
 
         const response = await this._doRequest(query);
+        if (!response) {
+            return [];
+        }
+
         const rawResult = response[queryName];
 
         console.log(`결과 도착~!~! ${queryName}의 결과가 ${rawResult.length}개 왔네요!`);
@@ -41,6 +44,10 @@ class GenericRepository {
         }
 
         const response = await this._doRequest(query, queryVariables);
+        if (!response) {
+            return false;
+        }
+
         const rawResult = response[queryName];
 
         console.log(`결과 도착~!~! 변경된 row의 수가 ${rawResult}개라네요!`);
@@ -52,7 +59,28 @@ class GenericRepository {
     }
 
     async _doRequest(query, variables) {
-        return await request(this.endpoint, query, variables)
+
+        try {
+            const result = await fetch(this.endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    query,
+                    variables
+                })
+            });
+
+            const json = await result.json();
+            return json.data;
+            
+        } catch (e) {
+            console.log(e.message);
+            return null;
+        }
     }
 
     _decodeMutationResult(result) {

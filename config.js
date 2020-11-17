@@ -1,4 +1,5 @@
 export default {
+
     pageTitle: '카페테리아 관리자 페이지',
 
     services: [
@@ -35,6 +36,8 @@ export default {
     ],
 
     server: {
-        endpoint: 'http://10.0.1.10:8080/graphql'
+        graphql: 'http://10.0.1.10:8080/graphql',
+        signIn: 'http://10.0.1.10:8080/sign-in'
     }
+
 };

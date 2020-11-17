@@ -12,7 +12,7 @@ function createRouter() {
     const routes = [
         {path: '/', component: Front, meta: {authRequired: true}},
 
-        {path: '/Logs', component: Logs, meta: {authRequired: false}},
+        {path: '/Logs', component: Logs, meta: {authRequired: true}},
         {path: '/Rules', component: Rules, meta: {authRequired: true}},
         {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}},
         {path: '/Parsing', component: Parsing, meta: {authRequired: true}}
@@ -39,11 +39,11 @@ function routeRequiresAuth(route) {
 }
 
 function isLoggedIn() {
-    return document.cookie.includes("univuc-token");
+    return document.cookie.includes('token');
 }
 
 function isTestEnv() {
-    return process.env.NODE_ENV === 'DEBUG'
+    return process.env.NODE_ENV === 'DEBUGk'
 }
 
 const router = createRouter();
