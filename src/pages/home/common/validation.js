@@ -3,7 +3,7 @@ function exists(value) {
 }
 
 function isNumber(value) {
-    return typeof(value) === 'number' || !isNaN(Number(value));
+    return typeof(value) === 'number';
 }
 
 function isString(value) {

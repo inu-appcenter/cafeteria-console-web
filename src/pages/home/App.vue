@@ -2,16 +2,18 @@
   <v-app>
     <v-navigation-drawer v-model="drawer" app clipped>
       <DrawerList/>
-      <v-container fluid>
+      <!--v-container fluid>
         <v-switch v-model="this.$vuetify.theme.dark" v-on:change="setDark" label="dark mode"/>
-      </v-container>
+      </v-container-->
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
       <a class="nostyle" href="/">
-        <v-toolbar-title v-text="title"/>
+        <v-toolbar-title class="font-weight-bold">{{ title }}</v-toolbar-title>
       </a>
+      <span class="pa-2 light-blue--text">BETA</span>
+
     </v-app-bar>
 
     <v-main>
@@ -39,7 +41,7 @@ export default {
     drawer: true,
     title: config.pageTitle,
   }),
-  
+
   methods: {
     setDark(dark) {
       setDarkInternal(this, dark);
@@ -52,7 +54,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+
+body {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 a.nostyle:link {
   text-decoration: inherit;
   color: inherit;

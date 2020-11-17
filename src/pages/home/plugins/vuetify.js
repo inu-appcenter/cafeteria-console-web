@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
+import VuetifyConfirm from 'vuetify-confirm';
 
-Vue.use(Vuetify);
+const vuetify = new Vuetify({});
 
-export default new Vuetify({});
+Vue.use(Vuetify); // This line necessary
+Vue.use(VuetifyConfirm, { vuetify });
+
+export default vuetify;

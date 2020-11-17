@@ -200,13 +200,21 @@ export default {
       item.editing = false;
 
       item.loading = true;
-      await this.onUpdate(item);
+      await this.showResult(this.onUpdate(item), '변경되었습니다');
       item.loading = false;
     },
 
     async onClickDeleteItem(item) {
+      const go = await this.$confirm(`정말로 선택하신 ${this.itemDisplayName}을(를) 삭제하시겠습니까?
+      (${this.domainFields.map((f) => `${f.name}: ${item[f.name]}`).join(', ')})`,
+          {buttonTrueText: '삭제', buttonFalseText: '취소'});
+
+      if (!go) {
+        return;
+      }
+
       item.loading = true;
-      await this.onDelete(item);
+      await this.showResult(this.onDelete(item), '삭제되었습니다');
       item.loading = false;
 
       this.allItems.splice(this.allItems.indexOf(item), 1); // Deleting
@@ -250,13 +258,56 @@ export default {
       this.allItems.push(this.newItem);
 
       this.newItem.loading = true;
-      await this.onAdd(this.newItem);
+      await this.showResult(this.onAdd(this.newItem), '추가되었습니다');
       this.newItem.loading = false;
     },
 
     onClickCancelAddItem() {
       this.newItem = this.itemGenerator();
       this.newItemDialogVisible = false;
+    },
+
+    async showResult(resultPromise, onSuccessMessage) {
+
+      try {
+        const result = await resultPromise;
+
+        if (result) {
+          this.$toasted.show(onSuccessMessage, {
+            duration: 2000,
+            icon: 'done'
+          });
+        } else {
+          this.$toasted.show('요청을 처리하지 못 하였습니다', {
+            duration: 2000,
+            icon: 'warning',
+            action: {
+              name: ''
+            }
+          });
+        }
+      } catch (e) {
+
+        this.$toasted.show('심각한 문제가 발생하였습니다.', {
+          duration: null,
+          icon: 'error',
+          action: [
+            {
+              text: '자세히',
+              onClick: () => {
+                alert(e);
+              }
+            },
+            {
+              text: '닫기',
+              onClick : (e, toastObject) => {
+                toastObject.goAway(0);
+              }
+            }
+          ]
+        });
+
+      }
     }
   }
 }

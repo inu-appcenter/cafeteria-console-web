@@ -72,7 +72,7 @@ export default {
       item.loading = true;
       this.updateGlobalLoadingStatus();
 
-      await this.onUpdate(item);
+      await this.showResult(this.onUpdate(item));
 
       item.modified = false;
       item.loading = false;
@@ -81,6 +81,49 @@ export default {
 
     updateGlobalLoadingStatus() {
       this.loading = (this.allItems.filter((i) => i.loading).length > 0); // At least one loading
+    },
+
+    async showResult(resultPromise) {
+
+      try {
+        const result = await resultPromise;
+
+        if (result) {
+          this.$toasted.show('변경되었습니다', {
+            duration: 2000,
+            icon: 'done'
+          });
+        } else {
+          this.$toasted.show('요청을 처리하지 못 하였습니다', {
+            duration: 2000,
+            icon: 'warning',
+            action: {
+              name: ''
+            }
+          });
+        }
+      } catch (e) {
+
+        this.$toasted.show('심각한 문제가 발생하였습니다.', {
+          duration: null,
+          icon: 'error',
+          action: [
+            {
+              text: '자세히',
+              onClick: () => {
+                alert(e);
+              }
+            },
+            {
+              text: '닫기',
+              onClick : (e, toastObject) => {
+                toastObject.goAway(0);
+              }
+            }
+          ]
+        });
+
+      }
     }
   }
 }

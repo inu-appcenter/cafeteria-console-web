@@ -13,7 +13,9 @@
     "graphql-request": "^3.3.0",
     "vue": "^2.6.12",
     "vue-router": "^3.1.6",
-    "vuetify": "^2.2.11"
+    "vue-toasted": "^1.1.28",
+    "vuetify": "^2.2.11",
+    "vuetify-confirm": "^2.0.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
