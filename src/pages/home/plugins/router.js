@@ -39,11 +39,11 @@ function routeRequiresAuth(route) {
 }
 
 function isLoggedIn() {
-    return document.cookie.includes('token');
+    return document.cookie.includes('cafeteria-management-server-token');
 }
 
 function isTestEnv() {
-    return process.env.NODE_ENV === 'DEBUGk'
+    return process.env.NODE_ENV === 'DEBUG'
 }
 
 const router = createRouter();
