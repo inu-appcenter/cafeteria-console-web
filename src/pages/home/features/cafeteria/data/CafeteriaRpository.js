@@ -1,75 +1,40 @@
-import Repository from '@/data/Repository';
+import GenericRepository from '@/data/GenericRepository';
 import Cafeteria from '@/pages/home/features/cafeteria/entities/Cafeteria';
 
-class CafeteriaRepository extends Repository {
+class CafeteriaRepository extends GenericRepository {
 
     async getAllCafeteria() {
-        const query = `
-            query GetAllCafeteria {
-                allCafeteria {
-                    id
-                    name
-                    display_name
-                    support_menu
-                    support_discount
-                    support_notification
-                }
-            }            
-        `;
-
-        const result = await this._doRequest(query);
-
-        const rawAllCafeteria = result['allCafeteria'];
-
-        return rawAllCafeteria.map((raw) => new Cafeteria(raw));
+        return this.query('GetAllCafeteria', 'allCafeteria', Cafeteria);
     }
 
     async addCafeteria(cafeteria) {
-        const query = `
-            mutation AddCafeteria($cafeteria: CafeteriaInput) {
-                createCafeteria(cafeteria: $cafeteria)
+        return this.mutate('CreateCafeteria', 'createCafeteria', [
+            {
+                name: 'cafeteria',
+                type: 'CafeteriaInput',
+                value: cafeteria.filter(Cafeteria.fields().map((f) => f.name)),
             }
-        `;
-
-        const variables = {
-            cafeteria: cafeteria.filter(Cafeteria.fields().map((f) => f.name))
-        };
-
-        const result = await this._doRequest(query, variables);
-
-        return this._decodeMutationResult(result);
+        ]);
     }
 
     async updateCafeteria(cafeteria) {
-        const query = `
-            mutation UpdateCafeteria($cafeteria: CafeteriaInput) {
-                updateCafeteria(cafeteria: $cafeteria)
+        return this.mutate('UpdateCafeteria', 'updateCafeteria', [
+            {
+                name: 'cafeteria',
+                type: 'CafeteriaInput',
+                value: cafeteria.filter(Cafeteria.fields().map((f) => f.name)),
             }
-        `;
-
-        const variables = {
-            cafeteria: cafeteria.filter(Cafeteria.fields().map((f) => f.name))
-        };
-
-        const result = await this._doRequest(query, variables);
-
-        return this._decodeMutationResult(result);
+        ]);
     }
 
     async deleteCafeteria(cafeteria) {
-        const query = `
-            mutation DeleteCafeteria($cafeteriaId: Int) {
-                deleteCafeteria(cafeteriaId: $cafeteriaId)
+        return this.mutate('DeleteCafeteria', 'deleteCafeteria', [
+            {
+                name: 'cafeteriaId',
+                type: 'Int',
+                value: cafeteria.id,
             }
-        `;
-
-        const variables = {
-            cafeteriaId: cafeteria.id
-        };
-
-        const result = await this._doRequest(query, variables);
-
-        return this._decodeMutationResult(result);
+        ]);
     }
 }
 

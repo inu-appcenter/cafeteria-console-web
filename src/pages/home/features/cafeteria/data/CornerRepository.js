@@ -1,28 +1,41 @@
-import Repository from '@/data/Repository';
+import GenericRepository from '@/data/GenericRepository';
 import Corner from '@/pages/home/features/cafeteria/entities/Corner';
 
-class CornerRepository extends Repository {
+class CornerRepository extends GenericRepository {
 
     async getAllCorners() {
-        const query = `
-            query GetAllCorners {
-                allCorners {
-                    id
-                    name
-                    display_name
-                    available_at
-                    cafeteria_id
-                }
-            }
-        `;
-
-        const result = await this._doRequest(query);
-
-        const rawAllCorners = result['allCorners'];
-
-        return rawAllCorners.map((raw) => new Corner(raw));
+        return this.query('GetAllCorners', 'allCorners', Corner);
     }
 
+    async addCorner(corner) {
+        return this.mutate('CreateCorner', 'createCorner', [
+            {
+                name: 'corner',
+                type: 'CornerInput',
+                value: corner.filter(Corner.fields().map((f) => f.name)),
+            }
+        ]);
+    }
+
+    async updateCorner(corner) {
+        return this.mutate('UpdateCorner', 'updateCorner', [
+            {
+                name: 'corner',
+                type: 'CornerInput',
+                value: corner.filter(Corner.fields().map((f) => f.name)),
+            }
+        ]);
+    }
+
+    async deleteCorner(corner) {
+        return this.mutate('DeleteCorner', 'deleteCorner', [
+            {
+                name: 'cornerId',
+                type: 'Int',
+                value: corner.id,
+            }
+        ]);
+    }
 }
 
 const cornerRepository = new CornerRepository();
