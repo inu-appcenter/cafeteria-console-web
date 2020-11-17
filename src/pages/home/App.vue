@@ -39,6 +39,7 @@ export default {
     drawer: true,
     title: config.pageTitle,
   }),
+  
   methods: {
     setDark(dark) {
       setDarkInternal(this, dark);

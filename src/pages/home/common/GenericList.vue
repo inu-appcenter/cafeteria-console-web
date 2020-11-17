@@ -30,7 +30,7 @@
             <div v-show="field.type === 'text'">
               <v-text-field v-show="item.editing && field.mutable" v-model="item[field.name]" outlined
                             @input="onModifyItem(item);" :rules="[field.validate]"/>
-              <div v-show="!(item.editing && field.mutable)" class="title">{{ item[field.name] }}</div>
+              <div v-show="!(item.editing && field.mutable)" class="title">{{ item[field.name] | str_limit(12) }}</div>
             </div>
 
             <!-- Bool field -->
