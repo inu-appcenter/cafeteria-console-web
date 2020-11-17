@@ -36,8 +36,8 @@ export default {
     ],
 
     server: {
-        graphql: 'http://10.0.1.10:8080/graphql',
-        signIn: 'http://10.0.1.10:8080/sign-in'
+        graphql: 'http://manage-api.inu-cafeteria.app/graphql',
+        signIn: 'http://manage-api.inu-cafeteria.app/sign-in'
     }
 
 };
