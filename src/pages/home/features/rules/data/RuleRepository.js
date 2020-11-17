@@ -12,7 +12,7 @@ class RuleRepository extends GenericRepository {
             {
                 name: 'rule',
                 type: 'CafeteriaDiscountRuleInput',
-                value: rule.filter(CafeteriaDiscountRule.fields().map((f) => f.name)),
+                value: rule.filter(['id', 'enabled']),
             }
         ]);
     }

@@ -44,32 +44,42 @@ export default {
     itemDisplayName: String,
     domainFields: Array[Field],
 
-    fetchItems: Function,
-    onUpdate: Function,
+    onFetch: Function,
+    onUpdate: Function
   },
 
   data() {
     return {
-      loading: false,
+      allItems: [],
 
-      allItems: this.$props.fetchItems,
+      loading: false,
     };
   },
 
+  created() {
+    this.load();
+  },
+
   methods: {
+    load() {
+      this.onFetch().then((items) => {
+        this.allItems = items;
+      });
+    },
+
     async onModifyItem(item) {
       item.modified = true;
       item.loading = true;
-      this.setGlobalLoadingStatus();
+      this.updateGlobalLoadingStatus();
 
-      await this.onUpdate(this.allItems);
+      await this.onUpdate(item);
 
       item.modified = false;
       item.loading = false;
-      this.setGlobalLoadingStatus();
+      this.updateGlobalLoadingStatus();
     },
 
-    setGlobalLoadingStatus() {
+    updateGlobalLoadingStatus() {
       this.loading = (this.allItems.filter((i) => i.loading).length > 0); // At least one loading
     }
   }
