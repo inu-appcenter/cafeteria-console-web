@@ -13,7 +13,6 @@
         <v-toolbar-title class="font-weight-bold">{{ title }}</v-toolbar-title>
       </a>
       <span class="pa-2 light-blue--text">BETA</span>
-
     </v-app-bar>
 
     <v-main>
