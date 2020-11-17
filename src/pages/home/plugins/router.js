@@ -17,9 +17,8 @@ function createRouter() {
         {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}},
         {path: '/Parsing', component: Parsing, meta: {authRequired: true}}
     ];
-    const mode = 'history';
 
-    return new VueRouter({routes, mode});
+    return new VueRouter({routes});
 }
 
 function addGuard(router) {

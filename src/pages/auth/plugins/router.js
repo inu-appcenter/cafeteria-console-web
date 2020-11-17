@@ -8,9 +8,8 @@ function createRouter() {
     const routes = [
         {path: '/auth/sign-in', component: SignIn},
     ];
-    const mode = 'history';
 
-    return new VueRouter({routes, mode});
+    return new VueRouter({routes});
 }
 
 const router = createRouter();
