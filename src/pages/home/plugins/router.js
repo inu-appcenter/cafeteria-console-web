@@ -15,7 +15,7 @@ function createRouter() {
         {path: '/Logs', component: Logs, meta: {authRequired: true}},
         {path: '/Rules', component: Rules, meta: {authRequired: true}},
         {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}},
-        {path: '/Parsing', component: Parsing, meta: {authRequired: true}}
+        {path: '/Parsing', component: Parsing, meta: {authRequired: true}},
     ];
     const mode = 'history';
 
