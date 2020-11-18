@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "preview": "vue-cli-service build && serve dist -p 9090",
+
+    "dev": "vue-cli-service serve --port 9090",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

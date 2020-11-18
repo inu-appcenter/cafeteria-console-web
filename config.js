@@ -1,3 +1,14 @@
+import {isProduction} from '@/utils/nodeEnv';
+
+const serverUrl = {
+    dev: 'http://10.0.1.10:8081',
+    production: 'https://manage-api.inu-cafeteria.app',
+};
+
+function baseUrl() {
+    return isProduction() ? serverUrl.production : serverUrl.dev;
+}
+
 export default {
 
     pageTitle: '카페테리아 관리자 페이지',
@@ -35,9 +46,12 @@ export default {
         }
     ],
 
-    server: {
-        graphql: 'https://manage-api.inu-cafeteria.app/graphql',
-        signIn: 'https://manage-api.inu-cafeteria.app/sign-in'
+    api: {
+        endpoints: {
+            graphql: `${baseUrl()}/graphql`,
+            signIn: `${baseUrl()}/sign-in`,
+            version: `${baseUrl()}/version`
+        }
     }
 
 };
