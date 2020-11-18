@@ -14,7 +14,7 @@
     </v-row>
 
     <v-row justify="center">
-      <div>
+      <div class="text--secondary">
         <p>{{ packageName }} v{{ packageVersion }}</p>
         <p>{{ server.packageName }} v{{ server.version }}</p>
       </div>

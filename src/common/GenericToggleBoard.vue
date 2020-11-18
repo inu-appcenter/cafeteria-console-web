@@ -1,34 +1,40 @@
 <template>
   <div>
     <!-- Title -->
-    <h2>{{ itemDisplayName }}</h2>
+    <div class="mx-2 my-1">
+      <h2>{{ itemDisplayName }}</h2>
+    </div>
 
     <!-- Loading status -->
-    <LoadingStatusView :loading="fetching" :error="error" skeleton-type="list-item-two-line, list-item-two-line, list-item-two-line"/>
+    <LoadingStatusView :loading="fetching" :error="error" skeleton-type="list-item-three-line"/>
 
-    <!-- All item list -->
-    <v-card v-show="allItems.length > 0" class="my-3" raised outlined :loading="loading">
+    <!-- Item layout -->
+    <v-flex d-flex>
+      <v-layout wrap>
+        <v-flex xs12 sm6 md6 lg4 v-for="item in allItems" :key="item[keyName]">
 
-      <v-list three-line>
-        <v-list-item
-            v-for="item in allItems"
-            :key="item[keyName]">
+          <v-card class="ma-2" raised outlined :loading="item.loading">
+            <v-list three-line>
+              <v-list-item>
 
-          <v-list-item-content>
-            <v-list-item-title>{{ item[nameFieldName] }}</v-list-item-title>
-            <v-list-item-subtitle>{{ item[descriptionFieldName] }}</v-list-item-subtitle>
-          </v-list-item-content>
+                <v-list-item-content>
+                  <v-list-item-title>{{ item[nameFieldName] }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ item[descriptionFieldName] }}</v-list-item-subtitle>
+                </v-list-item-content>
 
-          <v-list-item-action>
-            <v-switch v-model="item[toggleFieldName]" @change="onModifyItem(item);" />
-          </v-list-item-action>
+                <v-list-item-action>
+                  <v-switch v-model="item[toggleFieldName]" @change="onModifyItem(item);" />
+                </v-list-item-action>
 
-        </v-list-item>
-      </v-list>
-    </v-card>
+              </v-list-item>
+            </v-list>
+          </v-card>
+
+        </v-flex>
+      </v-layout>
+    </v-flex>
 
   </div>
-
 </template>
 
 <script>
@@ -56,9 +62,7 @@ export default {
     return {
       allItems: [],
       fetching: false,
-      error: null,
-
-      loading: false,
+      error: null
     };
   },
 
@@ -82,17 +86,11 @@ export default {
     async onModifyItem(item) {
       item.modified = true;
       item.loading = true;
-      this.updateGlobalLoadingStatus();
 
       await this.showResult(this.onUpdate(item));
 
       item.modified = false;
       item.loading = false;
-      this.updateGlobalLoadingStatus();
-    },
-
-    updateGlobalLoadingStatus() {
-      this.loading = (this.allItems.filter((i) => i.loading).length > 0); // At least one loading
     },
 
     async showResult(resultPromise) {

@@ -8,7 +8,7 @@
               <v-card :loading="loading">
 
                 <!-- titles -->
-                <v-card-title class="justify-center">Sign In</v-card-title>
+                <v-card-title class="justify-center">로그인</v-card-title>
 
                 <!-- form -->
                 <v-card-text>
@@ -24,8 +24,9 @@
                         type="password"
                         v-model="password"
                         :rules="passwordRules"
-                        label="Password"
+                        label="비밀번호"
                         required
+                        @keydown.enter="signIn"
                     ></v-text-field>
                   </v-form>
 
@@ -37,7 +38,7 @@
                 <!-- submit -->
                 <v-card-text>
                   <v-btn :disabled="!valid" @click="signIn" width="100%">
-                    Sign In
+                    로그인
                   </v-btn>
                 </v-card-text>
               </v-card>
@@ -63,12 +64,12 @@ export default {
 
     userId: null,
     userIdRules: [
-      (v) => !!v || 'ID is required',
+      (v) => !!v || 'ID를 입력해 주세요',
     ],
 
     password: null,
     passwordRules: [
-      (v) => !!v || 'Password is required',
+      (v) => !!v || '비밀번호를 입력해 주세요',
     ],
   }),
 

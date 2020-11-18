@@ -65,7 +65,7 @@ class GenericRepository {
             setTimeout(() => {resolve()}, 1000);
         });
 
-        // throw new Error(`알 수 없는 에러가 발생하였습니다. 상태 코드: ${999}`);
+        //throw new Error(`알 수 없는 에러가 발생하였습니다. 상태 코드: ${999}`);
 
         // eslint-disable-next-line no-unreachable
         const response = await this._getResponse(query, variables);

@@ -1,9 +1,19 @@
 <template>
 
   <div>
-    <v-skeleton-loader v-show="loading" :elevation="2" :type="skeletonType"/>
+    <!-- The shimmer -->
+    <v-flex d-flex>
+      <v-layout wrap>
+        <v-flex xs12 sm6 md6 lg4 v-for="n in [1,2,3,4]" :key="n">
 
-    <v-card v-show="error" class="my-3" raised outlined>
+          <v-skeleton-loader class="mx-2" v-show="loading" :elevation="2" :type="skeletonType"/>
+
+        </v-flex>
+      </v-layout>
+    </v-flex>
+
+    <!-- The error view -->
+    <v-card v-show="error" class="ma-2" raised outlined>
 
       <v-card-title>
         문제가 발생하였습니다.
