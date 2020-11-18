@@ -27,7 +27,7 @@ function addGuard(router) {
         const conditionRequireSignIn = !isTestEnv() && routeRequiresAuth(to) && !isLoggedIn();
 
         if (conditionRequireSignIn) {
-            window.location.href = '/auth/sign-in';
+            window.location.href = '/sign-in';
         } else {
             next();
         }

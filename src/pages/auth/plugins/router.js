@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 function createRouter() {
     const routes = [
-        {path: '/auth/sign-in', component: SignIn},
+        {path: '/sign-in', component: SignIn},
     ];
     const mode = 'history';
 
