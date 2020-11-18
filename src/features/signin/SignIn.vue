@@ -127,8 +127,8 @@ export default {
 
     async onSignInSuccess(id) {
       this.$toasted.show(`안녕하세요, ${id}님`, {
-        icon: 'user',
-        duration: 1500
+        icon: 'done',
+        duration: 2000
       });
       await this.$router.push('/');
     },
