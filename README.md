@@ -27,11 +27,17 @@ Cafeteria 서비스를 운영하면서 수정이 잦았던 부분들에 대한 �
 - 식단 파싱 규칙 편집
 - ~~관리자 소환~~ 
 
-## 배포 구성
+## 배포
+
+### 구성
 
 `Netlify`에 [potados99](https://github.com/potados99) GitHub 계정으로 `cafeteria-management-web`
 이라는 site를 만들어 배포하고 있습니다.
 
-로컬에서 `npm run deploy`를 실행하여 `Netlify`에 배포합니다.
-
 배포 도메인은 https://manage.inu-cafeteria.app 입니다. HTTPS 인증서는 `Netlify`에서 관리합니다. 무료입니다.
+
+### 배포하기
+
+> `netlify` 커맨드라인 유틸리티가 설정되어 있어야 합니다.
+
+로컬에서 `NODE_ENV`를 `production`으로 설정한 뒤 `npm run deploy`를 실행하여 `Netlify`에 배포합니다. 
