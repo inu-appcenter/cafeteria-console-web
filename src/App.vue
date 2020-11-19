@@ -10,7 +10,7 @@
     <v-app-bar app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
       <a class="nostyle" href="/">
-        <v-toolbar-title class="font-weight-bold">{{ title }}</v-toolbar-title>
+        <v-toolbar-title class="font-weight-medium">{{ title }}</v-toolbar-title>
       </a>
       <span class="pa-2 light-blue--text">BETA</span>
     </v-app-bar>
