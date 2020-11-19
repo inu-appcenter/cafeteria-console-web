@@ -126,6 +126,9 @@ export default {
     },
 
     async onSignInSuccess(id) {
+      console.log('야 로그인 성공이래! 드로어에 띄워!');
+      EventBus.$emit('sign-in-success');
+
       this.$toasted.show(`안녕하세요, ${id}님`, {
         icon: 'done',
         duration: 2000
