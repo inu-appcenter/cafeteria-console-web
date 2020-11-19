@@ -33,7 +33,7 @@ export default {
             name: 'Parsing',
             icon: 'mdi-pencil',
             subtitle: '식단 파싱 규칙 편집'
-        },
+        },/*
         {
             name: 'DB',
             icon: 'mdi-database',
@@ -43,7 +43,7 @@ export default {
             name: 'Feedbacks',
             icon: 'mdi-message-reply',
             subtitle: '피드백 확인 및 답장'
-        }
+        }*/
     ],
 
     api: {
