@@ -10,6 +10,20 @@
     "deploy": "vue-cli-service build && netlify deploy --prod"
 
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inu-appcenter/cafeteria-management-web.git"
+  },
+  "keywords": [
+    "inu",
+    "cafeteria"
+  ],
+  "author": "potados99",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/inu-appcenter/cafeteria-management-web/issues"
+  },
+  "homepage": "https://github.com/inu-appcenter/cafeteria-management-web#readme",
   "dependencies": {
     "@vue/cli": "^4.3.1",
     "core-js": "^3.6.5",
