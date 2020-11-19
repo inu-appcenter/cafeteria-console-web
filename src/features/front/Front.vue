@@ -26,7 +26,9 @@
           <p v-show="server.version" class="ma-0">{{ server.packageName }} v{{ server.version }}</p>
         </transition>
 
-        <v-divider v-show="zen" class="my-3"></v-divider>
+        <transition name="fade">
+          <v-divider v-show="zen" class="my-3"></v-divider>
+        </transition>
 
         <transition name="fade">
           <p v-show="zen" class="ma-0">{{ zen }}</p>
