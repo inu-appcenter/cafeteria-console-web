@@ -11,7 +11,7 @@ function baseUrl() {
 
 export default {
 
-    pageTitle: '카페테리아 관리자 페이지',
+    pageTitle: '카페테리아 관리 콘솔',
 
     services: [
         {

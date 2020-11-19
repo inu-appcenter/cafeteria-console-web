@@ -134,7 +134,7 @@ export default {
     },
 
     async onSignInFail() {
-      this.errorMessage = 'Wrong auth!';
+      this.errorMessage = 'ID와 비밀번호를 확인해 주세요';
     }
   },
 };
