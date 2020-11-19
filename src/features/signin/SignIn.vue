@@ -130,7 +130,7 @@ export default {
       EventBus.$emit('sign-in-success');
 
       this.$toasted.show(`안녕하세요, ${id}님`, {
-        icon: 'done',
+        icon: 'account_circle',
         duration: 2000
       });
       await this.$router.push('/');
