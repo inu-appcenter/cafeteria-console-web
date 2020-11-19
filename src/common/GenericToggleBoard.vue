@@ -1,40 +1,50 @@
 <template>
-  <div>
-    <!-- Title -->
-    <div class="mx-2 my-1">
-      <h2>{{ itemDisplayName }}</h2>
-    </div>
 
-    <!-- Loading status -->
-    <LoadingStatusView :loading="fetching" :error="error" skeleton-type="list-item-three-line"/>
+  <!-- Layout wrapper -->
+  <v-row justify="center">
+    <v-col cols="12" lg="12" md="8" sm="10" xs="12">
 
-    <!-- Item layout -->
-    <v-flex d-flex>
-      <v-layout wrap>
-        <v-flex xs12 sm6 md6 lg4 v-for="item in allItems" :key="item[keyName]">
+      <!-- The content -->
+      <div>
+        <!-- Title -->
+        <div class="mx-2 my-1">
+          <h2>{{ itemDisplayName }}</h2>
+        </div>
 
-          <v-card class="ma-2" raised outlined :loading="item.loading">
-            <v-list three-line>
-              <v-list-item>
+        <!-- Loading status -->
+        <LoadingStatusView :loading="fetching" :error="error" skeleton-type="list-item-three-line"/>
 
-                <v-list-item-content>
-                  <v-list-item-title>{{ item[nameFieldName] }}</v-list-item-title>
-                  <v-list-item-subtitle>{{ item[descriptionFieldName] }}</v-list-item-subtitle>
-                </v-list-item-content>
+        <!-- Item layout -->
+        <v-flex d-flex>
+          <v-layout wrap>
+            <v-flex xs12 sm6 md6 lg4 v-for="item in allItems" :key="item[keyName]">
 
-                <v-list-item-action>
-                  <v-switch v-model="item[toggleFieldName]" @change="onModifyItem(item);" />
-                </v-list-item-action>
+              <v-card class="ma-2" raised outlined :loading="item.loading">
+                <v-list three-line>
+                  <v-list-item>
 
-              </v-list-item>
-            </v-list>
-          </v-card>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item[nameFieldName] }}</v-list-item-title>
+                      <v-list-item-subtitle>{{ item[descriptionFieldName] }}</v-list-item-subtitle>
+                    </v-list-item-content>
 
+                    <v-list-item-action>
+                      <v-switch v-model="item[toggleFieldName]" @change="onModifyItem(item);" />
+                    </v-list-item-action>
+
+                  </v-list-item>
+                </v-list>
+              </v-card>
+
+            </v-flex>
+          </v-layout>
         </v-flex>
-      </v-layout>
-    </v-flex>
 
-  </div>
+      </div>
+
+    </v-col>
+  </v-row>
+
 </template>
 
 <script>

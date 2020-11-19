@@ -1,19 +1,11 @@
 <template>
   <v-container fluid>
 
-    <!-- All cafeteria -->
-    <v-row justify="center">
-      <v-col cols="12" lg="12" md="8" sm="10" xm="12">
-        <CafeteriaDiscountRuleToggleBoard />
-      </v-col>
-    </v-row>
+    <!-- All discount rules -->
+    <CafeteriaDiscountRuleToggleBoard />
 
-    <!-- All corners -->
-    <v-row justify="center">
-      <v-col cols="12" lg="12" md="8" sm="10" xm="12">
-        <CafeteriaValidationParamsList />
-      </v-col>
-    </v-row>
+    <!-- All validation params -->
+    <CafeteriaValidationParamsList />
 
   </v-container>
 </template>

@@ -50,7 +50,8 @@ export default {
         endpoints: {
             graphql: `${baseUrl()}/graphql`,
             signIn: `${baseUrl()}/sign-in`,
-            version: `${baseUrl()}/version`
+            version: `${baseUrl()}/version`,
+            zen: 'https://api.github.com/zen'
         }
     }
 

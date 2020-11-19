@@ -2,18 +2,10 @@
   <v-container fluid>
 
     <!-- All cafeteria -->
-    <v-row justify="center">
-      <v-col cols="12" lg="12" md="8" sm="10" xm="12">
-        <CafeteriaList />
-      </v-col>
-    </v-row>
+    <CafeteriaList />
 
     <!-- All corners -->
-    <v-row justify="center">
-      <v-col cols="12" lg="12" md="8" sm="10" xm="12">
-        <CornerList  />
-      </v-col>
-    </v-row>
+    <CornerList />
 
   </v-container>
 </template>

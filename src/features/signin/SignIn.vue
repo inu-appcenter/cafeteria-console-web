@@ -4,7 +4,7 @@
       <v-col>
         <v-container fluid>
           <v-row align="center" justify="center">
-            <v-col cols="12" lg="3">
+            <v-col cols="12" lg="4" md="7" sm="8" xs="12">
               <v-card :loading="loading">
 
                 <!-- titles -->
