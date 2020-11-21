@@ -12,7 +12,7 @@
 
                 <!-- form -->
                 <v-card-text>
-                  <v-form ref="form" v-model="valid">
+                  <v-form ref="form" v-model="valid" @submit.prevent="signIn">
                     <v-text-field
                         type="text"
                         v-model="userId"
