@@ -71,6 +71,8 @@ export default {
       const jwtInCookie = window.document.cookie.split('=')[1];
       const payload = JWT.decode(jwtInCookie);
 
+      console.log(`토큰을 풀어보니 ${JSON.stringify(payload)}이군요`);
+
       this.userName = payload.userName;
     }
   }

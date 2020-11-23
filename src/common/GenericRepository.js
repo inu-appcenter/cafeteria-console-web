@@ -60,11 +60,6 @@ class GenericRepository {
     }
 
     async _doRequest(query, variables) {
-
-        await new Promise((resolve) => {
-            setTimeout(() => {resolve()}, 1000);
-        });
-
         const response = await this._getResponse(query, variables);
 
         if (!response.ok) {
