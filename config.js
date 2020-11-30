@@ -15,9 +15,19 @@ export default {
 
     services: [
         {
+            name: 'Notices',
+            icon: 'mdi-bullhorn',
+            subtitle: '공지 관리'
+        },
+        {
             name: 'Logs',
             icon: 'mdi-eye',
             subtitle: '서비스 로그'
+        },
+        {
+            name: 'Questions',
+            icon: 'mdi-message-reply',
+            subtitle: '1:1 문의 관리'
         },
         {
             name: 'Rules',
@@ -33,16 +43,17 @@ export default {
             name: 'Parsing',
             icon: 'mdi-pencil',
             subtitle: '식단 파싱 규칙 편집'
-        },/*
+        },
+        {
+            name: 'Versions',
+            icon: 'mdi-apps',
+            subtitle: '앱 버전 규칙 편집'
+        },
+        /*
         {
             name: 'DB',
             icon: 'mdi-database',
             subtitle: '서비스 DB 백업 및 복원'
-        },
-        {
-            name: 'Feedbacks',
-            icon: 'mdi-message-reply',
-            subtitle: '피드백 확인 및 답장'
         }*/
     ],
 
