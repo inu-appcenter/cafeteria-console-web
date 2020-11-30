@@ -40,7 +40,7 @@
 
                 <v-form ref="newItemForm" @submit.prevent="onClickDoneAddItem();">
                   <!-- Fields -->
-                  <div v-for="field in domainFields" :key="field.name">
+                  <div v-for="field in domainFields" :key="field.name" v-show="field.visible">
 
                     <!-- Number field -->
                     <v-text-field v-show="field.type === 'number'" type="number" v-model.number="newItem[field.name]" outlined
@@ -48,6 +48,10 @@
 
                     <!-- Text field -->
                     <v-text-field v-show="field.type === 'text'" v-model="newItem[field.name]" outlined
+                                  :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
+
+                    <!-- Text field -->
+                    <v-textarea v-show="field.type === 'bigtext'" v-model="newItem[field.name]" outlined
                                   :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
 
                     <!-- Bool field -->

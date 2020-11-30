@@ -1,5 +1,6 @@
 import Field from '@/common/Field';
 import GenericItem from '@/common/GenericItem';
+import validation from '@/common/validation';
 
 class Notice extends GenericItem {
     constructor({id=null, title, body, target_os, target_version}) {
@@ -15,10 +16,10 @@ class Notice extends GenericItem {
     static fields() {
         return [
             new Field('id', 'number', false, false),
-            new Field('title', 'text', true),
-            new Field('body', 'bigtext', true),
-            new Field('target_os', 'text', true),
-            new Field('target_version', 'text', true),
+            new Field('title', 'text', true, true, validation.stringNotEmpty),
+            new Field('body', 'bigtext', true, true, validation.stringNotEmpty),
+            new Field('target_os', 'text', true, true, validation.stringNotEmpty),
+            new Field('target_version', 'text', true, true, validation.stringNotEmpty),
         ];
     }
 }

@@ -24,7 +24,7 @@ export default {
           return new Notice({});
         },
         formValidator: () => {
-          return true // Not used here.
+          return true; // Not used here.
         },
 
         onFetch: async () => noticeRepository.getAllNotices(),
