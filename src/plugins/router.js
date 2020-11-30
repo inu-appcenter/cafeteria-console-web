@@ -7,6 +7,7 @@ import Cafeteria from '@/features/cafeteria/Cafeteria';
 import Parsing from '@/features/parsing/Parsing';
 import SignIn from '@/features/signin/SignIn';
 import EventBus from '@/event-bus';
+import Notices from '@/features/notices/Notices';
 
 Vue.use(VueRouter);
 
@@ -14,6 +15,7 @@ function createRouter() {
     const routes = [
         {path: '/', component: Front, meta: {authRequired: true}},
 
+        {path: '/Notices', component: Notices, meta: {authRequired: true}},
         {path: '/Logs', component: Logs, meta: {authRequired: true}},
         {path: '/Rules', component: Rules, meta: {authRequired: true}},
         {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}},

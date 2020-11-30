@@ -18,7 +18,6 @@ export default {
   name: 'Cafeteria',
   components: {CornerList, CafeteriaList}
 }
-
 </script>
 
 <style scoped>

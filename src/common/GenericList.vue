@@ -83,7 +83,7 @@
                 <v-list>
 
                   <!-- Contents -->
-                  <v-list-item v-for="field in domainFields" :key="field.name">
+                  <v-list-item v-for="field in domainFields" :key="field.name" v-show="field.visible">
                     <!-- Field name -->
                     <v-list-item-content>
                       <v-list-item-title>{{ field.name }}</v-list-item-title>
@@ -103,6 +103,13 @@
                       <div v-show="field.type === 'text'">
                         <v-text-field v-show="item.editing && field.mutable" v-model="item[field.name]"
                                       @input="onModifyItem(item);" :rules="[field.validate]" hide-details class="small-text-field" />
+                        <span v-show="!(item.editing && field.mutable)" class="subtitle-1">{{ item[field.name] | str_limit(20) }}</span>
+                      </div>
+
+                      <!-- Text area -->
+                      <div v-show="field.type === 'bigtext'">
+                        <v-textarea v-show="item.editing && field.mutable" v-model="item[field.name]"
+                                      @input="onModifyItem(item);" :rules="[field.validate]" hide-details />
                         <span v-show="!(item.editing && field.mutable)" class="subtitle-1">{{ item[field.name] | str_limit(20) }}</span>
                       </div>
 
