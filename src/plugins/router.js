@@ -9,6 +9,7 @@ import Parsing from '@/features/parsing/Parsing';
 import SignIn from '@/features/signin/SignIn';
 import Notices from '@/features/notices/Notices';
 import Versions from '@/features/versions/Versions';
+import Questions from '@/features/questions/Questions';
 
 Vue.use(VueRouter);
 
@@ -18,6 +19,7 @@ function createRouter() {
 
         {path: '/Notices', component: Notices, meta: {authRequired: true}},
         {path: '/Logs', component: Logs, meta: {authRequired: true}},
+        {path: '/Questions', component: Questions, meta: {authRequired: true}},
         {path: '/Rules', component: Rules, meta: {authRequired: true}},
         {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}},
         {path: '/Parsing', component: Parsing, meta: {authRequired: true}},
