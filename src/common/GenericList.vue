@@ -12,7 +12,7 @@
           <!-- Title -->
           <h2>{{ itemDisplayName }}</h2>
 
-          <v-spacer />
+          <v-spacer/>
 
           <!-- New item dialog -->
           <v-dialog v-model="newItemDialogVisible" persistent max-width="600">
@@ -40,15 +40,23 @@
 
                 <v-form ref="newItemForm" @submit.prevent="onClickDoneAddItem();">
                   <!-- Fields -->
-                  <div v-for="field in domainFields" :key="field.name">
+                  <div v-for="field in domainFields" :key="field.name" v-show="field.visible">
 
                     <!-- Number field -->
-                    <v-text-field v-show="field.type === 'number'" type="number" v-model.number="newItem[field.name]" outlined
-                                  :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
+                    <v-text-field v-show="field.type === 'number'" type="number" v-model.number="newItem[field.name]"
+                                  outlined
+                                  :label="itemName + '.' + field.name" @input="onFormUpdate();"
+                                  :rules="[field.validate]"/>
 
                     <!-- Text field -->
                     <v-text-field v-show="field.type === 'text'" v-model="newItem[field.name]" outlined
-                                  :label="itemName + '.' + field.name" @input="onFormUpdate();" :rules="[field.validate]"/>
+                                  :label="itemName + '.' + field.name" @input="onFormUpdate();"
+                                  :rules="[field.validate]"/>
+
+                    <!-- Text field -->
+                    <v-textarea v-show="field.type === 'bigtext'" v-model="newItem[field.name]" outlined
+                                :label="itemName + '.' + field.name" @input="onFormUpdate();"
+                                :rules="[field.validate]"/>
 
                     <!-- Bool field -->
                     <v-switch v-show="field.type === 'bool'" v-model="newItem[field.name]"
@@ -69,7 +77,11 @@
         </div>
 
         <!-- Loading status -->
-        <LoadingStatusView :loading="fetching" :error="error" skeleton-type="list-item-two-line, list-item-three-line, list-item-two-line, actions"/>
+        <LoadingStatusView :loading="fetching" :error="error"
+                           skeleton-type="list-item-two-line, list-item-three-line, list-item-two-line, actions"/>
+
+        <!-- Empty view -->
+        <div class="empty-view-div font-weight-bold text--secondary" v-show="!fetching && !error && allItems.length === 0">{{ emptyText || (itemDisplayName + '이(가) 없습니다.') }}</div>
 
         <!-- Item layout -->
         <v-flex d-flex>
@@ -83,7 +95,7 @@
                 <v-list>
 
                   <!-- Contents -->
-                  <v-list-item v-for="field in domainFields" :key="field.name">
+                  <v-list-item v-for="field in domainFields" :key="field.name" v-show="field.visible">
                     <!-- Field name -->
                     <v-list-item-content>
                       <v-list-item-title>{{ field.name }}</v-list-item-title>
@@ -94,16 +106,28 @@
                     <v-list-item-action>
                       <!-- Number field -->
                       <div v-show="field.type === 'number'">
-                        <v-text-field v-show="item.editing && field.mutable" type="number" v-model.number="item[field.name]"
-                                      @input="onModifyItem(item);" :rules="[field.validate]" hide-detail class="small-text-field" />
+                        <v-text-field v-show="item.editing && field.mutable" type="number"
+                                      v-model.number="item[field.name]"
+                                      @input="onModifyItem(item);" :rules="[field.validate]" hide-detail
+                                      class="small-text-field"/>
                         <span v-show="!(item.editing && field.mutable)" class="subtitle-1">{{ item[field.name] }}</span>
                       </div>
 
                       <!-- Text field -->
                       <div v-show="field.type === 'text'">
                         <v-text-field v-show="item.editing && field.mutable" v-model="item[field.name]"
-                                      @input="onModifyItem(item);" :rules="[field.validate]" hide-details class="small-text-field" />
-                        <span v-show="!(item.editing && field.mutable)" class="subtitle-1">{{ item[field.name] | str_limit(20) }}</span>
+                                      @input="onModifyItem(item);" :rules="[field.validate]" hide-details
+                                      class="small-text-field"/>
+                        <span v-show="!(item.editing && field.mutable)"
+                              class="subtitle-1">{{ item[field.name] | str_limit(20) }}</span>
+                      </div>
+
+                      <!-- Text area -->
+                      <div v-show="field.type === 'bigtext'">
+                        <v-textarea v-show="item.editing && field.mutable" v-model="item[field.name]"
+                                    @input="onModifyItem(item);" :rules="[field.validate]" hide-details/>
+                        <span v-show="!(item.editing && field.mutable)"
+                              class="subtitle-1">{{ item[field.name] | str_limit(20) }}</span>
                       </div>
 
                       <!-- Bool field -->
@@ -121,14 +145,15 @@
                 <v-card-actions>
                   <v-btn v-if="item.editing" outlined text color="red" @click="onClickDeleteItem(item)">삭제</v-btn>
 
-                  <v-spacer />
+                  <v-spacer/>
 
                   <v-btn v-show="!item.editing" :disabled="item.loading" outlined text color="orange accent-4"
                          @click="onClickModifyItem(item)">
                     수정
                   </v-btn>
 
-                  <v-btn v-show="item.editing" outlined text color="orange accent-4" @click="onClickCancelModifyItem(item)">
+                  <v-btn v-show="item.editing" outlined text color="orange accent-4"
+                         @click="onClickCancelModifyItem(item)">
                     취소
                   </v-btn>
                   <v-btn v-show="item.editing" outlined :disabled="!(item.valid && item.modified)" text color="blue"
@@ -161,6 +186,7 @@ export default {
   props: {
     keyName: String,
     itemName: String,
+    emptyText: String,
     itemDisplayName: String,
     domainFields: Array[Field],
 
@@ -170,7 +196,7 @@ export default {
     onFetch: Function,
     onAdd: Function,
     onUpdate: Function,
-    onDelete: Function
+    onDelete: Function,
   },
 
   data() {
@@ -242,7 +268,7 @@ export default {
       item.editing = false;
 
       item.loading = true;
-      await this.showResult(this.onUpdate(item), '변경되었습니다');
+      await this.showResult(this.onUpdate(item), '반영되었습니다');
       item.loading = false;
     },
 
@@ -264,14 +290,11 @@ export default {
 
     onModifyItem(item) {
       item.valid = this._isItemValid(item);
-      console.log(item);
-      console.log('valid?', item.valid);
       item.modified = true;
     },
 
     onClickAddItem() {
       this.newItem = this.itemGenerator();
-      console.log(this.newItem);
     },
 
     onFormUpdate() {
@@ -344,7 +367,7 @@ export default {
             },
             {
               text: '닫기',
-              onClick : (e, toastObject) => {
+              onClick: (e, toastObject) => {
                 toastObject.goAway(0);
               }
             }
@@ -358,10 +381,13 @@ export default {
 
 </script>
 
-<style scoped>
-
+<style>
 .small-text-field {
   max-height: 30px;
 }
 
+.empty-view-div {
+  text-align: center;
+  padding: 50px;
+}
 </style>

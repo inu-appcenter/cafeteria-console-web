@@ -14,6 +14,8 @@
         <!-- Loading status -->
         <LoadingStatusView :loading="fetching" :error="error" skeleton-type="list-item-three-line"/>
 
+        <div class="empty-view-div font-weight-bold text--secondary" v-show="!fetching && !error && allItems.length === 0">{{ emptyText || (itemDisplayName + '이(가) 없습니다.') }}</div>
+
         <!-- Item layout -->
         <v-flex d-flex>
           <v-layout wrap>
@@ -59,6 +61,7 @@ export default {
     nameFieldName: String,
     toggleFieldName: String,
     descriptionFieldName: String,
+    emptyText: String,
 
     itemName: String,
     itemDisplayName: String,
@@ -109,7 +112,7 @@ export default {
         const result = await resultPromise;
 
         if (result) {
-          this.$toasted.show('변경되었습니다', {
+          this.$toasted.show('반영되었습니다', {
             duration: 2000,
             icon: 'done'
           });

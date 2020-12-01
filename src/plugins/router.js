@@ -1,3 +1,4 @@
+import EventBus from '@/event-bus';
 import VueRouter from 'vue-router';
 import Front from '../features/front/Front';
 import Vue from 'vue';
@@ -6,7 +7,9 @@ import Rules from '@/features/rules/Rules';
 import Cafeteria from '@/features/cafeteria/Cafeteria';
 import Parsing from '@/features/parsing/Parsing';
 import SignIn from '@/features/signin/SignIn';
-import EventBus from '@/event-bus';
+import Notices from '@/features/notices/Notices';
+import Versions from '@/features/versions/Versions';
+import Questions from '@/features/questions/Questions';
 
 Vue.use(VueRouter);
 
@@ -14,10 +17,13 @@ function createRouter() {
     const routes = [
         {path: '/', component: Front, meta: {authRequired: true}},
 
+        {path: '/Notices', component: Notices, meta: {authRequired: true}},
         {path: '/Logs', component: Logs, meta: {authRequired: true}},
+        {path: '/Questions', component: Questions, meta: {authRequired: true}},
         {path: '/Rules', component: Rules, meta: {authRequired: true}},
         {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}},
         {path: '/Parsing', component: Parsing, meta: {authRequired: true}},
+        {path: '/Versions', component: Versions, meta: {authRequired: true}},
 
         {path: '/sign-in', component: SignIn},
     ];
