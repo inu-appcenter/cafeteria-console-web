@@ -17,6 +17,7 @@ export default {
       noticeProps: {
         keyName: 'id',
         itemName: 'notice',
+        emptyText: '등록된 공지가 없습니다.',
         itemDisplayName: '공지',
         domainFields: Notice.fields(),
 
