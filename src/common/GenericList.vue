@@ -290,8 +290,6 @@ export default {
 
     onModifyItem(item) {
       item.valid = this._isItemValid(item);
-      console.log(item);
-      console.log('valid?', item.valid);
       item.modified = true;
     },
 

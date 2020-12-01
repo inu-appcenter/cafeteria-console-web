@@ -118,19 +118,21 @@
             <!-- Contents -->
             <v-card-text>
 
-              <v-form ref="itemForm" @submit.prevent="onClickDoneEditAnswer(answerNowEditing);">
+              <v-form ref="answerForm" @submit.prevent="onClickDoneEditAnswer(answerNowEditing);">
                 <!-- Text field -->
                 <v-text-field v-model="answerNowEditing[answerTitleFieldName]"
                               outlined
                               label="제목"
+                              @input="onModifyAnswer(answerNowEditing)"
                               :rules="[validateRule]"/>
 
                 <v-textarea v-model="answerNowEditing[answerBodyFieldName]"
                             outlined
                             label="내용"
+                            @input="onModifyAnswer(answerNowEditing)"
                             :rules="[validateRule]"/>
 
-                <v-btn type="submit" :disabled="!answerNowEditing.valid" block color="primary">완료</v-btn>
+                <v-btn type="submit" :disabled="!(answerNowEditing.valid && answerNowEditing.modified)" block color="primary">완료</v-btn>
                 <p></p>
                 <v-btn block @click="onClickCancelEditAnswer(answerNowEditing);">취소</v-btn>
 
@@ -179,6 +181,14 @@ export default {
     onDeleteAnswer: Function
   },
 
+  watch: {
+    editAnswerDialogVisible() {
+      this.$nextTick(() => {
+        this.$refs.answerForm.resetValidation();
+      });
+    }
+  },
+
   data() {
     return {
       allItems: [],
@@ -217,21 +227,6 @@ export default {
         console.log('Fetch 종료!');
         this.fetching = false;
       }
-    },
-
-    async onClickDoneAddItem() {
-      this.newItemDialogVisible = false;
-
-      this.allItems.push(this.newItem);
-
-      this.newItem.loading = true;
-      await this.showResult(this.onAdd(this.newItem), '추가되었습니다');
-      this.newItem.loading = false;
-    },
-
-    onClickCancelAddItem() {
-      this.newItem = this.answerGenerator();
-      this.newItemDialogVisible = false;
     },
 
     async showResult(resultPromise) {
@@ -300,6 +295,7 @@ export default {
 
     onClickDoneEditAnswer(answer) {
       this.editAnswerDialogVisible = false;
+      answer.modified = false;
 
       if (this.isThisANewAnswer(answer)) {
         this._addNewAnswer(answer);
@@ -328,6 +324,13 @@ export default {
       } else {
         this._restoreAnswer(answer);
       }
+    },
+
+    onModifyAnswer(answer) {
+      answer.valid = this.validateRule(answer[this.answerTitleFieldName]) === true &&
+          this.validateRule(answer[this.answerBodyFieldName]) === true;
+
+      answer.modified = true;
     },
 
     isThisANewAnswer(answer) {
