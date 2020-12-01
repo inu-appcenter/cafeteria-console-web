@@ -14,6 +14,13 @@ Vue.filter('str_limit', function (value, size) {
     return value.substr(0, size) + '...';
 });
 
+Vue.filter('format_date', function (value) {
+    if (!value) {
+        return ''
+    }
+    return new Date(Number.parseInt(value)).toLocaleString();
+});
+
 Vue.use(Toasted, {
     position: 'bottom-right',
 });

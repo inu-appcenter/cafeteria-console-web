@@ -6,6 +6,7 @@
 import GenericQnABoard from '@/common/GenericQnABoard';
 import interactionRepository from '@/features/questions/data/InteractionRepository';
 import Answer from '@/features/questions/entities/Answer';
+import Field from '@/common/Field';
 
 export default {
   name: 'QnAList',
@@ -22,6 +23,10 @@ export default {
         questionAuthorFieldName: 'user_id',
         questionContentFieldName: 'content',
         questionDateFieldName: 'date',
+        otherQuestionFields: [
+          new Field('device_info', 'text', false, true).apply((f) => {f.displayName = '기기 정보'}),
+          new Field('version', 'text', false, true).apply((f) => {f.displayName = '앱 버전'}),
+        ],
 
         answerFieldName: 'answer',
         answerTitleFieldName: 'title',

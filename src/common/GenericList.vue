@@ -81,7 +81,7 @@
                            skeleton-type="list-item-two-line, list-item-three-line, list-item-two-line, actions"/>
 
         <!-- Empty view -->
-        <div class="empty-view-div font-weight-bold text--secondary" v-show="!fetching && !error">{{ emptyText }}</div>
+        <div class="empty-view-div font-weight-bold text--secondary" v-show="!fetching && !error && allItems.length === 0">{{ emptyText || (itemDisplayName + '이(가) 없습니다.') }}</div>
 
         <!-- Item layout -->
         <v-flex d-flex>
@@ -297,7 +297,6 @@ export default {
 
     onClickAddItem() {
       this.newItem = this.itemGenerator();
-      console.log(this.newItem);
     },
 
     onFormUpdate() {
@@ -384,7 +383,7 @@ export default {
 
 </script>
 
-<style scoped>
+<style>
 .small-text-field {
   max-height: 30px;
 }

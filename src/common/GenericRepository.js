@@ -30,6 +30,7 @@ class GenericRepository {
         return rawResult.map((raw) => new type(raw));
     }
 
+    // Query in query. Like {   allQuestions {  content \n answer {\n title \n body \n}    }
     async nestedQuery(taskName, queryName, nestedProperties, type) {
         const transformFieldName = (fieldName) => {
             const propFound = nestedProperties.find((prop) => prop.name === fieldName);
