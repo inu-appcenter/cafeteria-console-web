@@ -78,6 +78,7 @@
               <!-- Item cards -->
               <v-card class="ma-2" :raised="item.editing" :shaped="item.editing" outlined :loading="item.loading">
 
+                <!-- Question status -->
                 <div class="row mx-0">
                   <v-card-title v-show="item[answerFieldName]" class="body-1 light-blue--text">답변됨</v-card-title>
                   <v-card-title v-show="!item[answerFieldName]" class="body-1 orange--text">답변 대기중</v-card-title>
@@ -85,8 +86,8 @@
                   <v-spacer />
 
                   <v-card-title v-show="item[answerFieldName]" class="text--secondary body-2">{{ (item[answerFieldName] ? item[answerFieldName].date : '') | format_date }}</v-card-title>
+                  <v-card-title v-show="!item[answerFieldName]" class="text--secondary body-2">{{ item.date | format_time_diff }} 경과</v-card-title>
                 </div>
-
 
                 <v-divider></v-divider>
 
@@ -121,7 +122,7 @@
 
                   <!-- Content -->
                   <v-list-item>
-                    <v-list-item-content>
+                    <v-list-item-content class="pb-0">
                       <v-list-item-subtitle>문의 내용</v-list-item-subtitle>
                       <pre class="mt-3 body-1">{{ item[questionContentFieldName] }}</pre>
                     </v-list-item-content>
@@ -135,18 +136,14 @@
 
                   <v-spacer/>
 
-                  <v-btn v-show="!item.editing" :disabled="item.loading" outlined text color="orange accent-4"
+                  <v-btn v-show="!item[answerFieldName]" block color="orange accent-4"
                          @click="onClickModifyItem(item)">
-                    수정
+                    답변하기
                   </v-btn>
 
-                  <v-btn v-show="item.editing" outlined text color="orange accent-4"
-                         @click="onClickCancelModifyItem(item)">
-                    취소
-                  </v-btn>
-                  <v-btn v-show="item.editing" outlined :disabled="!(item.valid && item.modified)" text color="blue"
-                         @click="onClickApplyItem(item)">
-                    완료
+                  <v-btn v-show="item[answerFieldName]"  outlined text color="light-blue accent-4"
+                         @click="onClickModifyItem(item)">
+                    답변 수정하기
                   </v-btn>
 
                 </v-card-actions>
