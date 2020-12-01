@@ -19,6 +19,7 @@ class Answer extends GenericItem {
             new Field('title', 'text', true, true, validation.stringNotEmpty),
             new Field('body', 'text', true, true, validation.stringNotEmpty),
             new Field('date', 'text', false, true),
+            new Field('read', 'bool', false, true),
         ];
     }
 }

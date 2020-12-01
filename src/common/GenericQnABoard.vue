@@ -31,7 +31,8 @@
 
                 <!-- Question status -->
                 <div class="row mx-0">
-                  <v-card-title v-show="item[answerFieldName]" class="body-1 light-blue--text">답변됨</v-card-title>
+                  <v-card-title v-show="item[answerFieldName] && !item[answerFieldName].read" class="body-1 light-blue--text">답변됨</v-card-title>
+                  <v-card-title v-show="item[answerFieldName] && item[answerFieldName].read" class="body-1 green--text">답변 전달됨</v-card-title>
                   <v-card-title v-show="!item[answerFieldName]" class="body-1 orange--text">답변 대기중</v-card-title>
 
                   <v-spacer />
@@ -235,7 +236,7 @@ export default {
         const result = await resultPromise;
 
         if (result) {
-          this.$toasted.show('변경되었습니다', {
+          this.$toasted.show('반영되었습니다', {
             duration: 2000,
             icon: 'done'
           });
@@ -300,20 +301,24 @@ export default {
       if (this.isThisANewAnswer(answer)) {
         this._addNewAnswer(answer);
       } else {
-        // do nothing.
+        this._applyModifiedAnswer(answer);
       }
     },
 
     async _addNewAnswer(answer) {
-      this.editAnswerDialogVisible = false;
-
       this.currentlyAnsweringQuestion.answer = answer;
 
-      answer.loading = true;
-      await this.showResult(this.onAnswer(answer), '추가되었습니다');
-      answer.loading = false;
+      this.currentlyAnsweringQuestion.loading = true;
+      await this.showResult(this.onAnswer(this.currentlyAnsweringQuestion[this.questionKeyName], answer), '추가되었습니다');
+      this.currentlyAnsweringQuestion.loading = false;
 
       // refresh page or not.
+    },
+
+    async _applyModifiedAnswer(answer) {
+      this.currentlyAnsweringQuestion.loading = true;
+      await this.showResult(this.onUpdateAnswer(this.currentlyAnsweringQuestion[this.questionKeyName], answer), '추가되었습니다');
+      this.currentlyAnsweringQuestion.loading = false;
     },
 
     onClickCancelEditAnswer(answer) {

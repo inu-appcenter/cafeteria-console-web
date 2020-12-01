@@ -268,7 +268,7 @@ export default {
       item.editing = false;
 
       item.loading = true;
-      await this.showResult(this.onUpdate(item), '변경되었습니다');
+      await this.showResult(this.onUpdate(item), '반영되었습니다');
       item.loading = false;
     },
 

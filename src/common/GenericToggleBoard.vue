@@ -112,7 +112,7 @@ export default {
         const result = await resultPromise;
 
         if (result) {
-          this.$toasted.show('변경되었습니다', {
+          this.$toasted.show('반영되었습니다', {
             duration: 2000,
             icon: 'done'
           });
