@@ -15,6 +15,7 @@ class Answer extends GenericItem {
 
     static fields() {
         return [
+            new Field('id', 'number', false, false),
             new Field('title', 'text', true, true, validation.stringNotEmpty),
             new Field('body', 'text', true, true, validation.stringNotEmpty),
             new Field('date', 'text', false, true),

@@ -16,6 +16,7 @@ export default {
     return {
       qnaProps: {
         questionKeyName: 'id',
+        answerKeyName: 'id',
         emptyText: '접수된 문의가 없습니다.',
         itemDisplayName: '문의 및 답변 내역',
         answerGenerator: () => new Answer({}),

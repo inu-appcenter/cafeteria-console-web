@@ -12,55 +12,6 @@
           <!-- Title -->
           <h2>{{ itemDisplayName }}</h2>
 
-          <v-spacer/>
-
-          <!-- New item dialog -->
-          <v-dialog v-model="newItemDialogVisible" persistent max-width="600">
-
-            <template v-slot:activator="{ on, attrs }">
-
-              <!-- Add button -->
-              <v-btn v-show="!error && !fetching" rounded v-bind="attrs" v-on="on" @click="onClickAddItem();">
-                추가
-                <v-icon>mdi-plus</v-icon>
-              </v-btn>
-
-            </template>
-
-            <!-- Dialog content -->
-            <v-card>
-
-              <!-- Title -->
-              <v-card-title class="headline">
-                {{ itemDisplayName }} 추가
-              </v-card-title>
-
-              <!-- Contents -->
-              <v-card-text>
-
-                <v-form ref="newItemForm" @submit.prevent="onClickDoneAddItem();">
-                  <!-- Text field -->
-                  <v-text-field v-model="newItem[answerTitleFieldName]"
-                                outlined
-                                label="제목"
-                                :rules="[validateRule]"/>
-
-                  <v-textarea v-model="newItem[answerBodyFieldName]"
-                                outlined
-                                label="내용"
-                                :rules="[validateRule]"/>
-
-                  <v-btn type="submit" :disabled="!newItem.valid" block color="primary">완료</v-btn>
-                  <p></p>
-                  <v-btn block @click="onClickCancelAddItem();">취소</v-btn>
-
-                </v-form>
-
-              </v-card-text>
-
-            </v-card>
-
-          </v-dialog>
         </div>
 
         <!-- Loading status -->
@@ -132,17 +83,16 @@
 
                 <!-- Action -->
                 <v-card-actions>
-                  <v-btn v-if="item.editing" outlined text color="red" @click="onClickDeleteItem(item)">삭제</v-btn>
 
                   <v-spacer/>
 
                   <v-btn v-show="!item[answerFieldName]" block color="orange accent-4"
-                         @click="onClickModifyItem(item)">
+                         @click="onClickAnswer(item)">
                     답변하기
                   </v-btn>
 
                   <v-btn v-show="item[answerFieldName]"  outlined text color="light-blue accent-4"
-                         @click="onClickModifyItem(item)">
+                         @click="onClickUpdateAnswer(item)">
                     답변 수정하기
                   </v-btn>
 
@@ -155,6 +105,42 @@
         </v-flex>
 
 
+        <!-- New item dialog -->
+        <v-dialog v-model="editAnswerDialogVisible" persistent max-width="600">
+          <!-- Dialog content -->
+          <v-card>
+
+            <!-- Title -->
+            <v-card-title class="headline">
+              {{ editDialogTitle }}
+            </v-card-title>
+
+            <!-- Contents -->
+            <v-card-text>
+
+              <v-form ref="itemForm" @submit.prevent="onClickDoneEditAnswer(answerNowEditing);">
+                <!-- Text field -->
+                <v-text-field v-model="answerNowEditing[answerTitleFieldName]"
+                              outlined
+                              label="제목"
+                              :rules="[validateRule]"/>
+
+                <v-textarea v-model="answerNowEditing[answerBodyFieldName]"
+                            outlined
+                            label="내용"
+                            :rules="[validateRule]"/>
+
+                <v-btn type="submit" :disabled="!answerNowEditing.valid" block color="primary">완료</v-btn>
+                <p></p>
+                <v-btn block @click="onClickCancelEditAnswer(answerNowEditing);">취소</v-btn>
+
+              </v-form>
+
+            </v-card-text>
+
+          </v-card>
+
+        </v-dialog>
 
       </div>
 
@@ -173,6 +159,7 @@ export default {
 
   props: {
     questionKeyName: String,
+    answerKeyName: String,
     emptyText: String,
     itemDisplayName: String,
     answerGenerator: Function,
@@ -203,8 +190,10 @@ export default {
       validateRule: validation.stringNotEmpty,
 
       // New item form and data
-      newItem: this.$props.answerGenerator(),
-      newItemDialogVisible: false,
+      answerNowEditing: this.$props.answerGenerator(),
+      currentlyAnsweringQuestion: null,
+      editAnswerDialogVisible: false,
+      editDialogTitle: '답변하기',
     };
   },
 
@@ -228,11 +217,6 @@ export default {
         console.log('Fetch 종료!');
         this.fetching = false;
       }
-    },
-
-
-    onClickAddItem() {
-      this.newItem = this.answerGenerator();
     },
 
     async onClickDoneAddItem() {
@@ -291,10 +275,82 @@ export default {
         });
 
       }
-    }
+    },
 
+    onClickAnswer(question) {
+      this.currentlyAnsweringQuestion = question;
+
+      this.editDialogTitle = '답변하기';
+      this.answerNowEditing = this.answerGenerator();
+
+      this.editAnswerDialogVisible = true;
+    },
+
+    onClickUpdateAnswer(question) {
+      this.currentlyAnsweringQuestion = question;
+      const answerToUpdate = this.currentlyAnsweringQuestion.answer;
+
+      this._backupAnswer(answerToUpdate);
+
+      this.editDialogTitle = '답변 수정하기';
+      this.answerNowEditing = answerToUpdate;
+
+      this.editAnswerDialogVisible = true;
+    },
+
+    onClickDoneEditAnswer(answer) {
+      this.editAnswerDialogVisible = false;
+
+      if (this.isThisANewAnswer(answer)) {
+        this._addNewAnswer(answer);
+      } else {
+        // do nothing.
+      }
+    },
+
+    async _addNewAnswer(answer) {
+      this.editAnswerDialogVisible = false;
+
+      this.currentlyAnsweringQuestion.answer = answer;
+
+      answer.loading = true;
+      await this.showResult(this.onAnswer(answer), '추가되었습니다');
+      answer.loading = false;
+
+      // refresh page or not.
+    },
+
+    onClickCancelEditAnswer(answer) {
+      this.editAnswerDialogVisible = false;
+
+      if (this.isThisANewAnswer(answer)) {
+        // do nothing.
+      } else {
+        this._restoreAnswer(answer);
+      }
+    },
+
+    isThisANewAnswer(answer) {
+      const thisAnswerHasId = !!answer[this.answerKeyName];
+      if (!thisAnswerHasId) {
+        // No id means it has not reached the server's db.
+        return true;
+      }
+
+      const allAnswerIds = this.allItems.map((q) => q[this.answerFieldName]).filter((a) => !!a).map((a) => a[this.answerKeyName]);
+
+      // Answer has id(don't know how) but not included in the collection from the server.
+      return allAnswerIds.indexOf(answer[this.answerKeyName]) < 0;
+    },
+
+    _backupAnswer(answer) {
+      this.itemBeforeEdit[answer[this.answerKeyName]] = Object.assign({}, answer);
+    },
+
+    _restoreAnswer(answer) {
+      Object.assign(answer, this.itemBeforeEdit[answer[this.answerKeyName]]);
+    },
   }
-
 
 }
 </script>
