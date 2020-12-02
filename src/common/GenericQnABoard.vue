@@ -70,7 +70,7 @@
                     <v-list-item-action>{{ item[field.name] }}</v-list-item-action>
                   </v-list-item>
 
-                  <v-divider class="mt-2"></v-divider>
+                  <v-divider class="mt-2 mb-1"></v-divider>
 
                   <!-- Content -->
                   <v-list-item>
