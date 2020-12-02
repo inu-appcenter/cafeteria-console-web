@@ -231,8 +231,8 @@ export default {
     },
 
     async showResult(resultPromise) {
-
       try {
+
         const result = await resultPromise;
 
         if (result) {
@@ -240,6 +240,8 @@ export default {
             duration: 2000,
             icon: 'done'
           });
+
+          return true;
         } else {
           this.$toasted.show('요청을 처리하지 못 하였습니다', {
             duration: 2000,
@@ -248,7 +250,10 @@ export default {
               name: ''
             }
           });
+
+          return false;
         }
+
       } catch (e) {
 
         this.$toasted.show('심각한 문제가 발생하였습니다.', {
@@ -269,6 +274,8 @@ export default {
             }
           ]
         });
+
+        return false;
 
       }
     },
@@ -306,18 +313,21 @@ export default {
     },
 
     async _addNewAnswer(answer) {
-      this.currentlyAnsweringQuestion.answer = answer;
-
       this.currentlyAnsweringQuestion.loading = true;
-      await this.showResult(this.onAnswer(this.currentlyAnsweringQuestion[this.questionKeyName], answer), '추가되었습니다');
+      const result = await this.showResult(this.onAnswer(this.currentlyAnsweringQuestion[this.questionKeyName], answer));
       this.currentlyAnsweringQuestion.loading = false;
 
-      // refresh page or not.
+      if (!result) {
+        return;
+      }
+
+      // This should be after success.
+      this.currentlyAnsweringQuestion.answer = answer;
     },
 
     async _applyModifiedAnswer(answer) {
       this.currentlyAnsweringQuestion.loading = true;
-      await this.showResult(this.onUpdateAnswer(this.currentlyAnsweringQuestion[this.questionKeyName], answer), '추가되었습니다');
+      await this.showResult(this.onUpdateAnswer(this.currentlyAnsweringQuestion[this.questionKeyName], answer));
       this.currentlyAnsweringQuestion.loading = false;
     },
 
