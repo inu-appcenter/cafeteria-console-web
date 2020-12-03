@@ -49,8 +49,6 @@ class GenericRepository {
             }            
         `;
 
-        console.log(query);
-
         console.log(`자자 쿼리 날립니다! 이름은 ${taskName}, 리소스는 ${queryName}!`);
 
         const response = await this._doRequest(query);

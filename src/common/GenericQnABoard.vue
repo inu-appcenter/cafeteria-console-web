@@ -74,9 +74,9 @@
 
                   <!-- Content -->
                   <v-list-item>
-                    <v-list-item-content class="pb-0">
-                      <v-list-item-subtitle>문의 내용</v-list-item-subtitle>
-                      <pre class="mt-3 body-1">{{ item[questionContentFieldName] }}</pre>
+                    <v-list-item-content style="white-space: pre-line" class="pb-0" >
+                      <v-list-item-subtitle class="pb-3">문의 내용</v-list-item-subtitle>
+                      {{ item[questionContentFieldName] }}
                     </v-list-item-content>
                   </v-list-item>
 
