@@ -54,7 +54,7 @@ export default {
       packageVersion: packageInfo.version,
 
       server: {
-        packageName: 'cafeteria-management-server',
+        packageName: 'cafeteria-console-server',
         version: null
       },
 

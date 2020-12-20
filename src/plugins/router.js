@@ -56,7 +56,7 @@ function routeRequiresAuth(route) {
 }
 
 function isLoggedIn() {
-    return document.cookie.includes('cafeteria-management-server-token');
+    return document.cookie.includes('cafeteria-console-server-token');
 }
 
 const router = createRouter();

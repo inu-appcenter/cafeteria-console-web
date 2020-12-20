@@ -2,7 +2,7 @@ import {isProduction} from '@/utils/nodeEnv';
 
 const serverUrl = {
     dev: 'http://10.0.1.10:8081',
-    production: 'https://manage-api.inu-cafeteria.app',
+    production: 'https://console-api.inu-cafeteria.app',
 };
 
 function baseUrl() {

@@ -1,6 +1,6 @@
 {
-  "name": "cafeteria-management-web",
-  "version": "1.2.2",
+  "name": "cafeteria-console-web",
+  "version": "1.2.3",
   "private": true,
   "scripts": {
 
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/inu-appcenter/cafeteria-management-web.git"
+    "url": "git+https://github.com/inu-appcenter/cafeteria-console-web.git"
   },
   "keywords": [
     "inu",
@@ -21,9 +21,9 @@
   "author": "potados99",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/inu-appcenter/cafeteria-management-web/issues"
+    "url": "https://github.com/inu-appcenter/cafeteria-console-web/issues"
   },
-  "homepage": "https://github.com/inu-appcenter/cafeteria-management-web#readme",
+  "homepage": "https://github.com/inu-appcenter/cafeteria-console-web#readme",
   "dependencies": {
     "@vue/cli": "^4.3.1",
     "core-js": "^3.6.5",
