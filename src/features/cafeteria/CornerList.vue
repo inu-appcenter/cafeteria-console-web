@@ -1,8 +1,8 @@
 <template>
   <GenericList v-bind="cornerProps"/>
 </template>
-<script>
 
+<script>
 import Corner from '@/features/cafeteria/entities/Corner';
 import GenericList from '@/common/GenericList';
 import cornerRepository from '@/features/cafeteria/data/CornerRepository';
@@ -32,11 +32,8 @@ export default {
         onDelete: async (item) => cornerRepository.deleteCorner(item)
       }
     }
-  },
-
-  methods: {}
+  }
 }
-
 </script>
 
 <style scoped>

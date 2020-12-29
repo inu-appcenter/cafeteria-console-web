@@ -325,7 +325,12 @@ export default {
       this.allItems.push(this.newItem);
 
       this.newItem.loading = true;
-      await this.showResult(this.onAdd(this.newItem), '추가되었습니다');
+
+      const result = await this.showResult(this.onAdd(this.newItem), '추가되었습니다');
+      if (!result) {
+        this.allItems = this.allItems.filter((item) => item !== this.newItem); // Cancel addition.
+      }
+
       this.newItem.loading = false;
     },
 
@@ -344,6 +349,8 @@ export default {
             duration: 2000,
             icon: 'done'
           });
+
+          return true;
         } else {
           this.$toasted.show('요청을 처리하지 못 하였습니다', {
             duration: 2000,
@@ -352,6 +359,8 @@ export default {
               name: ''
             }
           });
+
+          return false;
         }
       } catch (e) {
 
@@ -374,6 +383,7 @@ export default {
           ]
         });
 
+        return false;
       }
     }
   }

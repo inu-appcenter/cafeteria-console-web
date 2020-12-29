@@ -1,8 +1,8 @@
 <template>
   <GenericList v-bind="cafeteriaProps"/>
 </template>
-<script>
 
+<script>
 import Cafeteria from '@/features/cafeteria/entities/Cafeteria';
 import GenericList from '@/common/GenericList';
 import cafeteriaRepository from '@/features/cafeteria/data/CafeteriaRpository';
@@ -32,11 +32,8 @@ export default {
         onDelete: async (item) => cafeteriaRepository.deleteCafeteria(item)
       }
     };
-  },
-
-  methods: {}
+  }
 }
-
 </script>
 
 <style scoped>
