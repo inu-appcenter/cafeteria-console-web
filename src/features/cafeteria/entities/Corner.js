@@ -15,11 +15,11 @@ class Corner extends GenericItem {
 
     static fields() {
         return [
-            new Field('id', 'number', false, validation.numberOverZero),
-            new Field('name', 'text', true, validation.stringNotEmpty),
-            new Field('display_name', 'text', true, validation.stringNotEmpty),
-            new Field('available_at', 'number', true, validation.numberNonNegative),
-            new Field('cafeteria_id', 'number', true, validation.numberOverZero)
+            new Field('id', 'number', false, true, validation.numberOverZero),
+            new Field('name', 'text', true, true, validation.stringNotEmpty),
+            new Field('display_name', 'text', true, true, validation.stringNotEmpty),
+            new Field('available_at', 'number', true, true, validation.numberNonNegative),
+            new Field('cafeteria_id', 'number', true, true, validation.numberOverZero)
         ];
     }
 }

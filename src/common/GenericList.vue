@@ -298,12 +298,16 @@ export default {
     },
 
     onFormUpdate() {
+      console.log('FORM UPDATE');
+
       this.newItem.valid = this._isNewItemValid(this.newItem);
     },
 
     _isItemValid(item) {
       for (const field of this.$props.domainFields) {
         // Result should be pure 'true'.
+        console.log(field.validate(item[field.name]));
+
         if (field.validate(item[field.name]) !== true) {
           return false;
         }

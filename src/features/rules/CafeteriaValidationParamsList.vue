@@ -19,7 +19,6 @@ export default {
         itemDisplayName: '할인 요청 인증 파라미터',
         domainFields: CafeteriaValidationParams.fields(),
 
-
         itemGenerator: () => {
           return new CafeteriaValidationParams({});
         },

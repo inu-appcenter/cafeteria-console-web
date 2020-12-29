@@ -16,12 +16,12 @@ class Cafeteria extends GenericItem {
 
     static fields() {
         return [
-            new Field('id', 'number', false, validation.numberOverZero),
-            new Field('name', 'text', true, validation.stringNotEmpty),
-            new Field('display_name', 'text', true, validation.stringNotEmpty),
-            new Field('support_menu', 'bool', true),
-            new Field('support_discount', 'bool', true),
-            new Field('support_notification', 'bool', true)
+            new Field('id', 'number', false, true, validation.numberOverZero),
+            new Field('name', 'text', true, true, validation.stringNotEmpty),
+            new Field('display_name', 'text', true, true, validation.stringNotEmpty),
+            new Field('support_menu', 'bool', true, true, ),
+            new Field('support_discount', 'bool', true, true),
+            new Field('support_notification', 'bool', true, true)
         ];
     }
 }

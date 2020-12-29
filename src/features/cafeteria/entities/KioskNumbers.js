@@ -12,8 +12,8 @@ class KioskNumbers extends GenericItem {
 
     static fields() {
         return [
-            new Field('cafeteria_id', 'number', true, validation.numberOverZero),
-            new Field('kiosk_numbers', 'text', true, validation.stringNotEmpty)
+            new Field('cafeteria_id', 'number', false, true, validation.numberOverZero),
+            new Field('kiosk_numbers', 'text', true, true, validation.stringNotEmpty)
         ];
     }
 }

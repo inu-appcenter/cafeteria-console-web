@@ -25,13 +25,13 @@ class CafeteriaValidationParams extends GenericItem {
         }
 
         return [
-            new Field('cafeteria_id', 'number', false, validation.numberOverZero),
-            new Field('token', 'text', true, validation.stringNotEmpty),
-            new Field('available_meal_types', 'number', true, availableMealTypeShouldBeValid),
+            new Field('cafeteria_id', 'number', false, true, validation.numberOverZero),
+            new Field('token', 'text', true, true, validation.stringNotEmpty),
+            new Field('available_meal_types', 'number', true, true, availableMealTypeShouldBeValid),
 
-            new Field('time_range_breakfast', 'text', true, shouldBeValidTimeRangeString),
-            new Field('time_range_lunch', 'text', true, shouldBeValidTimeRangeString),
-            new Field('time_range_dinner', 'text', true, shouldBeValidTimeRangeString),
+            new Field('time_range_breakfast', 'text', true, true, shouldBeValidTimeRangeString),
+            new Field('time_range_lunch', 'text', true, true, shouldBeValidTimeRangeString),
+            new Field('time_range_dinner', 'text', true, true, shouldBeValidTimeRangeString),
         ];
     }
 }

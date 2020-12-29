@@ -12,8 +12,8 @@ class ParseRegex extends GenericItem {
 
     static fields() {
         return [
-            new Field('id', 'number', validation.numberOverZero),
-            new Field('regex', 'text', validation.stringNotEmpty)
+            new Field('id', 'number', false, true, validation.numberOverZero),
+            new Field('regex', 'text', true, true, validation.stringNotEmpty)
         ];
     }
 }

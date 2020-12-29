@@ -15,7 +15,7 @@ class Notice extends GenericItem {
 
     static fields() {
         return [
-            new Field('id', 'number', false, false),
+            new Field('id', 'number', false, false, validation.numberOverZero),
             new Field('title', 'text', true, true, validation.stringNotEmpty),
             new Field('body', 'bigtext', true, true, validation.stringNotEmpty),
             new Field('target_os', 'text', true, true, validation.stringNotEmpty),
