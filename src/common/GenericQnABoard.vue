@@ -22,7 +22,7 @@
         <div class="empty-view-div font-weight-bold text--secondary" v-show="!fetching && !error && allItems.length === 0">{{ emptyText }}</div>
 
         <!-- Masonry holder -->
-        <v-container class="ma-1">
+        <v-container class="pl-3 pr-3 pt-0 pb-0">
           <v-row v-masonry transition-duration="0.3s" item-selector=".item">
             <v-col v-masonry-tile class="item pa-2" cols="12" xs="12" sm="6" md="6" lg="4" v-for="item in allItems" :key="item[questionKeyName]" >
 
@@ -377,6 +377,4 @@ export default {
   min-height: 30px;
   height: 30px;
 }
-
-
 </style>
