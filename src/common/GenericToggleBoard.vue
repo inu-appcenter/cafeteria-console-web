@@ -21,6 +21,7 @@
           <v-row v-masonry transition-duration="0.3s" item-selector=".item">
             <v-col v-masonry-tile class="item pa-2" cols="12" xs="12" sm="6" md="6" lg="4" v-for="item in allItems" :key="item[questionKeyName]" >
 
+              <!-- Item cards -->
               <v-card raised outlined :loading="item.loading">
                 <v-list three-line>
                   <v-list-item>
