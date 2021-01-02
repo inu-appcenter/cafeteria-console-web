@@ -21,13 +21,13 @@
         <!-- Empty view -->
         <div class="empty-view-div font-weight-bold text--secondary" v-show="!fetching && !error && allItems.length === 0">{{ emptyText }}</div>
 
-        <!-- Item layout -->
-        <v-flex d-flex>
-          <v-layout wrap>
-            <v-flex xs12 sm6 md6 lg4 v-for="item in allItems" :key="item[questionKeyName]">
+        <!-- Masonry holder -->
+        <v-container class="ma-1">
+          <v-row v-masonry transition-duration="0.3s" item-selector=".item">
+            <v-col v-masonry-tile class="item pa-2" cols="12" xs="12" sm="6" md="6" lg="4" v-for="item in allItems" :key="item[questionKeyName]" >
 
               <!-- Item cards -->
-              <v-card class="ma-2" :raised="item.editing" :shaped="item.editing" outlined :loading="item.loading">
+              <v-card :raised="item.editing" :shaped="item.editing" outlined :loading="item.loading">
 
                 <!-- Question status -->
                 <div class="row mx-0">
@@ -101,10 +101,9 @@
 
               </v-card>
 
-            </v-flex>
-          </v-layout>
-        </v-flex>
-
+            </v-col>
+          </v-row>
+        </v-container>
 
         <!-- New item dialog -->
         <v-dialog v-model="editAnswerDialogVisible" persistent max-width="600">
@@ -378,4 +377,6 @@ export default {
   min-height: 30px;
   height: 30px;
 }
+
+
 </style>
