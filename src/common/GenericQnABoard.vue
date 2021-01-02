@@ -22,7 +22,7 @@
         <div class="empty-view-div font-weight-bold text--secondary" v-show="!fetching && !error && allItems.length === 0">{{ emptyText }}</div>
 
         <!-- Masonry holder -->
-        <v-container class="pl-3 pr-3 pt-0 pb-0">
+        <v-layout row class="pl-6 pr-6 pt-0 pb-0">
           <v-row v-masonry transition-duration="0.3s" item-selector=".item">
             <v-col v-masonry-tile class="item pa-2" cols="12" xs="12" sm="6" md="6" lg="4" v-for="item in allItems" :key="item[questionKeyName]" >
 
@@ -103,7 +103,7 @@
 
             </v-col>
           </v-row>
-        </v-container>
+        </v-layout>
 
         <!-- New item dialog -->
         <v-dialog v-model="editAnswerDialogVisible" persistent max-width="600">
