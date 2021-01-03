@@ -1,5 +1,8 @@
 <template>
+
+  <!-- Recent transaction histories -->
   <HistoryTable v-bind="transactionHistoryProps"/>
+
 </template>
 
 <script>
