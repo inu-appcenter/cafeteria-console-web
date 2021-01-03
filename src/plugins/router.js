@@ -2,7 +2,7 @@ import EventBus from '@/event-bus';
 import VueRouter from 'vue-router';
 import Front from '../features/front/Front';
 import Vue from 'vue';
-import Logs from '@/features/logs/Logs';
+import Histories from '@/features/histories/Histories';
 import Rules from '@/features/rules/Rules';
 import Cafeteria from '@/features/cafeteria/Cafeteria';
 import Parsing from '@/features/parsing/Parsing';
@@ -10,6 +10,7 @@ import SignIn from '@/features/signin/SignIn';
 import Notices from '@/features/notices/Notices';
 import Versions from '@/features/versions/Versions';
 import Questions from '@/features/questions/Questions';
+import Logs from '@/features/logs/Logs';
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,7 @@ function createRouter() {
 
         {path: '/Notices', component: Notices, meta: {authRequired: true}},
         {path: '/Logs', component: Logs, meta: {authRequired: true}},
+        {path: '/Histories', component: Histories, meta: {authRequired: true}},
         {path: '/Questions', component: Questions, meta: {authRequired: true}},
         {path: '/Rules', component: Rules, meta: {authRequired: true}},
         {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}},

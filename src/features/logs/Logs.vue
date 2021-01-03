@@ -1,26 +1,19 @@
 <template>
-  <v-container fill-height fluid>
 
-    <!-- All transaction histories -->
-    <TransactionHistories />
+  <!-- Recent logs -->
+  <RecentLogs />
 
-    <!-- Full logs -->
-    <FullLogs class="mb-10" />
-
-  </v-container>
 </template>
 
 <script>
-import FullLogs from '@/features/logs/FullLogs';
-import TransactionHistories from '@/features/logs/TransactionHistories';
+import RecentLogs from '@/features/logs/RecentLogs';
 
 export default {
   name: 'Logs',
-  components: {TransactionHistories, FullLogs}
+  components: {RecentLogs}
 }
 </script>
 
 <style scoped>
 
 </style>
-

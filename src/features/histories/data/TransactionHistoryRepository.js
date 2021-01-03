@@ -1,5 +1,5 @@
 import GenericRepository from '@/common/GenericRepository';
-import TransactionHistory from '@/features/logs/entities/TransactionHistory';
+import TransactionHistory from '@/features/histories/entities/TransactionHistory';
 
 class TransactionHistoryRepository extends GenericRepository {
     async getAllTransactionHistories() {
