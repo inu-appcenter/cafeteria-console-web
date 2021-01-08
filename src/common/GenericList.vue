@@ -96,14 +96,34 @@
 
                   <!-- Contents -->
                   <v-list-item v-for="field in domainFields" :key="field.name" v-show="field.visible">
+
                     <!-- Field name -->
-                    <v-list-item-content>
+                    <v-list-item-content class="pa-0 pre-line">
+
+                      <!-- Bigtext specific upper divider -->
+                      <v-divider v-show="field.type === 'bigtext'" class="mt-2 mb-3"></v-divider>
+
                       <v-list-item-title>{{ field.name }}</v-list-item-title>
                       <v-list-item-subtitle>{{ itemName }}.{{ field.name }}</v-list-item-subtitle>
+
+                      <!-- This is a property name field. However, bigtext may take place here. -->
+
+                      <!-- Text area -->
+                      <div v-show="field.type === 'bigtext'" class="pt-2">
+                        <v-textarea  v-show="item.editing && field.mutable" v-model="item[field.name]"
+                                    @input="onModifyItem(item);" :rules="[field.validate]" class="no-vertical-space" hide-details />
+
+                        <div v-show="!(item.editing && field.mutable)" class="subtitle-1 pb-2">{{ item[field.name]}}</div>
+                      </div>
+
+                      <!-- Bigtext specific lower divider -->
+                      <v-divider v-show="field.type === 'bigtext'" class="mb-1"></v-divider>
+
                     </v-list-item-content>
 
                     <!-- Values -->
-                    <v-list-item-action>
+                    <v-list-item-action v-show="field.type !== 'bigtext'">
+
                       <!-- Number field -->
                       <div v-show="field.type === 'number'">
                         <v-text-field v-show="item.editing && field.mutable" type="number"
@@ -122,14 +142,6 @@
                               class="subtitle-1">{{ item[field.name] | str_limit(20) }}</span>
                       </div>
 
-                      <!-- Text area -->
-                      <div v-show="field.type === 'bigtext'">
-                        <v-textarea v-show="item.editing && field.mutable" v-model="item[field.name]"
-                                    @input="onModifyItem(item);" :rules="[field.validate]" hide-details/>
-                        <span v-show="!(item.editing && field.mutable)"
-                              class="subtitle-1">{{ item[field.name] | str_limit(20) }}</span>
-                      </div>
-
                       <!-- Bool field -->
                       <div v-show="field.type === 'bool'">
                         <v-switch :disabled="!(item.editing && field.mutable)" v-model="item[field.name]" outlined
@@ -137,6 +149,7 @@
                       </div>
 
                     </v-list-item-action>
+
                   </v-list-item>
 
                 </v-list>
@@ -247,6 +260,7 @@ export default {
       this._backupItem(item);
 
       item.editing = true;
+      this.redraw();
     },
 
     _backupItem(item) {
@@ -258,6 +272,7 @@ export default {
 
       item.modified = false;
       item.editing = false;
+      this.redraw();
     },
 
     _restoreItem(item) {
@@ -266,6 +281,7 @@ export default {
 
     async onClickApplyItem(item) {
       item.editing = false;
+      this.redraw();
 
       item.loading = true;
       await this.showResult(this.onUpdate(item), '반영되었습니다');
@@ -385,6 +401,12 @@ export default {
 
         return false;
       }
+    },
+
+    redraw() {
+      this.$nextTick(() => {
+        this.$redrawVueMasonry();
+      })
     }
   }
 }
@@ -399,5 +421,16 @@ export default {
 .empty-view-div {
   text-align: center;
   padding: 50px;
+}
+
+.no-vertical-space {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.pre-line {
+  white-space: pre-line
 }
 </style>
