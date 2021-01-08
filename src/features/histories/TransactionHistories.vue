@@ -23,7 +23,7 @@ export default {
           {text: '유형(Validate | Commit | Cancel)', value: 'type'},
           {text: '학번', value: 'user_id'},
           {text: '식당 코드', value: 'cafeteria_id'},
-          {text: '식사 시간(0 | 1 | 2)', value: 'meal_type'},
+          {text: '식사 시간(4 | 2 | 1)', value: 'meal_type'},
           {text: '결과 코드', value: 'failed_at'},
           {text: '메시지', value: 'message'},
         ],
