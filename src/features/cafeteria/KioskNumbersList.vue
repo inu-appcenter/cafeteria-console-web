@@ -5,7 +5,7 @@
 <script>
 import GenericList from '@/common/GenericList';
 import KioskNumbers from '@/features/cafeteria/entities/KioskNumbers';
-import kioskNumbersRepository from '@/features/rules/data/KioskNumbersRepository';
+import kioskNumbersRepository from '@/features/cafeteria/data/KioskNumbersRepository';
 
 export default {
   name: 'KioskList',
