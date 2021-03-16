@@ -3,22 +3,26 @@
   <v-container fill-height>
 
     <!-- Greetings -->
-    <v-row align="center" justify="center" class="mt-6">
+    <v-row align="center" justify="center" class="mt-8">
       <!-- Title -->
       <p class="display-1 text--primary">안녕하세요 :)</p>
     </v-row>
 
     <!-- Primary features -->
-    <v-row align="center" justify="center" class="mt-6">
+    <v-row align="center" justify="center" class="mt-4">
 
       <!-- Logs download(txt)-->
       <v-list-item :href=dailyLogsUrlTxt>
-        <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold">{{ todayString }} 학식당 할인 기록 보기(텍스트)</v-list-item-content>
+        <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold">{{ todayString }} 학식당 할인 기록
+          보기(텍스트)
+        </v-list-item-content>
       </v-list-item>
 
       <!-- Logs download(xls)-->
       <v-list-item :href=dailyLogsUrlXls>
-        <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold">{{ todayString }} 학식당 할인 기록 보기(엑셀)</v-list-item-content>
+        <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold">{{ todayString }} 학식당 할인 기록
+          보기(엑셀)
+        </v-list-item-content>
       </v-list-item>
 
       <!-- Call admin! -->
@@ -33,7 +37,7 @@
     </v-row>
 
     <!-- Services -->
-    <v-row align="center" justify="center" class="mt-6">
+    <v-row align="center" justify="center" class="mt-4">
       <v-list-item v-for="service in services"
                    :key="service.name"
                    :to="service.name">
@@ -119,7 +123,9 @@ export default {
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
   opacity: 0;
 }
 
