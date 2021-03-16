@@ -1,25 +1,48 @@
 <template>
 
   <v-container fill-height>
-    <v-row align="center" justify="center">
-      <!-- Title -->
-      <p class="display-1 text--primary">안녕하세요</p>
 
-      <!-- Services -->
+    <!-- Greetings -->
+    <v-row align="center" justify="center" class="mt-6">
+      <!-- Title -->
+      <p class="display-1 text--primary">안녕하세요 :)</p>
+    </v-row>
+
+    <!-- Primary features -->
+    <v-row align="center" justify="center" class="mt-6">
+
+      <!-- Logs download(txt)-->
+      <v-list-item :href=dailyLogsUrlTxt>
+        <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold">{{ todayString }} 학식당 할인 기록 보기(텍스트)</v-list-item-content>
+      </v-list-item>
+
+      <!-- Logs download(xls)-->
+      <v-list-item :href=dailyLogsUrlXls>
+        <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold">{{ todayString }} 학식당 할인 기록 보기(엑셀)</v-list-item-content>
+      </v-list-item>
+
+      <!-- Call admin! -->
+      <v-list-item href="tel:01029222661">
+        <v-list-item-content class="d-flex justify-center light-blue--text">관리자 소환(휴대전화)</v-list-item-content>
+      </v-list-item>
+
+      <!-- KakaoTalk admin! -->
+      <v-list-item href="https://open.kakao.com/o/s6UdqU2c">
+        <v-list-item-content class="d-flex justify-center light-blue--text">관리자 소환(카카오톡)</v-list-item-content>
+      </v-list-item>
+    </v-row>
+
+    <!-- Services -->
+    <v-row align="center" justify="center" class="mt-6">
       <v-list-item v-for="service in services"
                    :key="service.name"
                    :to="service.name">
         <v-list-item-content class="d-flex justify-center light-blue--text">{{ service.subtitle }}</v-list-item-content>
       </v-list-item>
-
-      <!-- Call admin! -->
-      <v-list-item href="tel:01029222661">
-        <v-list-item-content class="d-flex justify-center light-blue--text">관리자 소환</v-list-item-content>
-      </v-list-item>
     </v-row>
 
     <!-- Footer -->
-    <v-row align="center" justify="center">
+    <v-row align="center" justify="center" class="mt-12">
       <div class="metadata-div grey--text">
         <p class="ma-0">{{ packageName }} v{{ packageVersion }}</p>
         <transition name="fade">
@@ -42,6 +65,7 @@
 
 <script>
 import config from '../../../config';
+import {formatDateYYYYMMDD} from '@/utils/date';
 
 export default {
   name: 'Front',
@@ -58,6 +82,9 @@ export default {
         version: null
       },
 
+      todayString: formatDateYYYYMMDD(new Date()),
+      dailyLogsUrlTxt: config.api.endpoints.dailyLogs(formatDateYYYYMMDD(new Date()), 4/* 학생식당 */, 'txt'),
+      dailyLogsUrlXls: config.api.endpoints.dailyLogs(formatDateYYYYMMDD(new Date()), 4/* 학생식당 */, 'xls'),
       services: config.services,
 
       zen: null
