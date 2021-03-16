@@ -66,6 +66,7 @@ export default {
         endpoints: {
             graphql: `${baseUrl()}/graphql`,
             signIn: `${baseUrl()}/sign-in`,
+            dailyLogs: (date, cafeteriaId, fileType) => `${baseUrl()}/logs/${date}?cafeteriaId=${cafeteriaId}&fileType=${fileType}`,
             version: `${baseUrl()}/version`,
             zen: 'https://api.github.com/zen'
         }
