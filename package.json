@@ -1,6 +1,6 @@
 {
   "name": "cafeteria-console-web",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "scripts": {
     "dev": "vue-cli-service serve --port 9090",
     "preview": "vue-cli-service build && serve dist -p 9090",
