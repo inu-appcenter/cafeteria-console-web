@@ -19,25 +19,52 @@
         <!-- Masonry holder -->
         <v-layout row class="pl-6 pr-6 pt-0 pb-0">
           <v-row v-masonry transition-duration="0.3s" item-selector=".item">
-            <v-col v-masonry-tile class="item pa-2" cols="12" xs="12" sm="6" md="6" lg="4" v-for="item in allItems" :key="item[questionKeyName]" >
+            <v-col v-masonry-tile class="item pa-2" cols="12" xs="12" sm="6" md="6" lg="4"
+                   v-for="(item, index) of allItems" :key="item['keyName']" >
 
-              <!-- Item cards -->
-              <v-card raised outlined :loading="item.loading">
-                <v-list three-line>
-                  <v-list-item>
+              <!-- Both the board item and the popup bound to it are inside here -->
+              <v-dialog
+                  v-model="detailsDialogVisible[index]"
+                  max-width="600px">
 
-                    <v-list-item-content>
-                      <v-list-item-title>{{ item[nameFieldName] }}</v-list-item-title>
-                      <v-list-item-subtitle>{{ item[descriptionFieldName] }}</v-list-item-subtitle>
-                    </v-list-item-content>
+                <!-- The board content -->
+                <template v-slot:activator="{ on, attrs }">
 
-                    <v-list-item-action>
-                      <v-switch v-model="item[toggleFieldName]" @change="onModifyItem(item);" />
-                    </v-list-item-action>
+                  <!-- Item cards -->
+                  <v-card raised outlined :loading="item.loading" v-bind="attrs" v-on="on">
+                    <v-list three-line>
+                      <v-list-item>
 
-                  </v-list-item>
-                </v-list>
-              </v-card>
+                        <v-list-item-content>
+                          <v-list-item-title>{{ item[nameFieldName] }}</v-list-item-title>
+                          <v-list-item-subtitle>{{ item[descriptionFieldName] }}</v-list-item-subtitle>
+                        </v-list-item-content>
+
+                        <v-list-item-action>
+                          <v-switch v-model="item[toggleFieldName]" @change="onModifyItem(item);" />
+                        </v-list-item-action>
+
+                      </v-list-item>
+                    </v-list>
+                  </v-card>
+
+                </template>
+
+                <!-- The dialog content (shown when the board clicked) -->
+                <v-card raised>
+                  <v-list three-line>
+                    <v-list-item>
+
+                      <v-list-item-content>
+                        <v-list-item-title style="white-space: normal;">{{ item[nameFieldName] }}</v-list-item-title>
+                        <v-list-item-subtitle>{{ item[descriptionFieldName] }}</v-list-item-subtitle>
+                      </v-list-item-content>
+
+                    </v-list-item>
+                  </v-list>
+                </v-card>
+
+              </v-dialog>
 
             </v-col>
           </v-row>
@@ -75,6 +102,7 @@ export default {
   data() {
     return {
       allItems: [],
+      detailsDialogVisible: [], // Not that neat way. See https://stackoverflow.com/a/58027107/11929317.
       fetching: false,
       error: null
     };
