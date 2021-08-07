@@ -1,6 +1,6 @@
 const envName = 'NODE_ENV';
 
-function getEnv(key, fallback = null) {
+function getEnv(key: string, fallback?: string) {
   const allEnvArgs = process.env;
 
   return allEnvArgs[key] || fallback;
@@ -8,12 +8,4 @@ function getEnv(key, fallback = null) {
 
 export function isProduction() {
   return getEnv(envName) === 'production';
-}
-
-export function isDebug() {
-  return getEnv(envName) === 'DEBUG';
-}
-
-export function isTest() {
-  return getEnv(envName) === 'test';
 }

@@ -60,7 +60,7 @@ export default {
       graphql: `${baseUrl()}/graphql`,
       login: `${baseUrl()}/login`,
       dailyLogs: (date, cafeteriaId, fileType) =>
-        `${baseUrl()}/logs/${date}?cafeteriaId=${cafeteriaId}&fileType=${fileType}`,
+        `${baseUrl()}/records/${date}?cafeteriaId=${cafeteriaId}&fileType=${fileType}`,
       version: `${baseUrl()}/version`,
       zen: 'https://api.github.com/zen',
     },

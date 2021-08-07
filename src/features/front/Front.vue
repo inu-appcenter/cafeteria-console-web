@@ -60,7 +60,7 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
 import config from '../../../config';
 import packageInfo from '../../../package.json';
 import {formatDateYYYYMMDD} from '@/utils/date';

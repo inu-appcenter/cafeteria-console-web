@@ -5,7 +5,7 @@ import vuetify from './plugins/vuetify';
 import Toasted from 'vue-toasted';
 import {VueMasonryPlugin} from 'vue-masonry';
 
-Vue.filter('str_limit', function (value, size) {
+Vue.filter('str_limit', (value, size) => {
   if (!value) return '';
   value = value.toString();
 
@@ -15,14 +15,14 @@ Vue.filter('str_limit', function (value, size) {
   return value.substr(0, size) + '...';
 });
 
-Vue.filter('format_date', function (value) {
+Vue.filter('format_date', value => {
   if (!value) {
     return '';
   }
   return new Date(Number.parseInt(value)).toLocaleString();
 });
 
-Vue.filter('format_time_diff', function (value) {
+Vue.filter('format_time_diff', value => {
   if (!value) {
     return '';
   }
@@ -36,7 +36,7 @@ Vue.filter('format_time_diff', function (value) {
   if (calculatedHour < 1) {
     return '1시간 미만';
   } else {
-    return `${Number.parseInt(calculatedHour)}시간`;
+    return `${calculatedHour}시간`;
   }
 });
 

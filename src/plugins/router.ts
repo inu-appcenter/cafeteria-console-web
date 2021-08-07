@@ -1,16 +1,16 @@
 import EventBus from '@/event-bus';
-import VueRouter from 'vue-router';
-import Front from '../features/front/Front';
 import Vue from 'vue';
-import Histories from '@/features/histories/Histories';
-import Rules from '@/features/rules/Rules';
-import Cafeteria from '@/features/cafeteria/Cafeteria';
-import Parsing from '@/features/parsing/Parsing';
-import Login from '@/features/login/Login';
-import Notices from '@/features/notices/Notices';
-import Versions from '@/features/versions/Versions';
-import Questions from '@/features/questions/Questions';
-import Logs from '@/features/logs/Logs';
+import VueRouter from 'vue-router';
+import Front from '@/features/front/Front.vue';
+import Histories from '@/features/histories/Histories.vue';
+import Rules from '@/features/rules/Rules.vue';
+import Cafeteria from '@/features/cafeteria/Cafeteria.vue';
+import Parsing from '@/features/parsing/Parsing.vue';
+import Login from '@/features/login/Login.vue';
+import Notices from '@/features/notices/Notices.vue';
+import Versions from '@/features/versions/Versions.vue';
+import Questions from '@/features/questions/Questions.vue';
+import Logs from '@/features/logs/Logs.vue';
 
 Vue.use(VueRouter);
 

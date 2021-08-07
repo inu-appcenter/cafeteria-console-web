@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
+
     "module": "esnext",
     "strict": false,
     // this 타입 좀 약하게!
@@ -15,6 +16,10 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": ["webpack-env"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./typings"
+    ],
     "paths": {
       "@/*": ["src/*"]
     },

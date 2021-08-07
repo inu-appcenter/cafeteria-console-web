@@ -3,7 +3,7 @@ module.exports = {
 
   pages: {
     index: {
-      entry: './src/main.js',
+      entry: './src/main.ts',
       template: './public/index.html',
       title: '카페테리아 콘솔',
     },
