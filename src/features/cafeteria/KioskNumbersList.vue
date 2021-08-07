@@ -1,5 +1,5 @@
 <template>
-  <GenericList v-bind="kioskNumbersProps"/>
+  <GenericList v-bind="kioskNumbersProps" />
 </template>
 
 <script>
@@ -23,19 +23,17 @@ export default {
           return new KioskNumbers({});
         },
         formValidator: (kioskNumbers, allKioskNumbers) => {
-          return !allKioskNumbers.find((c) => c.cafeteria_id === kioskNumbers.cafeteria_id); // should not exist.
+          return !allKioskNumbers.find(c => c.cafeteria_id === kioskNumbers.cafeteria_id); // should not exist.
         },
 
         onFetch: async () => kioskNumbersRepository.getAllKioskNumbers(),
-        onAdd: async (item) => kioskNumbersRepository.addKioskNumbers(item),
-        onUpdate: async (item) => kioskNumbersRepository.updateKioskNumbers(item),
-        onDelete: async (item) => kioskNumbersRepository.deleteKioskNumbers(item)
-      }
+        onAdd: async item => kioskNumbersRepository.addKioskNumbers(item),
+        onUpdate: async item => kioskNumbersRepository.updateKioskNumbers(item),
+        onDelete: async item => kioskNumbersRepository.deleteKioskNumbers(item),
+      },
     };
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

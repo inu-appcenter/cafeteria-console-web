@@ -1,12 +1,10 @@
 <template>
   <v-container fluid>
-
     <!-- All discount rules -->
     <CafeteriaDiscountRuleToggleBoard />
 
     <!-- All validation params -->
     <CafeteriaValidationParamsList />
-
   </v-container>
 </template>
 
@@ -16,10 +14,8 @@ import CafeteriaDiscountRuleToggleBoard from '@/features/rules/CafeteriaDiscount
 
 export default {
   name: 'Rules',
-  components: {CafeteriaDiscountRuleToggleBoard, CafeteriaValidationParamsList}
-}
+  components: {CafeteriaDiscountRuleToggleBoard, CafeteriaValidationParamsList},
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,9 +1,7 @@
 <template>
   <v-container fluid>
-
     <!-- All notices -->
-    <NoticeList/>
-
+    <NoticeList />
   </v-container>
 </template>
 
@@ -12,10 +10,8 @@ import NoticeList from '@/features/notices/NoticeList';
 
 export default {
   name: 'Notices',
-  components: {NoticeList}
-}
+  components: {NoticeList},
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

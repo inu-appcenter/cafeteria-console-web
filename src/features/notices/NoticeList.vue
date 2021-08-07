@@ -1,9 +1,8 @@
 <template>
-  <GenericList v-bind="noticeProps"/>
+  <GenericList v-bind="noticeProps" />
 </template>
 
 <script>
-
 import Notice from '@/features/notices/entities/Notice';
 import noticeRepository from '@/features/notices/data/NoticeRepository';
 import GenericList from '@/common/GenericList';
@@ -29,17 +28,13 @@ export default {
         },
 
         onFetch: async () => noticeRepository.getAllNotices(),
-        onAdd: async (item) => noticeRepository.addNotice(item),
-        onUpdate: async (item) => noticeRepository.updateNotice(item),
-        onDelete: async (item) => noticeRepository.deleteNotice(item)
-      }
+        onAdd: async item => noticeRepository.addNotice(item),
+        onUpdate: async item => noticeRepository.updateNotice(item),
+        onDelete: async item => noticeRepository.deleteNotice(item),
+      },
     };
-  }
-
-
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

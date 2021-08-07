@@ -1,42 +1,32 @@
 <template>
-
   <v-row justify="center">
     <v-col cols="12">
       <v-card class="mx-2" outlined raised>
-
         <v-card-title>
           <h4>{{ itemDisplayName }}</h4>
-          <v-spacer/>
-          <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="검색"
-              single-line
-              hide-details/>
+          <v-spacer />
+          <v-text-field v-model="search" append-icon="mdi-magnify" hide-details label="검색" single-line />
         </v-card-title>
 
         <v-data-table
-            dense="dense"
-            :headers="headers"
-            :items="allItems"
-            :items-per-page="100"
-            :search="search"
-            :loading="fetching"
-            loading-text="로드 중... 잠시만 기다려 주세요">
-
-          <template v-slot:item="{ item }">
+          :headers="headers"
+          :items="allItems"
+          :items-per-page="100"
+          :loading="fetching"
+          :search="search"
+          dense="dense"
+          loading-text="로드 중... 잠시만 기다려 주세요"
+        >
+          <template v-slot:item="{item}">
             <tr>
               <td>{{ item.timestamp }}</td>
               <td class="truncate">{{ item.message }}</td>
             </tr>
           </template>
-
         </v-data-table>
-
       </v-card>
     </v-col>
   </v-row>
-
 </template>
 
 <script>
@@ -46,7 +36,7 @@ export default {
   props: {
     headers: Array,
     onFetch: Function,
-    itemDisplayName: String
+    itemDisplayName: String,
   },
 
   data() {
@@ -56,7 +46,7 @@ export default {
       error: null,
 
       search: '',
-    }
+    };
   },
 
   created() {
@@ -78,9 +68,9 @@ export default {
         console.log('Fetch 종료!');
         this.fetching = false;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

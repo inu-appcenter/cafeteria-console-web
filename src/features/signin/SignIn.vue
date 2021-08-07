@@ -6,27 +6,20 @@
           <v-row align="center" justify="center">
             <v-col cols="12" lg="4" md="7" sm="8" xs="12">
               <v-card :loading="loading">
-
                 <!-- titles -->
                 <v-card-title class="justify-center">로그인</v-card-title>
 
                 <!-- form -->
                 <v-card-text>
                   <v-form ref="form" v-model="valid" @submit.prevent="signIn">
+                    <v-text-field v-model="userId" :rules="userIdRules" label="ID" required type="text"></v-text-field>
                     <v-text-field
-                        type="text"
-                        v-model="userId"
-                        :rules="userIdRules"
-                        label="ID"
-                        required
-                    ></v-text-field>
-                    <v-text-field
-                        type="password"
-                        v-model="password"
-                        :rules="passwordRules"
-                        label="비밀번호"
-                        required
-                        @keydown.enter="signIn"
+                      v-model="password"
+                      :rules="passwordRules"
+                      label="비밀번호"
+                      required
+                      type="password"
+                      @keydown.enter="signIn"
                     ></v-text-field>
                   </v-form>
 
@@ -37,9 +30,7 @@
 
                 <!-- submit -->
                 <v-card-text>
-                  <v-btn :disabled="!valid" @click="signIn" width="100%">
-                    로그인
-                  </v-btn>
+                  <v-btn :disabled="!valid" width="100%" @click="signIn"> 로그인 </v-btn>
                 </v-card-text>
               </v-card>
             </v-col>
@@ -63,14 +54,10 @@ export default {
     errorMessage: '',
 
     userId: null,
-    userIdRules: [
-      (v) => !!v || 'ID를 입력해 주세요',
-    ],
+    userIdRules: [v => !!v || 'ID를 입력해 주세요'],
 
     password: null,
-    passwordRules: [
-      (v) => !!v || '비밀번호를 입력해 주세요',
-    ],
+    passwordRules: [v => !!v || '비밀번호를 입력해 주세요'],
   }),
 
   mounted() {
@@ -83,7 +70,7 @@ export default {
       this.$toasted.show('로그인이 필요합니다', {
         theme: 'bubble',
         icon: 'warning',
-        duration: 2000
+        duration: 2000,
       });
     });
   },
@@ -114,14 +101,13 @@ export default {
         const result = await fetch(config.api.endpoints.signIn, {
           method: 'POST',
           credentials: 'include',
-          body: params
+          body: params,
         });
 
         return result.ok;
-
       } catch (e) {
         console.log(e);
-        return false
+        return false;
       }
     },
 
@@ -131,18 +117,16 @@ export default {
 
       this.$toasted.show(`안녕하세요, ${id}님`, {
         icon: 'account_circle',
-        duration: 2000
+        duration: 2000,
       });
       await this.$router.push('/');
     },
 
     async onSignInFail() {
       this.errorMessage = 'ID와 비밀번호를 확인해 주세요';
-    }
+    },
   },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

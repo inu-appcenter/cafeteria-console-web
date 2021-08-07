@@ -1,5 +1,5 @@
 <template>
-  <GenericList v-bind="commentProps"/>
+  <GenericList v-bind="commentProps" />
 </template>
 
 <script>
@@ -23,19 +23,17 @@ export default {
           return new Comment({});
         },
         formValidator: (comment, allComments) => {
-          return !allComments.find((c) => c.cafeteria_id === comment.cafeteria_id); // should not exist.
+          return !allComments.find(c => c.cafeteria_id === comment.cafeteria_id); // should not exist.
         },
 
         onFetch: async () => commentRepository.getAllComments(),
-        onAdd: async (item) => commentRepository.addComment(item),
-        onUpdate: async (item) => commentRepository.updateComment(item),
-        onDelete: async (item) => commentRepository.deleteComment(item)
-      }
+        onAdd: async item => commentRepository.addComment(item),
+        onUpdate: async item => commentRepository.updateComment(item),
+        onDelete: async item => commentRepository.deleteComment(item),
+      },
     };
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

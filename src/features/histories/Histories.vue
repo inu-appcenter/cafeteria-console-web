@@ -1,8 +1,6 @@
 <template>
-
   <!-- All transaction histories -->
   <TransactionHistories />
-
 </template>
 
 <script>
@@ -10,11 +8,8 @@ import TransactionHistories from '@/features/histories/TransactionHistories';
 
 export default {
   name: 'Histories',
-  components: {TransactionHistories}
-}
+  components: {TransactionHistories},
+};
 </script>
 
-<style scoped>
-
-</style>
-
+<style scoped></style>

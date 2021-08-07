@@ -1,5 +1,5 @@
 <template>
-  <GenericList v-bind="cornerProps"/>
+  <GenericList v-bind="cornerProps" />
 </template>
 
 <script>
@@ -23,19 +23,17 @@ export default {
           return new Corner({});
         },
         formValidator: (corner, allCorners) => {
-          return !allCorners.find((c) => c.id === corner.id); // should not exist.
+          return !allCorners.find(c => c.id === corner.id); // should not exist.
         },
 
         onFetch: async () => cornerRepository.getAllCorners(),
-        onAdd: async (item) => cornerRepository.addCorner(item),
-        onUpdate: async (item) => cornerRepository.updateCorner(item),
-        onDelete: async (item) => cornerRepository.deleteCorner(item)
-      }
-    }
-  }
-}
+        onAdd: async item => cornerRepository.addCorner(item),
+        onUpdate: async item => cornerRepository.updateCorner(item),
+        onDelete: async item => cornerRepository.deleteCorner(item),
+      },
+    };
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

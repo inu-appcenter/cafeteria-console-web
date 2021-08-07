@@ -1,5 +1,5 @@
 <template>
-  <GenericToggleBoard v-bind="discountRuleStatusesProps"/>
+  <GenericToggleBoard v-bind="discountRuleStatusesProps" />
 </template>
 
 <script>
@@ -24,13 +24,11 @@ export default {
         domainFields: CafeteriaDiscountRule.fields(),
 
         onFetch: async () => ruleRepository.getAllRules(),
-        onUpdate: async (item) => ruleRepository.updateRule(item)
-      }
+        onUpdate: async item => ruleRepository.updateRule(item),
+      },
     };
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,27 +1,24 @@
 <template>
-
   <v-container fill-height>
-
     <!-- Greetings -->
-    <v-row align="center" justify="center" class="mt-8">
+    <v-row align="center" class="mt-8" justify="center">
       <!-- Title -->
       <p class="display-1 text--primary">안녕하세요 :)</p>
     </v-row>
 
     <!-- Primary features -->
-    <v-row align="center" justify="center" class="mt-4">
-
+    <v-row align="center" class="mt-4" justify="center">
       <!-- Logs download(txt)-->
-      <v-list-item :href=dailyLogsUrlTxt>
-        <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold">{{ todayString }} 학식당 할인 기록
-          보기(텍스트)
+      <v-list-item :href="dailyLogsUrlTxt">
+        <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold"
+          >{{ todayString }} 학식당 할인 기록 보기(텍스트)
         </v-list-item-content>
       </v-list-item>
 
       <!-- Logs download(xls)-->
-      <v-list-item :href=dailyLogsUrlXls>
-        <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold">{{ todayString }} 학식당 할인 기록
-          보기(엑셀)
+      <v-list-item :href="dailyLogsUrlXls">
+        <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold"
+          >{{ todayString }} 학식당 할인 기록 보기(엑셀)
         </v-list-item-content>
       </v-list-item>
 
@@ -37,16 +34,14 @@
     </v-row>
 
     <!-- Services -->
-    <v-row align="center" justify="center" class="mt-4">
-      <v-list-item v-for="service in services"
-                   :key="service.name"
-                   :to="service.name">
+    <v-row align="center" class="mt-4" justify="center">
+      <v-list-item v-for="service in services" :key="service.name" :to="service.name">
         <v-list-item-content class="d-flex justify-center light-blue--text">{{ service.subtitle }}</v-list-item-content>
       </v-list-item>
     </v-row>
 
     <!-- Footer -->
-    <v-row align="center" justify="center" class="mt-12">
+    <v-row align="center" class="mt-12" justify="center">
       <div class="metadata-div grey--text">
         <p class="ma-0">{{ packageName }} v{{ packageVersion }}</p>
         <transition name="fade">
@@ -62,9 +57,7 @@
         </transition>
       </div>
     </v-row>
-
   </v-container>
-
 </template>
 
 <script>
@@ -82,15 +75,15 @@ export default {
 
       server: {
         packageName: 'cafeteria-console-server',
-        version: null
+        version: null,
       },
 
       todayString: formatDateYYYYMMDD(new Date()),
-      dailyLogsUrlTxt: config.api.endpoints.dailyLogs(formatDateYYYYMMDD(new Date()), 4/* 학생식당 */, 'txt'),
-      dailyLogsUrlXls: config.api.endpoints.dailyLogs(formatDateYYYYMMDD(new Date()), 4/* 학생식당 */, 'xls'),
+      dailyLogsUrlTxt: config.api.endpoints.dailyLogs(formatDateYYYYMMDD(new Date()), 4 /* 학생식당 */, 'txt'),
+      dailyLogsUrlXls: config.api.endpoints.dailyLogs(formatDateYYYYMMDD(new Date()), 4 /* 학생식당 */, 'xls'),
       services: config.services,
 
-      zen: null
+      zen: null,
     };
   },
 
@@ -113,18 +106,18 @@ export default {
       const response = await fetch(config.api.endpoints.zen);
       const text = await response.text();
       this.zen = text.length > 50 ? `Something went wrong...` : text;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
 
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
-{
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
 

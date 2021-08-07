@@ -3,19 +3,19 @@ import Field from '@/common/Field';
 import validation from '@/common/validation';
 
 class KioskNumbers extends GenericItem {
-    constructor({kiosk_numbers, cafeteria_id = null}) {
-        super({});
+  constructor({kiosk_numbers, cafeteria_id = null}) {
+    super({});
 
-        this.cafeteria_id = cafeteria_id;
-        this.kiosk_numbers = kiosk_numbers;
-    }
+    this.cafeteria_id = cafeteria_id;
+    this.kiosk_numbers = kiosk_numbers;
+  }
 
-    static fields() {
-        return [
-            new Field('cafeteria_id', 'number', false, true, validation.numberOverZero),
-            new Field('kiosk_numbers', 'text', true, true, validation.stringNotEmpty)
-        ];
-    }
+  static fields() {
+    return [
+      new Field('cafeteria_id', 'number', false, true, validation.numberOverZero),
+      new Field('kiosk_numbers', 'text', true, true, validation.stringNotEmpty),
+    ];
+  }
 }
 
 export default KioskNumbers;

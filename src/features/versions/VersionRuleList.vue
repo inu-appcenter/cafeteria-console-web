@@ -1,5 +1,5 @@
 <template>
-  <GenericList v-bind="ruleProps"/>
+  <GenericList v-bind="ruleProps" />
 </template>
 
 <script>
@@ -27,15 +27,13 @@ export default {
         },
 
         onFetch: async () => appVersionRuleRepository.getAllVersionRules(),
-        onAdd: async (item) => appVersionRuleRepository.addVersionRule(item),
-        onUpdate: async (item) => appVersionRuleRepository.updateVersionRule(item),
-        onDelete: async (item) => appVersionRuleRepository.deleteVersionRule(item)
-      }
-    }
-  }
-}
+        onAdd: async item => appVersionRuleRepository.addVersionRule(item),
+        onUpdate: async item => appVersionRuleRepository.updateVersionRule(item),
+        onDelete: async item => appVersionRuleRepository.deleteVersionRule(item),
+      },
+    };
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

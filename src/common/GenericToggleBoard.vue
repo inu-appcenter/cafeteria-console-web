@@ -1,9 +1,7 @@
 <template>
-
   <!-- Layout wrapper -->
   <v-row justify="center">
-    <v-col cols="12" lg="12" md="8" sm="10" xs="12" xl="12">
-
+    <v-col cols="12" lg="12" md="8" sm="10" xl="12" xs="12">
       <!-- The content -->
       <div>
         <!-- Title -->
@@ -12,69 +10,68 @@
         </div>
 
         <!-- Loading status -->
-        <LoadingStatusView :loading="fetching" :error="error" skeleton-type="list-item-three-line"/>
+        <LoadingStatusView :error="error" :loading="fetching" skeleton-type="list-item-three-line" />
 
-        <div class="empty-view-div font-weight-bold text--secondary" v-show="!fetching && !error && allItems.length === 0">{{ emptyText || (itemDisplayName + '이(가) 없습니다.') }}</div>
+        <div
+          v-show="!fetching && !error && allItems.length === 0"
+          class="empty-view-div font-weight-bold text--secondary"
+        >
+          {{ emptyText || itemDisplayName + '이(가) 없습니다.' }}
+        </div>
 
         <!-- Masonry holder -->
-        <v-layout row class="pl-6 pr-6 pt-0 pb-0">
-          <v-row v-masonry transition-duration="0.3s" item-selector=".item">
-            <v-col v-masonry-tile class="item pa-2" cols="12" xs="12" sm="6" md="6" lg="4"
-                   v-for="(item, index) of allItems" :key="item['keyName']" >
-
+        <v-layout class="pl-6 pr-6 pt-0 pb-0" row>
+          <v-row v-masonry item-selector=".item" transition-duration="0.3s">
+            <v-col
+              v-for="(item, index) of allItems"
+              :key="item['keyName']"
+              v-masonry-tile
+              class="item pa-2"
+              cols="12"
+              lg="4"
+              md="6"
+              sm="6"
+              xs="12"
+            >
               <!-- Both the board item and the popup bound to it are inside here -->
-              <v-dialog
-                  v-model="detailsDialogVisible[index]"
-                  max-width="600px">
-
+              <v-dialog v-model="detailsDialogVisible[index]" max-width="600px">
                 <!-- The board content -->
-                <template v-slot:activator="{ on, attrs }">
-
+                <template v-slot:activator="{on, attrs}">
                   <!-- Item cards -->
-                  <v-card raised outlined :loading="item.loading" v-bind="attrs" v-on="on">
+                  <v-card v-bind="attrs" v-on="on" :loading="item.loading" outlined raised>
                     <v-list three-line>
                       <v-list-item>
-
                         <v-list-item-content>
                           <v-list-item-title>{{ item[nameFieldName] }}</v-list-item-title>
                           <v-list-item-subtitle>{{ item[descriptionFieldName] }}</v-list-item-subtitle>
                         </v-list-item-content>
 
                         <v-list-item-action>
-                          <v-switch v-model="item[toggleFieldName]" @change="onModifyItem(item);" />
+                          <v-switch v-model="item[toggleFieldName]" @change="onModifyItem(item)" />
                         </v-list-item-action>
-
                       </v-list-item>
                     </v-list>
                   </v-card>
-
                 </template>
 
                 <!-- The dialog content (shown when the board clicked) -->
                 <v-card raised>
                   <v-list three-line>
                     <v-list-item>
-
                       <v-list-item-content>
-                        <v-list-item-title style="white-space: normal;">{{ item[nameFieldName] }}</v-list-item-title>
+                        <v-list-item-title style="white-space: normal">{{ item[nameFieldName] }}</v-list-item-title>
                         <v-list-item-subtitle>{{ item[descriptionFieldName] }}</v-list-item-subtitle>
                       </v-list-item-content>
-
                     </v-list-item>
                   </v-list>
                 </v-card>
-
               </v-dialog>
-
             </v-col>
           </v-row>
         </v-layout>
-
       </div>
-
     </v-col>
   </v-row>
-
 </template>
 
 <script>
@@ -96,7 +93,7 @@ export default {
     domainFields: Array[Field],
 
     onFetch: Function,
-    onUpdate: Function
+    onUpdate: Function,
   },
 
   data() {
@@ -104,7 +101,7 @@ export default {
       allItems: [],
       detailsDialogVisible: [], // Not that neat way. See https://stackoverflow.com/a/58027107/11929317.
       fetching: false,
-      error: null
+      error: null,
     };
   },
 
@@ -136,26 +133,24 @@ export default {
     },
 
     async showResult(resultPromise) {
-
       try {
         const result = await resultPromise;
 
         if (result) {
           this.$toasted.show('반영되었습니다', {
             duration: 2000,
-            icon: 'done'
+            icon: 'done',
           });
         } else {
           this.$toasted.show('요청을 처리하지 못 하였습니다', {
             duration: 2000,
             icon: 'warning',
             action: {
-              name: ''
-            }
+              name: '',
+            },
           });
         }
       } catch (e) {
-
         this.$toasted.show('심각한 문제가 발생하였습니다.', {
           duration: null,
           icon: 'error',
@@ -164,23 +159,20 @@ export default {
               text: '자세히',
               onClick: () => {
                 alert(e);
-              }
+              },
             },
             {
               text: '닫기',
-              onClick : (e, toastObject) => {
+              onClick: (e, toastObject) => {
                 toastObject.goAway(0);
-              }
-            }
-          ]
+              },
+            },
+          ],
         });
-
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,6 +1,5 @@
 <template>
   <v-container fluid>
-
     <!-- All cafeteria -->
     <CafeteriaList />
 
@@ -12,7 +11,6 @@
 
     <!-- All kiosk numbers -->
     <KioskList />
-
   </v-container>
 </template>
 
@@ -24,10 +22,8 @@ import KioskList from '@/features/cafeteria/KioskNumbersList';
 
 export default {
   name: 'Cafeteria',
-  components: {CafeteriaList, CornerList, CommentList, KioskList}
-}
+  components: {CafeteriaList, CornerList, CommentList, KioskList},
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

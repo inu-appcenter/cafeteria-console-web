@@ -1,9 +1,7 @@
 <template>
   <v-container fluid>
-
     <!-- All cafeteria -->
-    <ParsingRegexList/>
-
+    <ParsingRegexList />
   </v-container>
 </template>
 
@@ -12,10 +10,8 @@ import ParsingRegexList from '@/features/parsing/ParsingRegexList';
 
 export default {
   name: 'Parsing',
-  components: {ParsingRegexList}
-}
+  components: {ParsingRegexList},
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,5 +1,5 @@
 <template>
-  <GenericList v-bind="cafeteriaProps"/>
+  <GenericList v-bind="cafeteriaProps" />
 </template>
 
 <script>
@@ -23,19 +23,17 @@ export default {
           return new Cafeteria({});
         },
         formValidator: (cafeteria, allCafeteria) => {
-          return !allCafeteria.find((c) => c.id === cafeteria.id); // should not exist.
+          return !allCafeteria.find(c => c.id === cafeteria.id); // should not exist.
         },
 
         onFetch: async () => cafeteriaRepository.getAllCafeteria(),
-        onAdd: async (item) => cafeteriaRepository.addCafeteria(item),
-        onUpdate: async (item) => cafeteriaRepository.updateCafeteria(item),
-        onDelete: async (item) => cafeteriaRepository.deleteCafeteria(item)
-      }
+        onAdd: async item => cafeteriaRepository.addCafeteria(item),
+        onUpdate: async item => cafeteriaRepository.updateCafeteria(item),
+        onDelete: async item => cafeteriaRepository.deleteCafeteria(item),
+      },
     };
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

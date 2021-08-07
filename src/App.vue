@@ -1,15 +1,15 @@
 <template>
   <v-app>
     <v-navigation-drawer v-model="drawer" app clipped>
-      <DrawerList/>
+      <DrawerList />
       <!--v-container fluid>
         <v-switch v-model="this.$vuetify.theme.dark" v-on:change="setDark" label="dark mode"/>
       </v-container-->
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"/>
-      <v-btn class="pa-0" text href="/">
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-btn class="pa-0" href="/" text>
         <v-toolbar-title class="font-weight-bold">{{ title }}</v-toolbar-title>
         <span class="pa-1 light-blue--text">BETA</span>
       </v-btn>
@@ -18,7 +18,6 @@
     <v-main>
       <router-view />
     </v-main>
-
   </v-app>
 </template>
 
@@ -47,13 +46,13 @@ export default {
   methods: {
     setDark(dark) {
       setDarkInternal(this, dark);
-    }
+    },
   },
 
   created() {
     setDarkInternal(this, true);
 
-    EventBus.$on('drawer', (openOrNot) => {
+    EventBus.$on('drawer', openOrNot => {
       console.log('네 서랍 닫습니다!');
 
       this.$nextTick(() => {
@@ -74,12 +73,9 @@ export default {
 </script>
 
 <style>
-
 body {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 </style>
-

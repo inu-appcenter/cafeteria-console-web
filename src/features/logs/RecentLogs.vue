@@ -1,12 +1,10 @@
 <template>
   <v-container fluid>
-
     <!-- Recent logs -->
-    <LogTable v-bind="logProps"/>
+    <LogTable v-bind="logProps" />
 
     <!-- Full logs -->
     <FullLogs class="mb-10" />
-
   </v-container>
 </template>
 
@@ -27,13 +25,11 @@ export default {
           {text: '날짜', value: 'timestamp', align: 'start'},
           {text: '메시지', value: 'message'},
         ],
-        itemDisplayName: '서비스 로그'
-      }
-    }
-  }
-}
+        itemDisplayName: '서비스 로그',
+      },
+    };
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

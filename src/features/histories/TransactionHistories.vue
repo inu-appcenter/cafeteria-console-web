@@ -1,8 +1,6 @@
 <template>
-
   <!-- Recent transaction histories -->
-  <HistoryTable v-bind="transactionHistoryProps"/>
-
+  <HistoryTable v-bind="transactionHistoryProps" />
 </template>
 
 <script>
@@ -17,7 +15,7 @@ export default {
     return {
       transactionHistoryProps: {
         onFetch: async () => transactionHistoryRepository.getAllTransactionHistories(),
-        failureColor: (failure) => (failure === 0) ? 'green' : 'red',
+        failureColor: failure => (failure === 0 ? 'green' : 'red'),
         headers: [
           {text: '날짜', value: 'timestamp', align: 'start'},
           {text: '유형(Validate | Commit | Cancel)', value: 'type'},
@@ -27,13 +25,11 @@ export default {
           {text: '결과 코드', value: 'failed_at'},
           {text: '메시지', value: 'message'},
         ],
-        itemDisplayName: '바코드 태그 기록'
-      }
-    }
-  }
-}
+        itemDisplayName: '바코드 태그 기록',
+      },
+    };
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

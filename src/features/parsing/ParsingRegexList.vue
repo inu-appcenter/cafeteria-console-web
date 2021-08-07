@@ -23,19 +23,17 @@ export default {
           return new ParseRegex({});
         },
         formValidator: (parseRegex, allParseRegex) => {
-          return !allParseRegex.find((r) => r.id === parseRegex.id); // should not exist.
+          return !allParseRegex.find(r => r.id === parseRegex.id); // should not exist.
         },
 
         onFetch: async () => parseRegexRepository.getAllParesRegexes(),
-        onAdd: async (item) => parseRegexRepository.addParseRegex(item),
-        onUpdate: async (item) => parseRegexRepository.updateParseRegex(item),
-        onDelete: async (item) => parseRegexRepository.deleteParseRegex(item)
-      }
-    }
-  }
-}
+        onAdd: async item => parseRegexRepository.addParseRegex(item),
+        onUpdate: async item => parseRegexRepository.updateParseRegex(item),
+        onDelete: async item => parseRegexRepository.deleteParseRegex(item),
+      },
+    };
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

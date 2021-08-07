@@ -1,9 +1,7 @@
 <template>
   <v-container fluid>
-
     <!-- All QnAs -->
-    <QnAList/>
-
+    <QnAList />
   </v-container>
 </template>
 
@@ -12,10 +10,8 @@ import QnAList from '@/features/questions/QnAList';
 
 export default {
   name: 'Questions',
-  components: {QnAList}
-}
+  components: {QnAList},
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

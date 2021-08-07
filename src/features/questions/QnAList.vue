@@ -1,5 +1,5 @@
 <template>
-  <GenericQnABoard v-bind="qnaProps"/>
+  <GenericQnABoard v-bind="qnaProps" />
 </template>
 
 <script>
@@ -25,8 +25,12 @@ export default {
         questionContentFieldName: 'content',
         questionDateFieldName: 'date',
         otherQuestionFields: [
-          new Field('device_info', 'text', false, true).apply((f) => {f.displayName = '기기 정보'}),
-          new Field('version', 'text', false, true).apply((f) => {f.displayName = '앱 버전'}),
+          new Field('device_info', 'text', false, true).apply(f => {
+            f.displayName = '기기 정보';
+          }),
+          new Field('version', 'text', false, true).apply(f => {
+            f.displayName = '앱 버전';
+          }),
         ],
 
         answerFieldName: 'answer',
@@ -36,15 +40,11 @@ export default {
         onFetch: () => interactionRepository.getAllQuestions(),
         onAnswer: (questionsId, answer) => interactionRepository.answerQuestion(questionsId, answer),
         onUpdateAnswer: (questionsId, answer) => interactionRepository.updateAnswer(questionsId, answer),
-        onDeleteAnswer: (questionsId) => interactionRepository.deleteAnswer(questionsId)
-      }
+        onDeleteAnswer: questionsId => interactionRepository.deleteAnswer(questionsId),
+      },
     };
-  }
-
-
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

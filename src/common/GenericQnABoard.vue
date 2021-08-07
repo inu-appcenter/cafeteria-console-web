@@ -1,51 +1,72 @@
 <template>
-
   <!-- Layout wrapper -->
   <v-row justify="center">
     <v-col cols="12" lg="12" md="8" sm="10" xs="12">
-
       <!-- The content -->
       <div>
-
         <!-- Title and new button -->
         <div class="row mx-2 my-1">
           <!-- Title -->
           <h2>{{ itemDisplayName }}</h2>
-
         </div>
 
         <!-- Loading status -->
-        <LoadingStatusView :loading="fetching" :error="error"
-                           skeleton-type="list-item-two-line, list-item-three-line, list-item-two-line, actions"/>
+        <LoadingStatusView
+          :error="error"
+          :loading="fetching"
+          skeleton-type="list-item-two-line, list-item-three-line, list-item-two-line, actions"
+        />
 
         <!-- Empty view -->
-        <div class="empty-view-div font-weight-bold text--secondary" v-show="!fetching && !error && allItems.length === 0">{{ emptyText }}</div>
+        <div
+          v-show="!fetching && !error && allItems.length === 0"
+          class="empty-view-div font-weight-bold text--secondary"
+        >
+          {{ emptyText }}
+        </div>
 
         <!-- Masonry holder -->
-        <v-layout row class="pl-6 pr-6 pt-0 pb-0">
-          <v-row v-masonry transition-duration="0.3s" item-selector=".item">
-            <v-col v-masonry-tile class="item pa-2" cols="12" xs="12" sm="6" md="6" lg="4" v-for="item in allItems" :key="item[questionKeyName]" >
-
+        <v-layout class="pl-6 pr-6 pt-0 pb-0" row>
+          <v-row v-masonry item-selector=".item" transition-duration="0.3s">
+            <v-col
+              v-for="item in allItems"
+              :key="item[questionKeyName]"
+              v-masonry-tile
+              class="item pa-2"
+              cols="12"
+              lg="4"
+              md="6"
+              sm="6"
+              xs="12"
+            >
               <!-- Item cards -->
-              <v-card :raised="item.editing" :shaped="item.editing" outlined :loading="item.loading">
-
+              <v-card :loading="item.loading" :raised="item.editing" :shaped="item.editing" outlined>
                 <!-- Question status -->
                 <div class="row mx-0">
-                  <v-card-title v-show="item[answerFieldName] && !item[answerFieldName].read" class="body-1 light-blue--text">답변됨</v-card-title>
-                  <v-card-title v-show="item[answerFieldName] && item[answerFieldName].read" class="body-1 green--text">답변 전달됨</v-card-title>
+                  <v-card-title
+                    v-show="item[answerFieldName] && !item[answerFieldName].read"
+                    class="body-1 light-blue--text"
+                    >답변됨
+                  </v-card-title>
+                  <v-card-title v-show="item[answerFieldName] && item[answerFieldName].read" class="body-1 green--text">
+                    답변 전달됨
+                  </v-card-title>
                   <v-card-title v-show="!item[answerFieldName]" class="body-1 orange--text">답변 대기중</v-card-title>
 
                   <v-spacer />
 
-                  <v-card-title v-show="item[answerFieldName]" class="text--secondary body-2">{{ (item[answerFieldName] ? item[answerFieldName].date : '') | format_date }}</v-card-title>
-                  <v-card-title v-show="!item[answerFieldName]" class="text--secondary body-2">{{ item.date | format_time_diff }} 경과</v-card-title>
+                  <v-card-title v-show="item[answerFieldName]" class="text--secondary body-2">
+                    {{ (item[answerFieldName] ? item[answerFieldName].date : '') | format_date }}
+                  </v-card-title>
+                  <v-card-title v-show="!item[answerFieldName]" class="text--secondary body-2">
+                    {{ item.date | format_time_diff }} 경과
+                  </v-card-title>
                 </div>
 
                 <v-divider></v-divider>
 
                 <!-- All item list -->
                 <v-list>
-
                   <!-- Author -->
                   <v-list-item class="small-list-item">
                     <v-list-item-content>
@@ -63,7 +84,12 @@
                   </v-list-item>
 
                   <!-- Other fields -->
-                  <v-list-item class="small-list-item" v-for="field in otherQuestionFields" :key="field.name" v-show="field.visible">
+                  <v-list-item
+                    v-for="field in otherQuestionFields"
+                    v-show="field.visible"
+                    :key="field.name"
+                    class="small-list-item"
+                  >
                     <v-list-item-content>
                       <v-list-item-subtitle>{{ field.displayName }}</v-list-item-subtitle>
                     </v-list-item-content>
@@ -74,42 +100,40 @@
 
                   <!-- Content -->
                   <v-list-item>
-                    <v-list-item-content class="pb-0 pre-line" >
+                    <v-list-item-content class="pb-0 pre-line">
                       <v-list-item-subtitle class="pb-3">문의 내용</v-list-item-subtitle>
                       {{ item[questionContentFieldName] }}
                     </v-list-item-content>
                   </v-list-item>
-
                 </v-list>
 
                 <!-- Action -->
                 <v-card-actions>
+                  <v-spacer />
 
-                  <v-spacer/>
-
-                  <v-btn v-show="!item[answerFieldName]" block color="orange accent-4"
-                         @click="onClickAnswer(item)">
+                  <v-btn v-show="!item[answerFieldName]" block color="orange accent-4" @click="onClickAnswer(item)">
                     답변하기
                   </v-btn>
 
-                  <v-btn v-show="item[answerFieldName]"  outlined text color="light-blue accent-4"
-                         @click="onClickUpdateAnswer(item)">
+                  <v-btn
+                    v-show="item[answerFieldName]"
+                    color="light-blue accent-4"
+                    outlined
+                    text
+                    @click="onClickUpdateAnswer(item)"
+                  >
                     답변 수정하기
                   </v-btn>
-
                 </v-card-actions>
-
               </v-card>
-
             </v-col>
           </v-row>
         </v-layout>
 
         <!-- New item dialog -->
-        <v-dialog v-model="editAnswerDialogVisible" persistent max-width="600">
+        <v-dialog v-model="editAnswerDialogVisible" max-width="600" persistent>
           <!-- Dialog content -->
           <v-card>
-
             <!-- Title -->
             <v-card-title class="headline">
               {{ editDialogTitle }}
@@ -117,38 +141,40 @@
 
             <!-- Contents -->
             <v-card-text>
-
-              <v-form ref="answerForm" @submit.prevent="onClickDoneEditAnswer(answerNowEditing);">
+              <v-form ref="answerForm" @submit.prevent="onClickDoneEditAnswer(answerNowEditing)">
                 <!-- Text field -->
-                <v-text-field v-model="answerNowEditing[answerTitleFieldName]"
-                              outlined
-                              label="제목"
-                              @input="onModifyAnswer(answerNowEditing)"
-                              :rules="[validateRule]"/>
+                <v-text-field
+                  v-model="answerNowEditing[answerTitleFieldName]"
+                  :rules="[validateRule]"
+                  label="제목"
+                  outlined
+                  @input="onModifyAnswer(answerNowEditing)"
+                />
 
-                <v-textarea v-model="answerNowEditing[answerBodyFieldName]"
-                            outlined
-                            label="내용"
-                            @input="onModifyAnswer(answerNowEditing)"
-                            :rules="[validateRule]"/>
+                <v-textarea
+                  v-model="answerNowEditing[answerBodyFieldName]"
+                  :rules="[validateRule]"
+                  label="내용"
+                  outlined
+                  @input="onModifyAnswer(answerNowEditing)"
+                />
 
-                <v-btn type="submit" :disabled="!(answerNowEditing.valid && answerNowEditing.modified)" block color="primary">완료</v-btn>
+                <v-btn
+                  :disabled="!(answerNowEditing.valid && answerNowEditing.modified)"
+                  block
+                  color="primary"
+                  type="submit"
+                  >완료
+                </v-btn>
                 <p></p>
-                <v-btn block @click="onClickCancelEditAnswer(answerNowEditing);">취소</v-btn>
-
+                <v-btn block @click="onClickCancelEditAnswer(answerNowEditing)">취소</v-btn>
               </v-form>
-
             </v-card-text>
-
           </v-card>
-
         </v-dialog>
-
       </div>
-
     </v-col>
   </v-row>
-
 </template>
 
 <script>
@@ -178,7 +204,7 @@ export default {
     onFetch: Function,
     onAnswer: Function,
     onUpdateAnswer: Function,
-    onDeleteAnswer: Function
+    onDeleteAnswer: Function,
   },
 
   watch: {
@@ -186,7 +212,7 @@ export default {
       this.$nextTick(() => {
         this.$refs.answerForm.resetValidation();
       });
-    }
+    },
   },
 
   data() {
@@ -212,7 +238,6 @@ export default {
   },
 
   methods: {
-
     async load() {
       console.log('Fetch 시작!');
       this.fetching = true;
@@ -231,13 +256,12 @@ export default {
 
     async showResult(resultPromise) {
       try {
-
         const result = await resultPromise;
 
         if (result) {
           this.$toasted.show('반영되었습니다', {
             duration: 2000,
-            icon: 'done'
+            icon: 'done',
           });
 
           return true;
@@ -246,15 +270,13 @@ export default {
             duration: 2000,
             icon: 'warning',
             action: {
-              name: ''
-            }
+              name: '',
+            },
           });
 
           return false;
         }
-
       } catch (e) {
-
         this.$toasted.show('심각한 문제가 발생하였습니다.', {
           duration: null,
           icon: 'error',
@@ -263,19 +285,18 @@ export default {
               text: '자세히',
               onClick: () => {
                 alert(e);
-              }
+              },
             },
             {
               text: '닫기',
-              onClick : (e, toastObject) => {
+              onClick: (e, toastObject) => {
                 toastObject.goAway(0);
-              }
-            }
-          ]
+              },
+            },
+          ],
         });
 
         return false;
-
       }
     },
 
@@ -313,7 +334,9 @@ export default {
 
     async _addNewAnswer(answer) {
       this.currentlyAnsweringQuestion.loading = true;
-      const result = await this.showResult(this.onAnswer(this.currentlyAnsweringQuestion[this.questionKeyName], answer));
+      const result = await this.showResult(
+        this.onAnswer(this.currentlyAnsweringQuestion[this.questionKeyName], answer),
+      );
       this.currentlyAnsweringQuestion.loading = false;
 
       if (!result) {
@@ -341,8 +364,9 @@ export default {
     },
 
     onModifyAnswer(answer) {
-      answer.valid = this.validateRule(answer[this.answerTitleFieldName]) === true &&
-          this.validateRule(answer[this.answerBodyFieldName]) === true;
+      answer.valid =
+        this.validateRule(answer[this.answerTitleFieldName]) === true &&
+        this.validateRule(answer[this.answerBodyFieldName]) === true;
 
       answer.modified = true;
     },
@@ -354,7 +378,10 @@ export default {
         return true;
       }
 
-      const allAnswerIds = this.allItems.map((q) => q[this.answerFieldName]).filter((a) => !!a).map((a) => a[this.answerKeyName]);
+      const allAnswerIds = this.allItems
+        .map(q => q[this.answerFieldName])
+        .filter(a => !!a)
+        .map(a => a[this.answerKeyName]);
 
       // Answer has id(don't know how) but not included in the collection from the server.
       return allAnswerIds.indexOf(answer[this.answerKeyName]) < 0;
@@ -367,9 +394,8 @@ export default {
     _restoreAnswer(answer) {
       Object.assign(answer, this.itemBeforeEdit[answer[this.answerKeyName]]);
     },
-  }
-
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -379,6 +405,6 @@ export default {
 }
 
 .pre-line {
-  white-space: pre-line
+  white-space: pre-line;
 }
 </style>
