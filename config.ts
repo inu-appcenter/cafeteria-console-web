@@ -53,12 +53,6 @@ export default {
       icon: 'mdi-apps',
       subtitle: '앱 버전 규칙',
     },
-    /*
-    {
-        name: 'DB',
-        icon: 'mdi-database',
-        subtitle: '서비스 DB 백업 및 복원'
-    }*/
   ],
 
   api: {
