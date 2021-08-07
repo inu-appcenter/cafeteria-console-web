@@ -137,7 +137,7 @@ class GenericRepository {
   _onFailRequest() {
     console.log('야 얘 로그인 시키구 와! 토스트도 띄우고!');
     EventBus.$emit('take-user-to-login-screen');
-    EventBus.$emit('tell-user-that-you-need-to-sign-in');
+    EventBus.$emit('tell-user-that-you-need-to-login');
   }
 
   _decodeMutationResult(result) {

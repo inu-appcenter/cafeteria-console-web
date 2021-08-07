@@ -44,7 +44,7 @@ export default {
   mounted() {
     console.log('네! 사용자 이름 드로어에 표시하겠습니다!');
 
-    EventBus.$on('sign-in-success', () => {
+    EventBus.$on('login-success', () => {
       this.resolveUserName();
     });
 
@@ -63,6 +63,10 @@ export default {
       const payload = JWT.decode(jwtInCookie);
 
       console.log(`토큰을 풀어보니 ${JSON.stringify(payload)}이군요`);
+
+      if (payload == null) {
+        return;
+      }
 
       this.userName = payload.userName;
     },

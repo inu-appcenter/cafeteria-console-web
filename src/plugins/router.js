@@ -6,7 +6,7 @@ import Histories from '@/features/histories/Histories';
 import Rules from '@/features/rules/Rules';
 import Cafeteria from '@/features/cafeteria/Cafeteria';
 import Parsing from '@/features/parsing/Parsing';
-import SignIn from '@/features/signin/SignIn';
+import Login from '@/features/login/Login';
 import Notices from '@/features/notices/Notices';
 import Versions from '@/features/versions/Versions';
 import Questions from '@/features/questions/Questions';
@@ -27,7 +27,7 @@ function createRouter() {
     {path: '/Parsing', component: Parsing, meta: {authRequired: true}},
     {path: '/Versions', component: Versions, meta: {authRequired: true}},
 
-    {path: '/sign-in', component: SignIn},
+    {path: '/login', component: Login},
   ];
   const mode = 'hash';
 
@@ -36,16 +36,16 @@ function createRouter() {
 
 function addGuard(router) {
   router.beforeEach(async (to, from, next) => {
-    const conditionRequireSignIn = routeRequiresAuth(to) && !isLoggedIn();
-    const signInRoute = '/sign-in';
+    const conditionRequiresLogin = routeRequiresAuth(to) && !isLoggedIn();
+    const loginPath = '/login';
 
-    if (conditionRequireSignIn) {
-      if (from.path === signInRoute) {
+    if (conditionRequiresLogin) {
+      if (from.path === loginPath) {
         console.log('우씨 로그인 필요하다니까!!! 토스트 띄워!!');
-        EventBus.$emit('tell-user-that-you-need-to-sign-in');
+        EventBus.$emit('tell-user-that-you-need-to-login');
       } else {
         console.log('로그인하세욧!!!');
-        router.push(signInRoute);
+        router.push(loginPath);
       }
     } else {
       next();

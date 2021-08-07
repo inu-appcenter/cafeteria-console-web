@@ -11,7 +11,7 @@
 
                 <!-- form -->
                 <v-card-text>
-                  <v-form ref="form" v-model="valid" @submit.prevent="signIn">
+                  <v-form ref="form" v-model="valid" @submit.prevent="login">
                     <v-text-field v-model="userId" :rules="userIdRules" label="ID" required type="text"></v-text-field>
                     <v-text-field
                       v-model="password"
@@ -19,7 +19,7 @@
                       label="비밀번호"
                       required
                       type="password"
-                      @keydown.enter="signIn"
+                      @keydown.enter="login"
                     ></v-text-field>
                   </v-form>
 
@@ -30,7 +30,7 @@
 
                 <!-- submit -->
                 <v-card-text>
-                  <v-btn :disabled="!valid" width="100%" @click="signIn"> 로그인 </v-btn>
+                  <v-btn :disabled="!valid" width="100%" @click="login"> 로그인 </v-btn>
                 </v-card-text>
               </v-card>
             </v-col>
@@ -46,7 +46,7 @@ import config from '../../../config';
 import EventBus from '@/event-bus';
 
 export default {
-  name: 'SignIn',
+  name: 'Login',
 
   data: () => ({
     valid: false,
@@ -64,7 +64,7 @@ export default {
     console.log('야 서랍 닫아!!!');
     EventBus.$emit('drawer', false);
 
-    EventBus.$on('tell-user-that-you-need-to-sign-in', () => {
+    EventBus.$on('tell-user-that-you-need-to-login', () => {
       console.log('네 토스트 띄웁니다!');
 
       this.$toasted.show('로그인이 필요합니다', {
@@ -76,29 +76,29 @@ export default {
   },
 
   methods: {
-    async signIn() {
+    async login() {
       if (!this.$refs.form.validate()) {
         return;
       }
 
       this.loading = true;
 
-      if (await this.getSignInResult(this.userId, this.password)) {
-        await this.onSignInSuccess(this.userId);
+      if (await this.getLoginResult(this.userId, this.password)) {
+        await this.onLoginSuccess(this.userId);
       } else {
-        await this.onSignInFail();
+        await this.onLoginFail();
       }
 
       this.loading = false;
     },
 
-    async getSignInResult(id, password) {
+    async getLoginResult(id, password) {
       try {
         const params = new URLSearchParams();
         params.append('id', id);
         params.append('password', password);
 
-        const result = await fetch(config.api.endpoints.signIn, {
+        const result = await fetch(config.api.endpoints.login, {
           method: 'POST',
           credentials: 'include',
           body: params,
@@ -111,9 +111,9 @@ export default {
       }
     },
 
-    async onSignInSuccess(id) {
+    async onLoginSuccess(id) {
       console.log('야 로그인 성공이래! 드로어에 띄워!');
-      EventBus.$emit('sign-in-success');
+      EventBus.$emit('login-success');
 
       this.$toasted.show(`안녕하세요, ${id}님`, {
         icon: 'account_circle',
@@ -122,7 +122,7 @@ export default {
       await this.$router.push('/');
     },
 
-    async onSignInFail() {
+    async onLoginFail() {
       this.errorMessage = 'ID와 비밀번호를 확인해 주세요';
     },
   },

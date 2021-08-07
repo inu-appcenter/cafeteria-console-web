@@ -63,9 +63,9 @@ export default {
     EventBus.$on('take-user-to-login-screen', () => {
       console.log('네 로그인 화면으로 안내하겠습니다! 사용자야 이리와 나랑 같이가자');
 
-      const signInPath = '/sign-in';
-      if (this.$route.path !== signInPath) {
-        this.$router.push(signInPath);
+      const loginPath = '/login';
+      if (this.$route.path !== loginPath) {
+        this.$router.push(loginPath);
       }
     });
   },

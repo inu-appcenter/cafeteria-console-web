@@ -3,7 +3,7 @@ import Log from '@/features/logs/entities/Log';
 
 class LogRepository extends GenericRepository {
   async getRecentLogs() {
-    const all = await this.query('GetRecentLogs', 'recentLogs', Log);
+    const all = await this.query('GetRecentLogs', 'recentLog', Log);
 
     return all
       .sort((left, right) => {
