@@ -69,14 +69,13 @@
 
 <script>
 import config from '../../../config';
+import packageInfo from '../../../package.json';
 import {formatDateYYYYMMDD} from '@/utils/date';
 
 export default {
   name: 'Front',
 
   data() {
-    const packageInfo = require('../../../package.json');
-
     return {
       packageName: packageInfo.name,
       packageVersion: packageInfo.version,
