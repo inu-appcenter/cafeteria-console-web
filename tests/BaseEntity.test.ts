@@ -1,26 +1,21 @@
-import BaseEntity from '@/core/base/BaseEntity';
-import Field, {getFields} from '@/core/decorator/Field';
-import Entity, {getEntityMeta} from '@/core/decorator/Entity';
+import Field from '@/core/entity/decorator/Field';
+import Entity from '@/core/entity/decorator/Entity';
+import BaseEntity from '@/core/entity/BaseEntity';
 
-@Entity({name: '사실난Person이아니다'})
+@Entity({name: 'Human'})
 class Person extends BaseEntity {
-  @Field({name: '사실난이름이없다', type: 'string'})
+  @Field({name: 'identifier', type: 'string'})
   name: string;
 
   @Field({type: 'int'})
   age: number;
+
+  @Field({visible: false})
+  birth: Date;
 }
 
 describe('메타데이터 빼오기!', () => {
-  it('엔티티 되나!?', async () => {
-    console.log(getEntityMeta(Person));
-  });
-
-  it('필드 되나!?', async () => {
-    console.log(getFields(Person));
-  });
-
-  it('엔티티 통째로 되나?????!?!?!?', async () => {
+  it('되나?????!?!?!?', async () => {
     console.log(Person.metadata());
   });
 });
