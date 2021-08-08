@@ -10,3 +10,11 @@ export type DeepPartial<T> = {
     ? ReadonlyArray<DeepPartial<U>>
     : DeepPartial<T[P]> | T[P];
 };
+
+/**
+ * 함수를 제거한 타입입니다.
+ */
+export type OnlyFields<T> = Pick<T, FieldKeys<T>>;
+type FieldKeys<T> = {
+  [P in keyof T]: Exclude<T[P], undefined> extends Function ? never : P;
+}[keyof T];
