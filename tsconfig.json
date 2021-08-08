@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "target": "esnext",
-
     "module": "esnext",
     "strict": false,
     // this 타입 좀 약하게!
@@ -15,11 +14,10 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": ["webpack-env"],
-    "typeRoots": [
-      "./node_modules/@types",
-      "./typings"
-    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "types": ["webpack-env", "jest"],
+    "typeRoots": ["node_modules/@types", "typings"],
     "paths": {
       "@/*": ["src/*"]
     },
