@@ -36,9 +36,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.v-skeleton-loader {
-  padding-top: 12px;
-}
-</style>

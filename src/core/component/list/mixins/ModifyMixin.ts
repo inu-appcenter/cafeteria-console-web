@@ -32,7 +32,9 @@ export default Vue.extend({
     },
 
     async onClickApplyItem<T extends BaseEntity>(item: T) {
+      item.modified = false;
       item.editing = false;
+
       this.redraw();
 
       item.loading = true;
