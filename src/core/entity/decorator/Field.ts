@@ -10,6 +10,11 @@ export default function Field(options?: Partial<EntityFieldMetadata>): PropertyD
       description: options?.description,
       visible: options?.visible ?? true,
       mutable: options?.mutable ?? true,
+      validate:
+        options?.validate ??
+        function () {
+          return true;
+        },
     };
 
     // Property 데코레이터의 경우 target이 생성자가 아닙니다.

@@ -6,4 +6,5 @@ export type EntityFieldMetadata = {
   description?: string;
   visible: boolean;
   mutable: boolean;
+  validate: (value: any) => boolean;
 };

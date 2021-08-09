@@ -2,10 +2,9 @@
   <GenericList v-bind="cafeteriaProps" />
 </template>
 
-<script>
-import Cafeteria from '@/features/cafeteria/entities/Cafeteria';
-import GenericList from '@/common/GenericList';
-import cafeteriaRepository from '@/features/cafeteria/data/CafeteriaRpository';
+<script lang="ts">
+import Cafeteria from '@/features/cafeteria/Cafeteria';
+import GenericList from '@/core/component/GenericList.vue';
 
 export default {
   name: 'CafeteriaList',
@@ -14,22 +13,11 @@ export default {
   data() {
     return {
       cafeteriaProps: {
-        keyName: 'id',
-        itemName: 'cafeteria',
-        itemDisplayName: '카페테리아',
-        domainFields: Cafeteria.fields(),
+        entityClass: Cafeteria,
 
-        itemGenerator: () => {
-          return new Cafeteria({});
-        },
         formValidator: (cafeteria, allCafeteria) => {
           return !allCafeteria.find(c => c.id === cafeteria.id); // should not exist.
         },
-
-        onFetch: async () => cafeteriaRepository.getAllCafeteria(),
-        onAdd: async item => cafeteriaRepository.addCafeteria(item),
-        onUpdate: async item => cafeteriaRepository.updateCafeteria(item),
-        onDelete: async item => cafeteriaRepository.deleteCafeteria(item),
       },
     };
   },
