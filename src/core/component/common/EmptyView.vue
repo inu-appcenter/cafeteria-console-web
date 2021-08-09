@@ -5,16 +5,30 @@
 </template>
 
 <script>
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'EmptyView',
 
   props: {
-    error: Object,
-    fetching: Boolean,
-    allItems: Array[Object],
-    itemDisplayName: String,
+    error: {
+      type: Error,
+      required: false,
+    },
+    fetching: {
+      type: Boolean,
+      required: true,
+    },
+    allItems: {
+      type: Array[Object],
+      required: true,
+    },
+    itemDisplayName: {
+      type: String,
+      required: true,
+    },
   },
-};
+});
 </script>
 
 <style scoped>

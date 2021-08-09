@@ -64,11 +64,13 @@
 </template>
 
 <script>
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'GenericListNewItemDialog',
 
   props: {
-    error: Object,
+    error: Error || null,
     newItem: Object,
     fetching: Boolean,
     domainFields: Array[Object],
@@ -83,7 +85,7 @@ export default {
       });
     },
   },
-};
+});
 </script>
 
 <style scoped></style>

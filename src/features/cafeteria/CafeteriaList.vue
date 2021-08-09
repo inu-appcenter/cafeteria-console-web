@@ -2,7 +2,7 @@
   <GenericList v-bind="cafeteriaProps" />
 </template>
 
-<script lang="ts">
+<script>
 import Cafeteria from '@/features/cafeteria/Cafeteria';
 import GenericList from '@/core/component/list/GenericList.vue';
 

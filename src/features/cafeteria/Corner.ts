@@ -1,7 +1,7 @@
-import validation from '@/common/validation';
 import BaseEntity from '@/core/entity/BaseEntity';
 import Entity from '@/core/entity/decorator/Entity';
 import Field from '@/core/entity/decorator/Field';
+import validation from '@/core/component/common/validation';
 
 @Entity({displayName: '코너'})
 export default class Corner extends BaseEntity {

@@ -26,13 +26,24 @@
 </template>
 
 <script>
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'LoadingStatusView',
 
   props: {
-    error: Error,
-    loading: Boolean,
-    skeletonType: String,
+    error: {
+      type: Error,
+      required: false,
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+    },
+    skeletonType: {
+      type: String,
+      required: true,
+    },
   },
-};
+});
 </script>

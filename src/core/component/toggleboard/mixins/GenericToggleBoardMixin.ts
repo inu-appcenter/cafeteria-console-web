@@ -5,15 +5,18 @@ export default Vue.extend({
   mixins: [GenericMixin],
 
   props: {
-    nameFieldName: String,
-    toggleFieldName: String,
-    descriptionFieldName: String,
-  },
-
-  data() {
-    return {
-      detailsDialogVisible: [], // Not that neat way. See https://stackoverflow.com/a/58027107/11929317.
-    };
+    nameFieldName: {
+      type: String,
+      required: true,
+    },
+    toggleFieldName: {
+      type: String,
+      required: true,
+    },
+    descriptionFieldName: {
+      type: String,
+      required: true,
+    },
   },
 
   methods: {

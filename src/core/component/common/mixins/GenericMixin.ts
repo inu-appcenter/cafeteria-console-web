@@ -12,11 +12,6 @@ export default Vue.extend({
     },
   },
 
-  mounted() {
-    console.log('GenericMixin 합체!');
-    console.log(this.itemDisplayName);
-  },
-
   data() {
     const entityClass = this.$props.entityClass;
     const meta = entityClass.metadata();

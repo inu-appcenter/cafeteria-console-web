@@ -1,21 +1,17 @@
 <template>
   <v-container fluid>
-    <!-- All discount rules -->
-    <CafeteriaDiscountRuleToggleBoard />
+    <DiscountRuleToggleBoard />
 
-    <!-- All validation params -->
     <CafeteriaValidationParamsList />
   </v-container>
 </template>
 
 <script>
+import DiscountRuleToggleBoard from '@/features/rules/DiscountRuleToggleBoard';
 import CafeteriaValidationParamsList from '@/features/rules/CafeteriaValidationParamsList';
-import CafeteriaDiscountRuleToggleBoard from '@/features/rules/CafeteriaDiscountRuleToggleBoard';
 
 export default {
   name: 'Rules',
-  components: {CafeteriaDiscountRuleToggleBoard, CafeteriaValidationParamsList},
+  components: {DiscountRuleToggleBoard, CafeteriaValidationParamsList},
 };
 </script>
-
-<style scoped></style>
