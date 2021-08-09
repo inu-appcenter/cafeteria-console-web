@@ -14,7 +14,7 @@ import validation from '@/common/validation';
  * TypeORM의 그것을 모조!
  */
 export default class BaseEntity extends Editable {
-  @Field({description: '식별자입니다.', validate: validation.numberOverZero})
+  @Field({description: '식별자', validate: validation.numberOverZero})
   id: number;
 
   static metadata<T extends BaseEntity>(this: EntityClass<T>): EntityMetadata {
@@ -36,6 +36,7 @@ export default class BaseEntity extends Editable {
     return result.map(r => this.create(r));
   }
 
+  // TODO
   async save(): Promise<this> {
     return this;
   }

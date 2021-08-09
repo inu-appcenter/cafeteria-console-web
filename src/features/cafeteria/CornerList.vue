@@ -4,7 +4,7 @@
 
 <script>
 import Corner from '@/features/cafeteria/Corner';
-import GenericList from '@/core/component/GenericList';
+import GenericList from '@/core/component/list/GenericList';
 
 export default {
   name: 'CornerList',

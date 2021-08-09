@@ -218,7 +218,7 @@
                   </v-btn>
                   <v-btn
                     v-show="item.editing"
-                    :disabled="!(item.valid && item.modified)"
+                    :disabled="!item.modified"
                     color="blue"
                     outlined
                     text
@@ -239,232 +239,16 @@
 <script>
 import Vue from 'vue';
 import LoadingStatusView from '@/components/LoadingStatusView';
+import GenericListMixin from '@/core/component/list/mixins/GenericListMixin';
 
 export default Vue.extend({
+  mixins: [GenericListMixin],
+
   name: 'GenericList',
   components: {LoadingStatusView},
-  props: {
-    entityClass: {
-      type: Function, // BaseEntity의 생성자
-      required: true,
-    },
 
-    formValidator: Function,
-  },
-
-  data() {
-    const entityClass = this.$props.entityClass;
-    const meta = entityClass.metadata();
-
-    return {
-      meta,
-
-      keyName: 'id',
-      itemName: meta.name,
-      itemDisplayName: meta.displayName,
-      domainFields: meta.fields,
-
-      itemGenerator: () => new entityClass(),
-
-      onFetch: () => entityClass.find(),
-      onAdd: entity => entity.save(),
-      onUpdate: entity => entity.save(),
-      onDelete: entity => entity.save(),
-
-      allItems: [],
-      fetching: false,
-      error: null,
-
-      // Edit cache
-      itemBeforeEdit: {},
-
-      // New item form and data
-      newItem: new entityClass(),
-      newItemDialogVisible: false,
-    };
-  },
-
-  created() {
+  mounted() {
     this.load();
-  },
-
-  watch: {
-    newItemDialogVisible() {
-      this.$nextTick(() => {
-        this.$refs.newItemForm.resetValidation();
-      });
-    },
-  },
-
-  methods: {
-    async load() {
-      console.log('Fetch 시작!');
-      this.fetching = true;
-
-      try {
-        console.log('Fetch 성공!');
-        this.allItems = await this.onFetch();
-      } catch (e) {
-        console.log(`Fetch 망함!!! ${e.message}`);
-        this.error = e;
-      } finally {
-        console.log('Fetch 종료!');
-        this.fetching = false;
-      }
-    },
-
-    onClickModifyItem(item) {
-      this._backupItem(item);
-
-      item.editing = true;
-      this.redraw();
-    },
-
-    _backupItem(item) {
-      this.itemBeforeEdit[item[this.$props.keyName]] = Object.assign({}, item);
-    },
-
-    onClickCancelModifyItem(item) {
-      this._restoreItem(item);
-
-      item.modified = false;
-      item.editing = false;
-      this.redraw();
-    },
-
-    _restoreItem(item) {
-      Object.assign(item, this.itemBeforeEdit[item[this.$props.keyName]]);
-    },
-
-    async onClickApplyItem(item) {
-      item.editing = false;
-      this.redraw();
-
-      item.loading = true;
-      await this.showResult(this.onUpdate(item), '반영되었습니다');
-      item.loading = false;
-    },
-
-    async onClickDeleteItem(item) {
-      const go = await this.$confirm(
-        `정말로 선택하신 ${this.itemDisplayName}을(를) 삭제하시겠습니까?
-      (${this.domainFields.map(f => `${f.name}: ${item[f.name]}`).join(', ')})`,
-        {buttonTrueText: '삭제', buttonFalseText: '취소'},
-      );
-
-      if (!go) {
-        return;
-      }
-
-      item.loading = true;
-      await this.showResult(this.onDelete(item), '삭제되었습니다');
-      item.loading = false;
-
-      this.allItems.splice(this.allItems.indexOf(item), 1); // Deleting
-    },
-
-    onModifyItem(item) {
-      item.valid = this._isItemValid(item);
-      item.modified = true;
-    },
-
-    onClickAddItem() {
-      this.newItem = this.itemGenerator();
-    },
-
-    onFormUpdate() {
-      this.newItem.valid = this._isNewItemValid(this.newItem);
-    },
-
-    _isItemValid(item) {
-      for (const field of this.$props.domainFields) {
-        // Result should be pure 'true'.
-        if (field.validate(item[field.name]) !== true) {
-          return false;
-        }
-      }
-
-      return true;
-    },
-
-    _isNewItemValid(item) {
-      const itemValid = this._isItemValid(item);
-      const itemValidAsANewItem = this.$props.formValidator(item, this.allItems);
-
-      return itemValid && itemValidAsANewItem;
-    },
-
-    async onClickDoneAddItem() {
-      this.newItemDialogVisible = false;
-
-      this.allItems.push(this.newItem);
-
-      this.newItem.loading = true;
-
-      const result = await this.showResult(this.onAdd(this.newItem), '추가되었습니다');
-      if (!result) {
-        this.allItems = this.allItems.filter(item => item !== this.newItem); // Cancel addition.
-      }
-
-      this.newItem.loading = false;
-    },
-
-    onClickCancelAddItem() {
-      this.newItem = this.itemGenerator();
-      this.newItemDialogVisible = false;
-    },
-
-    async showResult(resultPromise, onSuccessMessage) {
-      try {
-        const result = await resultPromise;
-
-        if (result) {
-          this.$toasted.show(onSuccessMessage, {
-            duration: 2000,
-            icon: 'done',
-          });
-
-          return true;
-        } else {
-          this.$toasted.show('요청을 처리하지 못 하였습니다', {
-            duration: 2000,
-            icon: 'warning',
-            action: {
-              name: '',
-            },
-          });
-
-          return false;
-        }
-      } catch (e) {
-        this.$toasted.show('심각한 문제가 발생하였습니다.', {
-          duration: null,
-          icon: 'error',
-          action: [
-            {
-              text: '자세히',
-              onClick: () => {
-                alert(e);
-              },
-            },
-            {
-              text: '닫기',
-              onClick: (e, toastObject) => {
-                toastObject.goAway(0);
-              },
-            },
-          ],
-        });
-
-        return false;
-      }
-    },
-
-    redraw() {
-      this.$nextTick(() => {
-        this.$redrawVueMasonry();
-      });
-    },
   },
 });
 </script>

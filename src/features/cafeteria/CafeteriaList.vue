@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import Cafeteria from '@/features/cafeteria/Cafeteria';
-import GenericList from '@/core/component/GenericList.vue';
+import GenericList from '@/core/component/list/GenericList.vue';
 
 export default {
   name: 'CafeteriaList',
