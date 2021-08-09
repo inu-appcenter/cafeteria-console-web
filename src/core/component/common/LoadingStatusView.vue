@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- The shimmer -->
+    <!-- 샥샥 뷰 -->
     <v-flex d-flex>
       <v-layout wrap>
         <v-flex v-for="n in [1, 2, 3, 4]" :key="n" lg4 md6 sm6 xs12>
@@ -9,7 +9,7 @@
       </v-layout>
     </v-flex>
 
-    <!-- The error view -->
+    <!-- 에러 뷰 -->
     <v-card v-show="error" class="ma-2" outlined raised>
       <v-card-title> 문제가 발생하였습니다. </v-card-title>
 

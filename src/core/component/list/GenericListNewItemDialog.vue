@@ -75,6 +75,14 @@ export default {
     itemDisplayName: String,
     newItemDialogVisible: Boolean,
   },
+
+  watch: {
+    newItemDialogVisible() {
+      this.$nextTick(() => {
+        this.$refs.newItemForm.resetValidation();
+      });
+    },
+  },
 };
 </script>
 

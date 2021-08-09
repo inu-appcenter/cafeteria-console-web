@@ -60,11 +60,11 @@
 
 <script>
 import Vue from 'vue';
-import GenericListMixin from '@/core/component/list/mixins/GenericListMixin';
-import LoadingStatusView from '@/components/LoadingStatusView';
-import GenericListItem from '@/core/component/list/GenericListItem';
-import GenericListNewItemDialog from '@/core/component/list/GenericListNewItemDialog';
 import EmptyView from '@/core/component/common/EmptyView';
+import GenericListItem from '@/core/component/list/GenericListItem';
+import GenericListMixin from '@/core/component/list/mixins/GenericListMixin';
+import LoadingStatusView from '@/core/component/common/LoadingStatusView';
+import GenericListNewItemDialog from '@/core/component/list/GenericListNewItemDialog';
 
 export default Vue.extend({
   mixins: [GenericListMixin],

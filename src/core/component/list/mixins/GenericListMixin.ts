@@ -7,12 +7,4 @@ import ModifyMixin from '@/core/component/list/mixins/ModifyMixin';
  */
 export default Vue.extend({
   mixins: [CreateMixin, ModifyMixin],
-
-  watch: {
-    newItemDialogVisible() {
-      this.$nextTick(() => {
-        this.$refs.newItemForm.resetValidation();
-      });
-    },
-  },
 });

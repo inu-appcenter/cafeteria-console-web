@@ -10,6 +10,7 @@ export default Vue.extend({
   methods: {
     onClickAddItem() {
       this.newItem = this.itemGenerator();
+      this.newItemDialogVisible = true;
     },
 
     onFormUpdate() {
