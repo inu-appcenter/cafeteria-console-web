@@ -114,19 +114,19 @@
               <v-card :loading="item.loading" :raised="item.editing" :shaped="item.editing" outlined>
                 <!-- 속성들 -->
                 <v-list>
-                  <!-- Contents -->
+                  <!-- 속성 리스트 아이템 -->
                   <v-list-item v-for="field in domainFields" v-show="field.visible" :key="field.name">
-                    <!-- Field name -->
+                    <!-- 필드 이름 -->
                     <v-list-item-content class="pa-0 pre-line">
-                      <!-- Bigtext specific upper divider -->
+                      <!-- text에만 달리는 위쪽 구분선 -->
                       <v-divider v-show="field.type === 'text'" class="mt-2 mb-3"></v-divider>
 
                       <v-list-item-title>{{ field.name }}</v-list-item-title>
                       <v-list-item-subtitle>{{ field.description || field.name }}</v-list-item-subtitle>
 
-                      <!-- This is a property name field. However, bigtext may take place here. -->
+                      <!-- 여기는 필드 이름이 있을 곳이지만, text의 경우는 여기에다가 필드까지 놓습니다. -->
 
-                      <!-- Text area -->
+                      <!-- 텍스트 블럭 -->
                       <div v-show="field.type === 'text'" class="pt-2">
                         <v-textarea
                           v-show="item.editing && field.mutable"
@@ -142,13 +142,13 @@
                         </div>
                       </div>
 
-                      <!-- Bigtext specific lower divider -->
+                      <!-- text에만 달리는 아래쪽 구분선 -->
                       <v-divider v-show="field.type === 'text'" class="mb-1"></v-divider>
                     </v-list-item-content>
 
-                    <!-- Values -->
+                    <!-- 값 -->
                     <v-list-item-action v-show="field.type !== 'text'">
-                      <!-- Number field -->
+                      <!-- 숫자 필드 -->
                       <div v-show="field.type === 'int'">
                         <v-text-field
                           v-show="item.editing && field.mutable"
@@ -162,7 +162,7 @@
                         <span v-show="!(item.editing && field.mutable)" class="subtitle-1">{{ item[field.name] }}</span>
                       </div>
 
-                      <!-- Text field -->
+                      <!-- 스트링 필드 -->
                       <div v-show="field.type === 'string'">
                         <v-text-field
                           v-show="item.editing && field.mutable"
@@ -177,7 +177,7 @@
                         }}</span>
                       </div>
 
-                      <!-- Bool field -->
+                      <!-- Bool 필드 -->
                       <div v-show="field.type === 'boolean'">
                         <v-switch
                           v-model="item[field.name]"
@@ -218,7 +218,7 @@
                   </v-btn>
                   <v-btn
                     v-show="item.editing"
-                    :disabled="!item.modified"
+                    :disabled="!(item.valid && item.modified)"
                     color="blue"
                     outlined
                     text

@@ -29,15 +29,15 @@ export default Vue.extend({
     },
 
     backupItem<T extends BaseEntity>(item: T) {
-      this.itemBeforeEdit[item[this.$props.keyName]] = Object.assign({}, item);
+      this.itemBeforeEdit[item[this.keyName]] = Object.assign({}, item);
     },
 
     restoreItem<T extends BaseEntity>(item: T) {
-      Object.assign(item, this.itemBeforeEdit[item[this.$props.keyName]]);
+      Object.assign(item, this.itemBeforeEdit[item[this.keyName]]);
     },
 
     isItemValid<T extends BaseEntity>(item: T) {
-      for (const field of this.$props.domainFields) {
+      for (const field of this.domainFields) {
         // Result should be pure 'true'.
         if (field.validate(item[field.name]) !== true) {
           return false;
@@ -49,7 +49,7 @@ export default Vue.extend({
 
     isNewItemValid<T extends BaseEntity>(item: T) {
       const itemValid = this.isItemValid(item);
-      const itemValidAsANewItem = this.$props.formValidator(item, this.allItems);
+      const itemValidAsANewItem = this.formValidator(item, this.allItems);
 
       return itemValid && itemValidAsANewItem;
     },
