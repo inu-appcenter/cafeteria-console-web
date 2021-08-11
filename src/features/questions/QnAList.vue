@@ -33,7 +33,7 @@ export default {
           }),
         ],
 
-        answerFieldName: 'answer',
+        answerIdFieldName: 'answer',
         answerTitleFieldName: 'title',
         answerBodyFieldName: 'body',
 

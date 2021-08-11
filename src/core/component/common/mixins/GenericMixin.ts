@@ -8,7 +8,7 @@ export default Vue.extend({
     // GenericXX 컴포넌트들에서는 BaseEntity를 기본적으로 사용합니다. 필수!
     entityClass: {
       type: Function, // 사실 함수 아니고 BaseEntity의 생성자...
-      required: true,
+      required: false,
     },
   },
 

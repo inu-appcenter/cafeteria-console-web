@@ -70,7 +70,7 @@ export default class MetadataStorage {
    * @param propertyKey 필드 이름!
    */
   // eslint-disable-next-line @typescript-eslint/ban-types
-  static getTypeOfSymbol(target: Object, propertyKey: string | symbol) {
+  static getTypeOfSymbol(target: Object, propertyKey: string | symbol): Function {
     return Reflect.getMetadata('design:type', target, propertyKey);
   }
 }

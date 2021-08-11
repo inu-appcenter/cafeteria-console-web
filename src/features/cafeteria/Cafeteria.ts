@@ -2,6 +2,7 @@ import Entity from '@/core/entity/decorator/Entity';
 import BaseEntity from '@/core/entity/BaseEntity';
 import Field from '@/core/entity/decorator/Field';
 import validation from '@/core/component/common/validation';
+import Corner from '@/features/cafeteria/Corner';
 
 @Entity({displayName: '카페테리아'})
 export default class Cafeteria extends BaseEntity {
@@ -22,4 +23,7 @@ export default class Cafeteria extends BaseEntity {
 
   @Field({description: '알림 지원 여부'})
   supportNotification: boolean;
+
+  @Field({description: '코너', entityClass: Corner})
+  corners: Corner[];
 }

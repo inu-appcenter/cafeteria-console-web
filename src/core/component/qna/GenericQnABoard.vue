@@ -180,8 +180,11 @@
 <script>
 import LoadingStatusView from '@/components/LoadingStatusView';
 import validation from '@/common/validation';
+import GenericQnABoardMixin from '@/core/component/qna/mixins/GenericQnABoardMixin';
 
 export default {
+  mixins: [GenericQnABoardMixin],
+
   name: 'GenericQnABoard',
   components: {LoadingStatusView},
 

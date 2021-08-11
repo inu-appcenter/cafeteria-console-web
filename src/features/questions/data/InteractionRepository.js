@@ -1,5 +1,5 @@
 import GenericRepository from '@/common/GenericRepository';
-import Question from '@/features/questions/entities/Question';
+import Question from '@/features/questions/Question';
 import Answer from '@/features/questions/entities/Answer';
 
 class InteractionRepository extends GenericRepository {

@@ -1,8 +1,10 @@
-import {FieldType} from '@/core/entity/types/FieldType';
+import {FieldTypeName} from '@/core/entity/types/FieldTypeName';
+import {EntityClass} from '@/core/entity/types/EntityClass';
 
 export type EntityFieldMetadata = {
   name: string;
-  type: FieldType;
+  type: FieldTypeName;
+  entityClass?: EntityClass<any>;
   description?: string;
   visible: boolean;
   mutable: boolean;
