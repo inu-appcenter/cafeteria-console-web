@@ -4,7 +4,7 @@
     <v-text-field
       v-show="field.type === 'int'"
       :value="value"
-      :label="field.name"
+      :label="label"
       :rules="[field.validate]"
       outlined
       type="number"
@@ -15,7 +15,7 @@
     <v-text-field
       v-show="field.type === 'string'"
       :value="value"
-      :label="field.name"
+      :label="label"
       :rules="[field.validate]"
       outlined
       @input="update"
@@ -25,7 +25,7 @@
     <v-textarea
       v-show="field.type === 'text'"
       :value="value"
-      :label="field.name"
+      :label="label"
       :rules="[field.validate]"
       outlined
       @input="update"
@@ -35,7 +35,7 @@
     <v-switch
       v-show="field.type === 'boolean'"
       :value="value"
-      :label="field.name"
+      :label="label"
       :rules="[field.validate]"
       @input="update"
     />
@@ -50,5 +50,11 @@ export default {
   mixins: [EditableMixin, EntityFieldMixin],
 
   name: 'FormInputField',
+
+  data() {
+    return {
+      label: this.field.description || this.field.name,
+    };
+  },
 };
 </script>
