@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div v-show="field.visible">
     <!-- 숫자 필드 -->
     <v-text-field
       v-show="field.type === 'int'"
-      v-model.number="value"
+      :value="value"
       :label="field.name"
       :rules="[field.validate]"
       outlined
@@ -14,7 +14,7 @@
     <!-- 스트링 필드 -->
     <v-text-field
       v-show="field.type === 'string'"
-      v-model="value"
+      :value="value"
       :label="field.name"
       :rules="[field.validate]"
       outlined
@@ -24,7 +24,7 @@
     <!-- 텍스트 필드 -->
     <v-textarea
       v-show="field.type === 'text'"
-      v-model="value"
+      :value="value"
       :label="field.name"
       :rules="[field.validate]"
       outlined
@@ -34,7 +34,7 @@
     <!-- Boolean 필드 -->
     <v-switch
       v-show="field.type === 'boolean'"
-      v-model="value"
+      :value="value"
       :label="field.name"
       :rules="[field.validate]"
       @input="update"
@@ -43,14 +43,12 @@
 </template>
 
 <script>
-export default {
-  name: 'FormField',
-  props: ['field', 'value'],
+import EditableMixin from '@/core/component/common/mixins/EditableMixin';
+import EntityFieldMixin from '@/core/component/common/mixins/EntityFieldMixin';
 
-  methods: {
-    update(newValue) {
-      this.$emit('input', newValue);
-    },
-  },
+export default {
+  mixins: [EditableMixin, EntityFieldMixin],
+
+  name: 'FormInputField',
 };
 </script>
