@@ -12,47 +12,14 @@
 
       <v-card-text>
         <v-form ref="newItemForm" @submit.prevent="$emit('apply')">
-          <div v-for="field in domainFields" v-show="field.visible" :key="field.name">
-            <!-- 숫자 필드 -->
-            <v-text-field
-              v-show="field.type === 'int'"
-              v-model.number="newItem[field.name]"
-              :label="field.name"
-              :rules="[field.validate]"
-              outlined
-              type="number"
-              @input="$emit('form-update')"
-            />
-
-            <!-- 스트링 필드 -->
-            <v-text-field
-              v-show="field.type === 'string'"
-              v-model="newItem[field.name]"
-              :label="field.name"
-              :rules="[field.validate]"
-              outlined
-              @input="$emit('form-update')"
-            />
-
-            <!-- 텍스트 필드 -->
-            <v-textarea
-              v-show="field.type === 'text'"
-              v-model="newItem[field.name]"
-              :label="field.name"
-              :rules="[field.validate]"
-              outlined
-              @input="$emit('form-update')"
-            />
-
-            <!-- Boolean 필드 -->
-            <v-switch
-              v-show="field.type === 'boolean'"
-              v-model="newItem[field.name]"
-              :label="field.name"
-              :rules="[field.validate]"
-              @change="$emit('form-update')"
-            />
-          </div>
+          <FormField
+            v-for="field in domainFields"
+            v-show="field.visible"
+            :key="field.name"
+            :field="field"
+            v-model="newItem[field.name]"
+          >
+          </FormField>
 
           <v-btn :disabled="!newItem.valid" block color="primary" type="submit">완료</v-btn>
           <p></p>
@@ -65,10 +32,11 @@
 
 <script>
 import Vue from 'vue';
+import FormField from '@/core/component/common/FormField';
 
 export default Vue.extend({
   name: 'GenericListNewItemDialog',
-
+  components: {FormField},
   props: {
     error: Error || null,
     newItem: Object,
