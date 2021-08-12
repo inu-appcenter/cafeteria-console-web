@@ -33,18 +33,25 @@ export default class MetadataStorage {
    * @param clazz 필드 메타데이터를 가져올 그 클래스의 생성자!
    */
   static getFieldMetadata<EntityT, FieldMetaT extends HavingName>(clazz: ObjectType<EntityT>): FieldMetaT[] {
-    const fields: FieldMetaT[] = [];
+    const allFields: FieldMetaT[] = [];
     let target = clazz;
 
     while (target != Object.prototype) {
-      const childFields = (Reflect.getOwnMetadata('potados:fields', target) as FieldMetaT[]) || [];
+      const fieldsOfTarget = (Reflect.getOwnMetadata('potados:fields', target) as FieldMetaT[]) || [];
 
-      fields.push(...childFields);
+      for (const existing of fieldsOfTarget) {
+        if (allFields.find(f => f.name === existing.name)) {
+          // 자식 클래스의 필드 정의가 부모 클래스의 정의를 오버라이드합니다.
+          continue;
+        }
+
+        allFields.push(existing);
+      }
 
       target = Object.getPrototypeOf(target);
     }
 
-    return fields;
+    return allFields;
   }
 
   /**

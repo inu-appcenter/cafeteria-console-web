@@ -266,7 +266,7 @@ export default {
       error: null,
 
       // Edit cache
-      itemBeforeEdit: {},
+      answerBeforeEdit: {},
 
       // New item form and data
       newItem: this.$props.itemGenerator(),
@@ -311,7 +311,7 @@ export default {
     },
 
     _backupItem(item) {
-      this.itemBeforeEdit[item[this.$props.keyName]] = Object.assign({}, item);
+      this.answerBeforeEdit[item[this.$props.keyName]] = Object.assign({}, item);
     },
 
     onClickCancelModifyItem(item) {
@@ -323,7 +323,7 @@ export default {
     },
 
     _restoreItem(item) {
-      Object.assign(item, this.itemBeforeEdit[item[this.$props.keyName]]);
+      Object.assign(item, this.answerBeforeEdit[item[this.$props.keyName]]);
     },
 
     async onClickApplyItem(item) {

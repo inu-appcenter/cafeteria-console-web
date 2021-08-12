@@ -21,7 +21,7 @@ export default Vue.extend({
       itemGenerator: () => new this.$props.entityClass(),
 
       // 편집한 내용을 저장하기 전에 잠시 백업하는 변수.
-      itemBeforeEdit: {},
+      answerBeforeEdit: {},
 
       // 폼에 사용할 새 아이템.
       newItem: new this.$props.entityClass(),
@@ -42,17 +42,6 @@ export default Vue.extend({
 
     restoreItem<T extends BaseEntity>(item: T) {
       Object.assign(item, this.itemBeforeEdit[item[this.keyName]]);
-    },
-
-    isItemValid<T extends BaseEntity>(item: T) {
-      for (const field of this.domainFields) {
-        // Result should be pure 'true'.
-        if (field.validate(item[field.name]) !== true) {
-          return false;
-        }
-      }
-
-      return true;
     },
 
     isNewItemValid<T extends BaseEntity>(item: T) {

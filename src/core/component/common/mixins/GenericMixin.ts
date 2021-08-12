@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import BaseEntity from '@/core/entity/BaseEntity';
 
 /**
  * GenericXX 컴포넌트들에서 지겹게 반복되는 부분을 모아놓았습니다.
@@ -75,6 +76,17 @@ export default Vue.extend({
 
         return false;
       }
+    },
+
+    isItemValid<T extends BaseEntity>(item: T) {
+      for (const field of this.domainFields) {
+        // Result should be pure 'true'.
+        if (field.validate(item[field.name]) !== true) {
+          return false;
+        }
+      }
+
+      return true;
     },
   },
 });

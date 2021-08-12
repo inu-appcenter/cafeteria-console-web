@@ -203,7 +203,7 @@ export default {
 
     onFetch: Function,
     onAnswer: Function,
-    onUpdateAnswer: Function,
+    onWriteAnswer: Function,
     onDeleteAnswer: Function,
   },
 
@@ -222,7 +222,7 @@ export default {
       error: null,
 
       // Edit cache
-      itemBeforeEdit: {},
+      answerBeforeEdit: {},
       validateRule: validation.stringNotEmpty,
 
       // New item form and data
@@ -300,7 +300,7 @@ export default {
       }
     },
 
-    onClickAnswer(question) {
+    onClickWriteAnswer(question) {
       this.currentlyAnsweringQuestion = question;
 
       this.editDialogTitle = '답변하기';
@@ -313,7 +313,7 @@ export default {
       this.currentlyAnsweringQuestion = question;
       const answerToUpdate = this.currentlyAnsweringQuestion.answer;
 
-      this._backupAnswer(answerToUpdate);
+      this.backupAnswer(answerToUpdate);
 
       this.editDialogTitle = '답변 수정하기';
       this.answerNowEditing = answerToUpdate;
@@ -321,7 +321,7 @@ export default {
       this.editAnswerDialogVisible = true;
     },
 
-    onClickDoneEditAnswer(answer) {
+    onClickDoneWriteAnswer(answer) {
       this.editAnswerDialogVisible = false;
       answer.modified = false;
 
@@ -349,17 +349,17 @@ export default {
 
     async _applyModifiedAnswer(answer) {
       this.currentlyAnsweringQuestion.loading = true;
-      await this.showResult(this.onUpdateAnswer(this.currentlyAnsweringQuestion[this.questionKeyName], answer));
+      await this.showResult(this.onWriteAnswer(this.currentlyAnsweringQuestion[this.questionKeyName], answer));
       this.currentlyAnsweringQuestion.loading = false;
     },
 
-    onClickCancelEditAnswer(answer) {
+    onClickCancelWriteAnswer(answer) {
       this.editAnswerDialogVisible = false;
 
       if (this.isThisANewAnswer(answer)) {
         // do nothing.
       } else {
-        this._restoreAnswer(answer);
+        this.restoreAnswer(answer);
       }
     },
 
@@ -387,12 +387,12 @@ export default {
       return allAnswerIds.indexOf(answer[this.answerKeyName]) < 0;
     },
 
-    _backupAnswer(answer) {
-      this.itemBeforeEdit[answer[this.answerKeyName]] = Object.assign({}, answer);
+    backupAnswer(answer) {
+      this.answerBeforeEdit[answer[this.answerKeyName]] = Object.assign({}, answer);
     },
 
-    _restoreAnswer(answer) {
-      Object.assign(answer, this.itemBeforeEdit[answer[this.answerKeyName]]);
+    restoreAnswer(answer) {
+      Object.assign(answer, this.answerBeforeEdit[answer[this.answerKeyName]]);
     },
   },
 };

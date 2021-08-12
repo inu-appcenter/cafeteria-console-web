@@ -24,6 +24,7 @@ export default class Cafeteria extends BaseEntity {
   @Field({description: '알림 지원 여부'})
   supportNotification: boolean;
 
+  // 안 쓰지만 그냥 넣어봄 ㅎㅎ
   @Field({description: '코너', entityClass: Corner})
   corners: Corner[];
 }

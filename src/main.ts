@@ -19,7 +19,7 @@ Vue.filter('format_date', value => {
   if (!value) {
     return '';
   }
-  return new Date(Number.parseInt(value)).toLocaleString();
+  return value.toLocaleString();
 });
 
 Vue.filter('format_time_diff', value => {

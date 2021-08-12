@@ -12,14 +12,13 @@
 
       <v-card-text>
         <v-form ref="newItemForm" @submit.prevent="$emit('apply')">
-          <FormField
+          <FormInputField
             v-for="field in domainFields"
-            v-show="field.visible"
+            v-model="newItem[field.name]"
             :key="field.name"
             :field="field"
-            v-model="newItem[field.name]"
-          >
-          </FormField>
+            @input="$emit('form-update')"
+          />
 
           <v-btn :disabled="!newItem.valid" block color="primary" type="submit">완료</v-btn>
           <p></p>
@@ -32,11 +31,12 @@
 
 <script>
 import Vue from 'vue';
-import FormField from '@/core/component/common/FormField';
+import FormInputField from '@/core/component/common/FormInputField';
 
 export default Vue.extend({
   name: 'GenericListNewItemDialog',
-  components: {FormField},
+  components: {FormInputField},
+
   props: {
     error: Error || null,
     newItem: Object,

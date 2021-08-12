@@ -9,6 +9,7 @@ import {EntityClass} from '@/core/entity/types/EntityClass';
 import GraphQLRepository from '@/core/graphql/GraphQLRepository';
 import Editable from '@/core/entity/Editable';
 import validation from '@/common/validation';
+import {plainToClass} from 'class-transformer';
 
 /**
  * TypeORM의 그것을 모조!
@@ -33,7 +34,9 @@ export default class BaseEntity extends Editable {
 
     const result = await GraphQLRepository.query(query);
 
-    return result.map(r => this.create(r));
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return result.map(r => plainToClass(this, r, {excludeExtraneousValues: true}));
   }
 
   // TODO
