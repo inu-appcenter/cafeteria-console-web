@@ -38,6 +38,11 @@
       <div v-show="field.type === 'boolean'">
         <v-switch :value="value" :disabled="true" outlined />
       </div>
+
+      <!-- 날짜 필드 -->
+      <div v-show="field.type === 'date'">
+        <span class="subtitle-1">{{ value | format_date }}</span>
+      </div>
     </v-list-item-action>
   </v-list-item>
 </template>

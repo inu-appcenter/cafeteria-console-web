@@ -25,7 +25,7 @@ export default Vue.extend({
     async onClickDoneAddItem() {
       this.newItemDialogVisible = false;
 
-      this.allItems.push(this.newItem);
+      this.allItems.unshift(this.newItem);
 
       this.newItem.loading = true;
 

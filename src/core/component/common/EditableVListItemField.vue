@@ -64,6 +64,19 @@
       <div v-show="field.type === 'boolean'">
         <v-switch :value="value" :disabled="!(editing && field.mutable)" outlined @input="update" />
       </div>
+
+      <!-- 날짜 필드 -->
+      <div v-show="field.type === 'date'">
+        <v-text-field
+          v-show="editing && field.mutable"
+          :value="value"
+          :rules="[field.validate]"
+          class="small-text-field"
+          hide-details
+          @input="update"
+        />
+        <span v-show="!(editing && field.mutable)" class="subtitle-1">{{ value | format_date }}</span>
+      </div>
     </v-list-item-action>
   </v-list-item>
 </template>

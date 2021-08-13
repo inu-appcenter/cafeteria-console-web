@@ -1,5 +1,5 @@
 <template>
-  <div v-show="field.visible">
+  <div v-show="field.visible && field.mutable">
     <!-- 숫자 필드 -->
     <v-text-field
       v-show="field.type === 'int'"
