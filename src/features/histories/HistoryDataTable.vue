@@ -31,28 +31,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import GenericMixin from '@/core/component/common/mixins/GenericMixin';
+import DataTableMixin from '@/core/component/common/mixins/DataTableMixin';
 
 export default Vue.extend({
-  mixins: [GenericMixin],
+  mixins: [DataTableMixin],
 
   name: 'HistoryDataTable',
   props: {
     failureColor: Function,
-  },
-
-  data() {
-    return {
-      search: '',
-
-      // data 함수에서는 상위 mixin의 data 함수에서 정의한 값을 꺼내올 수 없다 ㅠㅡㅠ
-      // 왜냐하면 지금 타이밍에서는 아직 정의중이기 때문...
-      headers: this.$props.entityClass.metadata().fields.map((f, i) => ({
-        text: f.description,
-        value: f.name,
-        align: i === 0 ? 'start' : undefined,
-      })),
-    };
   },
 
   mounted() {

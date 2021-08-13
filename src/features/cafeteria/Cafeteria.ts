@@ -6,6 +6,9 @@ import Corner from '@/features/cafeteria/Corner';
 
 @Entity({displayName: '카페테리아'})
 export default class Cafeteria extends BaseEntity {
+  @Field({displayName: '식별자', validate: validation.numberOverZero})
+  id: number;
+
   @Field({displayName: '식당 이름', validate: validation.stringNotEmpty})
   name: string;
 

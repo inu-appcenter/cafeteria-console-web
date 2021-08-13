@@ -1,5 +1,4 @@
 <template>
-  <!-- Recent logs -->
   <RecentLogs />
 </template>
 
@@ -11,5 +10,3 @@ export default {
   components: {RecentLogs},
 };
 </script>
-
-<style scoped></style>

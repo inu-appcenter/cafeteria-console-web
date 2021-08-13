@@ -6,7 +6,7 @@ import TransformDate from '@/core/entity/decorator/TransformDate';
 
 @Entity()
 export default class Answer extends BaseEntity {
-  @Field({mutable: false, visible: false})
+  @Field({visible: false, mutable: false})
   id: number;
 
   @Field({displayName: '제목', validate: validation.stringNotEmpty})

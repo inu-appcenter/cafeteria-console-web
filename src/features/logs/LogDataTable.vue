@@ -29,48 +29,19 @@
   </v-row>
 </template>
 
-<script>
-export default {
-  name: 'LogTable',
+<script lang="ts">
+import Vue from 'vue';
+import DataTableMixin from '@/core/component/common/mixins/DataTableMixin';
 
-  props: {
-    headers: Array,
-    onFetch: Function,
-    itemDisplayName: String,
-  },
+export default Vue.extend({
+  mixins: [DataTableMixin],
 
-  data() {
-    return {
-      allItems: [],
-      fetching: false,
-      error: null,
+  name: 'LogDataTable',
 
-      search: '',
-    };
-  },
-
-  created() {
+  mounted() {
     this.load();
   },
-
-  methods: {
-    async load() {
-      console.log('Fetch 시작!');
-      this.fetching = true;
-
-      try {
-        console.log('Fetch 성공!');
-        this.allItems = await this.onFetch();
-      } catch (e) {
-        console.log(`Fetch 망함!!! ${e.message}`);
-        this.error = e;
-      } finally {
-        console.log('Fetch 종료!');
-        this.fetching = false;
-      }
-    },
-  },
-};
+});
 </script>
 
 <style scoped>

@@ -5,6 +5,9 @@ import validation from '@/core/component/common/validation';
 
 @Entity({displayName: '코너'})
 export default class Corner extends BaseEntity {
+  @Field({displayName: '식별자', validate: validation.numberOverZero})
+  id: number;
+
   @Field({validate: validation.stringNotEmpty})
   name: string;
 

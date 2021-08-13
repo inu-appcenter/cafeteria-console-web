@@ -1,35 +1,26 @@
 <template>
   <v-container fluid>
-    <!-- Recent logs -->
-    <LogTable v-bind="logProps" />
+    <LogDataTable v-bind="logProps" />
 
-    <!-- Full logs -->
     <FullLogs class="mb-10" />
   </v-container>
 </template>
 
 <script>
 import FullLogs from '@/features/logs/FullLogs';
-import LogTable from '@/features/logs/LogTable';
-import logRepository from '@/features/logs/data/LogRepository';
+import LogDataTable from '@/features/logs/LogDataTable';
+import Log from '@/features/logs/Log';
 
 export default {
   name: 'RecentLogs',
-  components: {LogTable, FullLogs},
+  components: {LogDataTable, FullLogs},
 
   data() {
     return {
       logProps: {
-        onFetch: async () => logRepository.getRecentLogs(),
-        headers: [
-          {text: '날짜', value: 'timestamp', align: 'start'},
-          {text: '메시지', value: 'message'},
-        ],
-        itemDisplayName: '서비스 로그',
+        entityClass: Log,
       },
     };
   },
 };
 </script>
-
-<style scoped></style>

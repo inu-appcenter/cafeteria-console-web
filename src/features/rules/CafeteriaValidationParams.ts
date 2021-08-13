@@ -3,8 +3,11 @@ import Entity from '@/core/entity/decorator/Entity';
 import Field from '@/core/entity/decorator/Field';
 import validation from '@/core/component/common/validation';
 
-@Entity()
+@Entity({displayName: '할인 검증 파라미터'})
 export default class CafeteriaValidationParams extends BaseEntity {
+  @Field({displayName: '식별자', visible: false, mutable: false})
+  id: number;
+
   @Field({displayName: '연관된 카페테리아의 식별자', validate: validation.numberOverZero})
   cafeteriaId: number;
 
