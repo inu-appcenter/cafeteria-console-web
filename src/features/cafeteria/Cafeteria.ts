@@ -1,18 +1,18 @@
 import Entity from '@/core/entity/decorator/Entity';
 import BaseEntity from '@/core/entity/BaseEntity';
 import Field from '@/core/entity/decorator/Field';
-import validation from '@/core/component/common/validation';
 import Corner from '@/features/cafeteria/Corner';
+import {numberOverZero, stringNotEmpty} from '@/core/component/common/validation';
 
 @Entity({displayName: '카페테리아'})
 export default class Cafeteria extends BaseEntity {
-  @Field({displayName: '식별자', validate: validation.numberOverZero})
+  @Field({displayName: '식별자', validate: numberOverZero})
   id: number;
 
-  @Field({displayName: '식당 이름', validate: validation.stringNotEmpty})
+  @Field({displayName: '식당 이름', validate: stringNotEmpty})
   name: string;
 
-  @Field({displayName: '앱에서 표시될 이름', validate: validation.stringNotEmpty})
+  @Field({displayName: '앱에서 표시될 이름', validate: stringNotEmpty})
   displayName: string;
 
   @Field({displayName: '식당 안내', type: 'text'})
