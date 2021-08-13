@@ -7,8 +7,8 @@
         :key="field.name"
         :field="field"
         :editing="item.editing"
-      >
-      </EditableVListItemField>
+        @input="$emit('input', item)"
+      />
     </v-list>
 
     <v-card-actions>

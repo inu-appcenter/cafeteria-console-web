@@ -3,9 +3,8 @@
 </template>
 
 <script>
-import Notice from '@/features/notices/entities/Notice';
-import noticeRepository from '@/features/notices/data/NoticeRepository';
-import GenericList from '@/common/GenericList';
+import GenericList from '@/core/component/list/GenericList';
+import Notice from '@/features/notices/Notice';
 
 export default {
   name: 'NoticeList',
@@ -14,23 +13,11 @@ export default {
   data() {
     return {
       noticeProps: {
-        keyName: 'id',
-        itemName: 'notice',
-        emptyText: '등록된 공지가 없습니다.',
-        itemDisplayName: '공지',
-        domainFields: Notice.fields(),
+        entityClass: Notice,
 
-        itemGenerator: () => {
-          return new Notice({});
-        },
         formValidator: () => {
-          return true; // Not used here.
+          return true; // 안써요 여기선
         },
-
-        onFetch: async () => noticeRepository.getAllNotices(),
-        onAdd: async item => noticeRepository.addNotice(item),
-        onUpdate: async item => noticeRepository.updateNotice(item),
-        onDelete: async item => noticeRepository.deleteNotice(item),
       },
     };
   },

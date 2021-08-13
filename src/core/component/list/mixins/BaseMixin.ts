@@ -21,7 +21,7 @@ export default Vue.extend({
       itemGenerator: () => new this.$props.entityClass(),
 
       // 편집한 내용을 저장하기 전에 잠시 백업하는 변수.
-      answerBeforeEdit: {},
+      itemBeforeEdit: {},
 
       // 폼에 사용할 새 아이템.
       newItem: new this.$props.entityClass(),
