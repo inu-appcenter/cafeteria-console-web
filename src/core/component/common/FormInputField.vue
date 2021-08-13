@@ -53,7 +53,7 @@ export default {
 
   data() {
     return {
-      label: this.field.description || this.field.name,
+      label: this.field.displayName || this.field.name,
     };
   },
 };

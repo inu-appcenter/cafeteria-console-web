@@ -5,22 +5,22 @@ import validation from '@/core/component/common/validation';
 
 @Entity()
 export default class CafeteriaValidationParams extends BaseEntity {
-  @Field({description: '연관된 카페테리아의 식별자', validate: validation.numberOverZero})
+  @Field({displayName: '연관된 카페테리아의 식별자', validate: validation.numberOverZero})
   cafeteriaId: number;
 
-  @Field({description: '요청 검증에 사용하는 토큰', validate: validation.stringNotEmpty})
+  @Field({displayName: '요청 검증에 사용하는 토큰', validate: validation.stringNotEmpty})
   token: string;
 
-  @Field({description: '할인 이용 가능한 시간대', validate: availableMealTypeShouldBeValid})
+  @Field({displayName: '할인 이용 가능한 시간대', validate: availableMealTypeShouldBeValid})
   availableMealTypes: number;
 
-  @Field({description: '아침 식사 시간대', validate: shouldBeValidTimeRangeString})
+  @Field({displayName: '아침 식사 시간대', validate: shouldBeValidTimeRangeString})
   breakfast: string;
 
-  @Field({description: '점심 식사 시간대', validate: shouldBeValidTimeRangeString})
+  @Field({displayName: '점심 식사 시간대', validate: shouldBeValidTimeRangeString})
   lunch: string;
 
-  @Field({description: '저녁 식사 시간대', validate: shouldBeValidTimeRangeString})
+  @Field({displayName: '저녁 식사 시간대', validate: shouldBeValidTimeRangeString})
   dinner: string;
 }
 

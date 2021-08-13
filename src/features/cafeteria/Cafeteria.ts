@@ -6,25 +6,25 @@ import Corner from '@/features/cafeteria/Corner';
 
 @Entity({displayName: '카페테리아'})
 export default class Cafeteria extends BaseEntity {
-  @Field({description: '식당 이름', validate: validation.stringNotEmpty})
+  @Field({displayName: '식당 이름', validate: validation.stringNotEmpty})
   name: string;
 
-  @Field({description: '앱에서 표시될 이름', validate: validation.stringNotEmpty})
+  @Field({displayName: '앱에서 표시될 이름', validate: validation.stringNotEmpty})
   displayName: string;
 
-  @Field({description: '식당 안내', type: 'text'})
+  @Field({displayName: '식당 안내', type: 'text'})
   comment?: string;
 
-  @Field({description: '메뉴 정보 제공 여부'})
+  @Field({displayName: '메뉴 정보 제공 여부'})
   supportMenu: boolean;
 
-  @Field({description: '할인 제공 여부'})
+  @Field({displayName: '할인 제공 여부'})
   supportDiscount: boolean;
 
-  @Field({description: '알림 지원 여부'})
+  @Field({displayName: '알림 지원 여부'})
   supportNotification: boolean;
 
   // 안 쓰지만 그냥 넣어봄 ㅎㅎ
-  @Field({description: '코너', entityClass: Corner})
+  @Field({displayName: '코너', entityClass: Corner})
   corners: Corner[];
 }

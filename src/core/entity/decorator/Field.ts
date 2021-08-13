@@ -13,9 +13,11 @@ export default function Field(options?: Partial<EntityFieldMetadata>): PropertyD
 
     const metadataValue: EntityFieldMetadata = {
       name: options?.name ?? key.toString(),
+      displayName: options?.displayName,
+      description: options?.description,
+
       type: options?.type ?? typeName,
       entityClass: options?.entityClass,
-      description: options?.description,
       visible: options?.visible ?? true,
       mutable: options?.mutable ?? true,
       validate:

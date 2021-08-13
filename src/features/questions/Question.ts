@@ -10,10 +10,10 @@ export default class Question extends BaseEntity {
   @Field({mutable: false, visible: false})
   id: number;
 
-  @Field({mutable: false, description: '기기 정보'})
+  @Field({mutable: false, displayName: '기기 정보'})
   deviceInfo: string;
 
-  @Field({mutable: false, description: '앱 버전'})
+  @Field({mutable: false, displayName: '앱 버전'})
   appVersion: string;
 
   @Field({mutable: false, visible: false})

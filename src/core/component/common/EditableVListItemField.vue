@@ -7,7 +7,7 @@
 
       <!-- 필드 이름과 설명 -->
       <v-list-item-title>{{ field.name }}</v-list-item-title>
-      <v-list-item-subtitle>{{ field.description || field.name }}</v-list-item-subtitle>
+      <v-list-item-subtitle>{{ field.displayName || field.name }}</v-list-item-subtitle>
 
       <!-- 여기는 필드 이름이 있을 곳이지만, text의 경우는 여기에다가 필드까지 놓습니다. -->
 

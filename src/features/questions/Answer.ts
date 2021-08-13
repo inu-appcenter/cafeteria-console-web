@@ -9,10 +9,10 @@ export default class Answer extends BaseEntity {
   @Field({mutable: false, visible: false})
   id: number;
 
-  @Field({description: '제목', validate: validation.stringNotEmpty})
+  @Field({displayName: '제목', validate: validation.stringNotEmpty})
   title: string;
 
-  @Field({description: '내용', validate: validation.stringNotEmpty, type: 'text'})
+  @Field({displayName: '내용', validate: validation.stringNotEmpty, type: 'text'})
   body: string;
 
   @Field({mutable: false, visible: false})
