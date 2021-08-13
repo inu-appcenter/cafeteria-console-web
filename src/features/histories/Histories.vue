@@ -1,15 +1,12 @@
 <template>
-  <!-- All transaction histories -->
-  <TransactionHistories />
+  <ProcessHistories />
 </template>
 
 <script>
-import TransactionHistories from '@/features/histories/TransactionHistories';
+import ProcessHistories from '@/features/histories/ProcessHistories';
 
 export default {
   name: 'Histories',
-  components: {TransactionHistories},
+  components: {ProcessHistories},
 };
 </script>
-
-<style scoped></style>

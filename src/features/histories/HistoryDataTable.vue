@@ -17,9 +17,9 @@
             :search="search"
             loading-text="로드 중... 잠시만 기다려 주세요"
           >
-            <template v-slot:item.failed_at="{item}">
-              <v-chip :color="failureColor(item.failed_at)" dark>
-                {{ item.failed_at }}
+            <template v-slot:item.failedAt="{item}">
+              <v-chip :color="failureColor(item.failedAt)" dark>
+                {{ item.failedAt }}
               </v-chip>
             </template>
           </v-data-table>
@@ -29,48 +29,34 @@
   </v-container>
 </template>
 
-<script>
-export default {
-  name: 'HistoryTable',
+<script lang="ts">
+import Vue from 'vue';
+import GenericMixin from '@/core/component/common/mixins/GenericMixin';
+
+export default Vue.extend({
+  mixins: [GenericMixin],
+
+  name: 'HistoryDataTable',
   props: {
-    headers: Array,
-    onFetch: Function,
     failureColor: Function,
-    itemDisplayName: String,
   },
 
   data() {
     return {
-      allItems: [],
-      fetching: false,
-      error: null,
-
       search: '',
+
+      // data 함수에서는 상위 mixin의 data 함수에서 정의한 값을 꺼내올 수 없다 ㅠㅡㅠ
+      // 왜냐하면 지금 타이밍에서는 아직 정의중이기 때문...
+      headers: this.$props.entityClass.metadata().fields.map((f, i) => ({
+        text: f.description,
+        value: f.name,
+        align: i === 0 ? 'start' : undefined,
+      })),
     };
   },
 
-  created() {
+  mounted() {
     this.load();
   },
-
-  methods: {
-    async load() {
-      console.log('Fetch 시작!');
-      this.fetching = true;
-
-      try {
-        console.log('Fetch 성공!');
-        this.allItems = await this.onFetch();
-      } catch (e) {
-        console.log(`Fetch 망함!!! ${e.message}`);
-        this.error = e;
-      } finally {
-        console.log('Fetch 종료!');
-        this.fetching = false;
-      }
-    },
-  },
-};
+});
 </script>
-
-<style scoped></style>
