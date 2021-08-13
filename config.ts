@@ -48,11 +48,6 @@ export default {
       icon: 'mdi-pencil',
       subtitle: '식단 파싱 규칙',
     },
-    {
-      name: 'Versions',
-      icon: 'mdi-apps',
-      subtitle: '앱 버전 규칙',
-    },
   ],
 
   api: {

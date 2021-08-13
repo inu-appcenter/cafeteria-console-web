@@ -14,10 +14,6 @@ export default {
     return {
       cafeteriaValidationParamsProps: {
         entityClass: CafeteriaValidationParams,
-
-        formValidator: (params, allParams) => {
-          return !allParams.find(c => c.cafeteria_id === params.cafeteria_id); // should not exist.
-        },
       },
     };
   },

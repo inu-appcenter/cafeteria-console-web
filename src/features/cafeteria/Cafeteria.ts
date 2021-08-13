@@ -28,6 +28,6 @@ export default class Cafeteria extends BaseEntity {
   supportNotification: boolean;
 
   // 안 쓰지만 그냥 넣어봄 ㅎㅎ
-  @Field({displayName: '코너', entityClass: Corner})
+  @Field({displayName: '코너', visible: false, mutable: false, entityClass: Corner})
   corners: Corner[];
 }

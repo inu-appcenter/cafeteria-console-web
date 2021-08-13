@@ -14,10 +14,6 @@ export default {
     return {
       noticeProps: {
         entityClass: Notice,
-
-        formValidator: () => {
-          return true; // 안써요 여기선
-        },
       },
     };
   },

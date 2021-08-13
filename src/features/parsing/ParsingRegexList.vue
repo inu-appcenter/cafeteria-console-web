@@ -3,9 +3,8 @@
 </template>
 
 <script>
-import GenericList from '@/common/GenericList';
-import ParseRegex from '@/features/parsing/entities/ParseRegex';
-import parseRegexRepository from '@/features/parsing/data/ParseRegexRepository';
+import GenericList from '@/core/component/list/GenericList';
+import MenuParseRegex from '@/features/parsing/MenuParseRegex';
 
 export default {
   name: 'ParsingRegexList',
@@ -14,26 +13,9 @@ export default {
   data() {
     return {
       parsingRegexProps: {
-        keyName: 'id',
-        itemName: 'parse_regex',
-        itemDisplayName: '파싱 정규식',
-        domainFields: ParseRegex.fields(),
-
-        itemGenerator: () => {
-          return new ParseRegex({});
-        },
-        formValidator: (parseRegex, allParseRegex) => {
-          return !allParseRegex.find(r => r.id === parseRegex.id); // should not exist.
-        },
-
-        onFetch: async () => parseRegexRepository.getAllParesRegexes(),
-        onAdd: async item => parseRegexRepository.addParseRegex(item),
-        onUpdate: async item => parseRegexRepository.updateParseRegex(item),
-        onDelete: async item => parseRegexRepository.deleteParseRegex(item),
+        entityClass: MenuParseRegex,
       },
     };
   },
 };
 </script>
-
-<style scoped></style>

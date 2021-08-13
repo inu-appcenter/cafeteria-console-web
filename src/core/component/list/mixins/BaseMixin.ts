@@ -8,17 +8,21 @@ import BaseEntity from '@/core/entity/BaseEntity';
 export default Vue.extend({
   mixins: [GenericMixin],
 
-  props: {
-    // 추가를 할 수 있는 컴포넌트들에서는 새 form에 입력된 아이템에 대한 추가적인 검증을 진행할 수 있습니다.
-    formValidator: {
-      type: Function,
-      required: true,
-    },
-  },
-
   data() {
     return {
       itemGenerator: () => new this.$props.entityClass(),
+      formValidator: (item, allItem) => {
+        const idOfThisItem = Number.parseInt(item.id);
+        if (isNaN(idOfThisItem)) {
+          return true; // id가 없으면 통과!
+        }
+
+        const allIdsOfItems = allItem.map(i => i.id);
+
+        const idIsDuplicated = allIdsOfItems.includes(idOfThisItem);
+
+        return !idIsDuplicated;
+      },
 
       // 편집한 내용을 저장하기 전에 잠시 백업하는 변수.
       itemBeforeEdit: {},

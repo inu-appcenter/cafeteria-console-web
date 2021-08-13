@@ -8,7 +8,6 @@ import Cafeteria from '@/features/cafeteria/Cafeteria.vue';
 import Parsing from '@/features/parsing/Parsing.vue';
 import Login from '@/features/login/Login.vue';
 import Notices from '@/features/notices/Notices.vue';
-import Versions from '@/features/versions/Versions.vue';
 import Questions from '@/features/questions/Questions.vue';
 import Logs from '@/features/logs/Logs.vue';
 
@@ -25,7 +24,6 @@ function createRouter() {
     {path: '/Rules', component: Rules, meta: {authRequired: true}},
     {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}},
     {path: '/Parsing', component: Parsing, meta: {authRequired: true}},
-    {path: '/Versions', component: Versions, meta: {authRequired: true}},
 
     {path: '/login', component: Login},
   ];

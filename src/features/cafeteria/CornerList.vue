@@ -14,10 +14,6 @@ export default {
     return {
       cornerProps: {
         entityClass: Corner,
-
-        formValidator: (corner, allCorners) => {
-          return !allCorners.find(c => c.id === corner.id); // should not exist.
-        },
       },
     };
   },
