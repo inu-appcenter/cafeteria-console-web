@@ -58,7 +58,7 @@ export default class GraphQLQueryBuilder<T extends BaseEntity> {
         }
       `,
       variables: {
-        [`${this.meta.name}Id`]: entity.id,
+        [`${this.meta.name}Id`]: entity['id'],
       },
     };
   }
