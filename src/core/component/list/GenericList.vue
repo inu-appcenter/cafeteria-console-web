@@ -46,7 +46,7 @@
                 :domain-fields="domainFields"
                 @input="onModifyItem"
                 @apply="onClickApplyItem"
-                @delete="onDelete"
+                @start-delete="onClickDeleteItem"
                 @start-modify="onClickModifyItem"
                 @cancel-modify="onClickCancelModifyItem"
               />

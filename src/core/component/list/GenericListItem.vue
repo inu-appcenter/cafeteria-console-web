@@ -12,7 +12,7 @@
     </v-list>
 
     <v-card-actions>
-      <v-btn v-if="item.editing" color="red" outlined text @click="$emit('delete', item)"> 삭제 </v-btn>
+      <v-btn v-if="item.editing" color="red" outlined text @click="$emit('start-delete', item)"> 삭제 </v-btn>
 
       <v-spacer />
 
