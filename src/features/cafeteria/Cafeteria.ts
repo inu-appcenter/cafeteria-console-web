@@ -21,6 +21,9 @@ export default class Cafeteria extends BaseEntity {
   @Field({displayName: '메뉴 정보 제공 여부'})
   supportMenu: boolean;
 
+  @Field({displayName: '예약 지원 여부'})
+  supportBooking: boolean;
+
   @Field({displayName: '할인 제공 여부'})
   supportDiscount: boolean;
 

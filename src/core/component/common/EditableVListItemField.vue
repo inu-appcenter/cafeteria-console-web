@@ -42,7 +42,7 @@
           class="small-text-field"
           hide-detail
           type="number"
-          @input="update"
+          @input="update(Number($event))"
         />
         <span v-show="!(editing && field.mutable)" class="subtitle-1">{{ value }}</span>
       </div>
@@ -62,7 +62,7 @@
 
       <!-- Boolean 필드 -->
       <div v-show="field.type === 'boolean'">
-        <v-switch :value="value" :disabled="!(editing && field.mutable)" outlined @input="update" />
+        <v-switch :input-value="value" :disabled="!(editing && field.mutable)" outlined @change="update" />
       </div>
 
       <!-- 날짜 필드 -->

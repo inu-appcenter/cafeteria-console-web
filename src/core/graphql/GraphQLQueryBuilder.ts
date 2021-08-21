@@ -1,7 +1,6 @@
 import {EntityClass} from '@/core/entity/types/EntityClass';
 import {GraphQLQuery} from '@/core/graphql/GraphQLQuery';
 import BaseEntity from '@/core/entity/BaseEntity';
-import {onlyFields} from '@/core/common/object';
 import {EntityFieldMetadata} from '@/core/entity/types/EntityFieldMetadata';
 
 export default class GraphQLQueryBuilder<T extends BaseEntity> {
@@ -10,8 +9,6 @@ export default class GraphQLQueryBuilder<T extends BaseEntity> {
   private meta = this.entityClass.metadata();
 
   find(): GraphQLQuery {
-    console.log('find 쿼리 만들기: ', this.meta);
-
     const queryName = `all${this.meta.name}`;
 
     const fields = this.meta.fields.map(f => this.buildFieldRecursively(f, 1));
@@ -44,9 +41,26 @@ export default class GraphQLQueryBuilder<T extends BaseEntity> {
         }
       `,
       variables: {
-        [`${this.meta.name.toLowerCase()}`]: onlyFields(entity),
+        [`${this.meta.name.toLowerCase()}`]: this.ownFieldsOnly(entity),
       },
     };
+  }
+
+  private ownFieldsOnly(entity: T) {
+    const result: Record<string, unknown> = {};
+
+    const fields = this.meta.fields;
+
+    for (const field of fields) {
+      if (field.entityClass) {
+        // 엔티티 클래스가 있는 필드는 관계 필드이므로 패쓰!
+        continue;
+      }
+
+      result[field.name] = entity[field.name];
+    }
+
+    return result;
   }
 
   remove(entity: T): GraphQLQuery {
@@ -55,12 +69,12 @@ export default class GraphQLQueryBuilder<T extends BaseEntity> {
     return {
       queryName,
       query: `
-        mutation ${queryName}($${this.meta.name}Id) {
-          ${queryName}(${this.meta.name}Id: $${this.meta.name}Id)
+        mutation ${queryName}($${this.meta.name.toLowerCase()}Id: Int) {
+          ${queryName}(${this.meta.name.toLowerCase()}Id: $${this.meta.name.toLowerCase()}Id)
         }
       `,
       variables: {
-        [`${this.meta.name}Id`]: entity['id'],
+        [`${this.meta.name.toLowerCase()}Id`]: entity['id'],
       },
     };
   }

@@ -28,7 +28,7 @@ export default Vue.extend({
       onFetch: () => entityClass.find(),
       onAdd: entity => entity.save(),
       onUpdate: entity => entity.save(),
-      onDelete: entity => entity.save(),
+      onDelete: entity => entity.remove(),
 
       allItems: [],
       fetching: false,

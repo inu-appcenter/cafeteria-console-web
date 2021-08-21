@@ -8,7 +8,7 @@
       :rules="[field.validate]"
       outlined
       type="number"
-      @input="update"
+      @input="update(Number($event))"
     />
 
     <!-- 스트링 필드 -->
@@ -34,10 +34,10 @@
     <!-- Boolean 필드 -->
     <v-switch
       v-show="field.type === 'boolean'"
-      :value="value"
+      :input-value="value"
       :label="label"
       :rules="[field.validate]"
-      @input="update"
+      @change="update"
     />
   </div>
 </template>

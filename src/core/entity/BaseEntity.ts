@@ -36,10 +36,24 @@ export default class BaseEntity extends Editable {
 
   // TODO
   async save(): Promise<this> {
+    const mutate = new GraphQLQueryBuilder(this.constructor as EntityClass<this>).save(this);
+
+    const numberOfUpdatedEntities = await GraphQLRepository.mutate(mutate);
+    if (numberOfUpdatedEntities === 0) {
+      throw new Error('저장 실패!');
+    }
+
     return this;
   }
 
   async remove(): Promise<this> {
+    const mutate = new GraphQLQueryBuilder(this.constructor as EntityClass<this>).remove(this);
+
+    const numberOfUpdatedEntities = await GraphQLRepository.mutate(mutate);
+    if (numberOfUpdatedEntities === 0) {
+      throw new Error('삭제 실패!');
+    }
+
     return this;
   }
 }
