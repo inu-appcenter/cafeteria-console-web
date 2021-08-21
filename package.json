@@ -2,7 +2,7 @@
   "name": "cafeteria-console-web",
   "version": "1.5.0",
   "scripts": {
-    "test": "jest",
+    "test": "jest test/unit",
     "dev": "vue-cli-service serve --port 9090",
     "preview": "vue-cli-service build && serve dist -p 9090",
     "deploy": "vue-cli-service build && netlify deploy --prod",
