@@ -5,7 +5,9 @@
     "test": "jest",
     "dev": "vue-cli-service serve --port 9090",
     "preview": "vue-cli-service build && serve dist -p 9090",
-    "deploy": "vue-cli-service build && netlify deploy --prod"
+    "deploy": "vue-cli-service build && netlify deploy --prod",
+    "preversion": "npm run test",
+    "postversion": "git push && git push --tags && npm run deploy"
   },
   "repository": {
     "type": "git",
