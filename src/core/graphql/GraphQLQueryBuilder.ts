@@ -10,6 +10,8 @@ export default class GraphQLQueryBuilder<T extends BaseEntity> {
   private meta = this.entityClass.metadata();
 
   find(): GraphQLQuery {
+    console.log('find 쿼리 만들기: ', this.meta);
+
     const queryName = `all${this.meta.name}`;
 
     const fields = this.meta.fields.map(f => this.buildFieldRecursively(f, 1));
