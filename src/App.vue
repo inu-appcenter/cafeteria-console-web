@@ -2,9 +2,6 @@
   <v-app>
     <v-navigation-drawer v-model="drawer" app clipped>
       <DrawerList />
-      <!--v-container fluid>
-        <v-switch v-model="this.$vuetify.theme.dark" v-on:change="setDark" label="dark mode"/>
-      </v-container-->
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left>

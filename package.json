@@ -26,7 +26,6 @@
   "dependencies": {
     "class-transformer": "^0.4.0",
     "core-js": "^3.6.5",
-    "graphql-request": "^3.3.0",
     "jsonwebtoken": "^8.5.1",
     "prettier": "^2.3.2",
     "reflect-metadata": "^0.1.13",
