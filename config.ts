@@ -14,6 +14,11 @@ export default {
 
   services: [
     {
+      name: 'CheckIn',
+      icon: 'mdi-qrcode',
+      subtitle: 'QR 체크인',
+    },
+    {
       name: 'Notices',
       icon: 'mdi-bullhorn',
       subtitle: '공지사항',

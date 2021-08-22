@@ -10,8 +10,11 @@
         <v-toolbar-title class="font-weight-bold">{{ title }}</v-toolbar-title>
         <span class="pa-1 light-blue--text">BETA</span>
       </v-btn>
+      <v-spacer />
+      <v-btn class="pa-0" href="/#/CheckIn">
+        <v-icon>mdi-qrcode</v-icon>
+      </v-btn>
     </v-app-bar>
-
     <v-main>
       <router-view />
     </v-main>
