@@ -58,8 +58,8 @@ export default {
   api: {
     endpoints: {
       login: `${baseUrl()}/login`,
-      checkIn: `${baseUrl()}/checkIn`,
-      checkInContext: `${baseUrl()}/checkIn/context`,
+      checkIn: `${baseUrl()}/checkin`,
+      checkInContext: `${baseUrl()}/checkin/context`,
       graphql: `${baseUrl()}/graphql`,
       version: `${baseUrl()}/version`,
       zen: 'https://api.github.com/zen',

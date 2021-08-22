@@ -3,7 +3,9 @@ import Context from '@/features/checkin/Context';
 
 class CheckInRepository {
   async fetchContext(): Promise<Context> {
-    const result = await fetch(config.api.endpoints.checkInContext);
+    const result = await fetch(config.api.endpoints.checkInContext, {
+      credentials: 'include',
+    });
 
     //     return Context.of({capacity: 20, expected: 18, actual: 16, total: 30});
 
@@ -16,6 +18,7 @@ class CheckInRepository {
     const result = await fetch(config.api.endpoints.checkIn, {
       method: 'POST',
       credentials: 'include',
+      headers: {'content-type': 'application/x-www-form-urlencoded'},
       body: new URLSearchParams({ticket}).toString(),
     });
 

@@ -12,7 +12,13 @@
                 <!-- form -->
                 <v-card-text>
                   <v-form ref="form" v-model="valid" @submit.prevent="login">
-                    <v-text-field v-model="userId" :rules="userIdRules" label="ID" required type="text"></v-text-field>
+                    <v-text-field
+                      v-model="username"
+                      :rules="usernameRules"
+                      label="ID"
+                      required
+                      type="text"
+                    ></v-text-field>
                     <v-text-field
                       v-model="password"
                       :rules="passwordRules"
@@ -53,8 +59,8 @@ export default {
     loading: false,
     errorMessage: '',
 
-    userId: null,
-    userIdRules: [v => !!v || 'ID를 입력해 주세요'],
+    username: null,
+    usernameRules: [v => !!v || 'ID를 입력해 주세요'],
 
     password: null,
     passwordRules: [v => !!v || '비밀번호를 입력해 주세요'],
@@ -83,8 +89,8 @@ export default {
 
       this.loading = true;
 
-      if (await this.getLoginResult(this.userId, this.password)) {
-        await this.onLoginSuccess(this.userId);
+      if (await this.getLoginResult(this.username, this.password)) {
+        await this.onLoginSuccess(this.username);
       } else {
         await this.onLoginFail();
       }
@@ -92,16 +98,18 @@ export default {
       this.loading = false;
     },
 
-    async getLoginResult(id, password) {
+    async getLoginResult(username, password) {
       try {
-        const params = new URLSearchParams();
-        params.append('id', id);
-        params.append('password', password);
+        const params = {
+          username,
+          password,
+        };
 
         const result = await fetch(config.api.endpoints.login, {
           method: 'POST',
           credentials: 'include',
-          body: params,
+          headers: {'content-type': 'application/x-www-form-urlencoded'},
+          body: new URLSearchParams(params).toString(),
         });
 
         return result.ok;
