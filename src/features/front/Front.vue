@@ -9,14 +9,14 @@
     <!-- Primary features -->
     <v-row align="center" class="mt-4" justify="center">
       <!-- Logs download(txt)-->
-      <v-list-item :href="dailyLogsUrlTxt">
+      <v-list-item :href="dailyRecordsUrlTxt">
         <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold"
           >{{ todayString }} 학식당 할인 기록 보기(텍스트)
         </v-list-item-content>
       </v-list-item>
 
       <!-- Logs download(xls)-->
-      <v-list-item :href="dailyLogsUrlXls">
+      <v-list-item :href="dailyRecordsUrlXls">
         <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold"
           >{{ todayString }} 학식당 할인 기록 보기(엑셀)
         </v-list-item-content>
@@ -78,9 +78,9 @@ export default {
         version: null,
       },
 
-      todayString: formatDateYYYYMMDD(new Date()),
-      dailyLogsUrlTxt: config.api.endpoints.dailyLogs(formatDateYYYYMMDD(new Date()), 4 /* 학생식당 */, 'txt'),
-      dailyLogsUrlXls: config.api.endpoints.dailyLogs(formatDateYYYYMMDD(new Date()), 4 /* 학생식당 */, 'xls'),
+      todayString: formatDateYYYYMMDD(),
+      dailyRecordsUrlTxt: config.api.endpoints.dailyRecords(formatDateYYYYMMDD(), 4 /* 학생식당 */, 'txt'),
+      dailyRecordsUrlXls: config.api.endpoints.dailyRecords(formatDateYYYYMMDD(), 4 /* 학생식당 */, 'xls'),
       services: config.services,
 
       zen: null,

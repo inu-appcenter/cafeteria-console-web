@@ -57,12 +57,14 @@ export default {
 
   api: {
     endpoints: {
-      graphql: `${baseUrl()}/graphql`,
       login: `${baseUrl()}/login`,
-      dailyLogs: (date, cafeteriaId, fileType) =>
-        `${baseUrl()}/records/${date}?cafeteriaId=${cafeteriaId}&fileType=${fileType}`,
+      checkIn: `${baseUrl()}/checkIn`,
+      checkInContext: `${baseUrl()}/checkIn/context`,
+      graphql: `${baseUrl()}/graphql`,
       version: `${baseUrl()}/version`,
       zen: 'https://api.github.com/zen',
+      dailyRecords: (date, cafeteriaId, fileType) =>
+        `${baseUrl()}/records/${date}?cafeteriaId=${cafeteriaId}&fileType=${fileType}`,
     },
   },
 };
