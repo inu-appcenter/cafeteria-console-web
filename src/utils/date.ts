@@ -1,4 +1,4 @@
-export function formatDateYYYYMMDD(date: Date) {
+export function formatDateYYYYMMDD(date: Date = new Date()) {
   const format = {
     M: (date.getMonth() + 1).toString().padStart(2, '0'),
     D: date.getDate().toString().padStart(2, '0'),

@@ -31,6 +31,16 @@
       @input="update"
     />
 
+    <!-- 날짜 필드 -->
+    <v-datetime-picker
+      v-if="field.type === 'date'"
+      :value="value"
+      :label="label"
+      :rules="[field.validate]"
+      outlined
+      @input="update"
+    />
+
     <!-- Boolean 필드 -->
     <v-switch
       v-show="field.type === 'boolean'"

@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import BaseEntity from '@/core/entity/BaseEntity';
+import ApiMixin from '@/core/component/common/mixins/ApiMixin';
 
 /**
  * GenericXX 컴포넌트들에서 지겹게 반복되는 부분을 모아놓았습니다.
  */
 export default Vue.extend({
+  mixins: [ApiMixin],
+
   props: {
     // GenericXX 컴포넌트들에서는 BaseEntity를 기본적으로 사용합니다. 필수!
     entityClass: {
@@ -50,31 +53,6 @@ export default Vue.extend({
       } finally {
         console.log('Fetch 종료!');
         this.fetching = false;
-      }
-    },
-
-    async showResult(resultPromise: Promise<boolean>, onSuccessMessage: string): Promise<boolean> {
-      try {
-        const result = await resultPromise;
-
-        if (result) {
-          this.$toasted.show(onSuccessMessage, {duration: 2000, icon: 'done'});
-        } else {
-          this.$toasted.show('요청을 처리하지 못 하였습니다', {duration: 2000, icon: 'warning'});
-        }
-
-        return result;
-      } catch (e) {
-        this.$toasted.show('심각한 문제가 발생하였습니다.', {
-          duration: undefined,
-          icon: 'error',
-          action: [
-            {text: '자세히', onClick: () => alert(e)},
-            {text: '닫기', onClick: (e, toastObject) => toastObject.goAway(0)},
-          ],
-        });
-
-        return false;
       }
     },
 

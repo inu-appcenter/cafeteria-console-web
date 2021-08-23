@@ -1,7 +1,7 @@
 import BaseEntity from '@/core/entity/BaseEntity';
 import Entity from '@/core/entity/decorator/Entity';
 import Field from '@/core/entity/decorator/Field';
-import {number, numberOverZero, stringNotEmpty} from '@/core/component/common/validation';
+import {number, numberOverZero, stringNotEmpty, timeRangeString} from '@/core/component/common/validation';
 
 @Entity({displayName: '할인 검증 파라미터'})
 export default class CafeteriaValidationParams extends BaseEntity {
@@ -17,20 +17,16 @@ export default class CafeteriaValidationParams extends BaseEntity {
   @Field({displayName: '할인 이용 가능한 시간대', validate: availableMealTypeShouldBeValid})
   availableMealTypes: number;
 
-  @Field({displayName: '아침 식사 시간대', validate: shouldBeValidTimeRangeString})
+  @Field({displayName: '아침 식사 시간대', validate: timeRangeString})
   breakfast: string;
 
-  @Field({displayName: '점심 식사 시간대', validate: shouldBeValidTimeRangeString})
+  @Field({displayName: '점심 식사 시간대', validate: timeRangeString})
   lunch: string;
 
-  @Field({displayName: '저녁 식사 시간대', validate: shouldBeValidTimeRangeString})
+  @Field({displayName: '저녁 식사 시간대', validate: timeRangeString})
   dinner: string;
 }
 
 function availableMealTypeShouldBeValid(mealType) {
   return (number(mealType) && mealType >= 0 && mealType <= 7) || 'From 0 to 7.';
-}
-
-function shouldBeValidTimeRangeString(timeRangeString) {
-  return /^[0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9]$/.test(timeRangeString) || "Should be in 'mm:hh-mm:hh' format.";
 }

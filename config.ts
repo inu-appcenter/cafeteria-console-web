@@ -1,7 +1,7 @@
 import {isProduction} from '@/utils/nodeEnv';
 
 const serverUrl = {
-  dev: 'http://10.0.1.10:8081',
+  dev: 'http://localhost:8090',
   production: 'https://console-api.inu-cafeteria.app',
 };
 
@@ -13,6 +13,16 @@ export default {
   pageTitle: '카페테리아 콘솔',
 
   services: [
+    {
+      name: 'CheckIn',
+      icon: 'mdi-qrcode',
+      subtitle: 'QR 체크인',
+    },
+    {
+      name: 'Booking',
+      icon: 'mdi-bookmark',
+      subtitle: '예약 관리',
+    },
     {
       name: 'Notices',
       icon: 'mdi-bullhorn',
@@ -52,12 +62,14 @@ export default {
 
   api: {
     endpoints: {
-      graphql: `${baseUrl()}/graphql`,
       login: `${baseUrl()}/login`,
-      dailyLogs: (date, cafeteriaId, fileType) =>
-        `${baseUrl()}/records/${date}?cafeteriaId=${cafeteriaId}&fileType=${fileType}`,
+      checkIn: `${baseUrl()}/checkin`,
+      checkInContext: (cafeteriaId: number) => `${baseUrl()}/checkin/context?cafeteriaId=${cafeteriaId}`,
+      graphql: `${baseUrl()}/graphql`,
       version: `${baseUrl()}/version`,
       zen: 'https://api.github.com/zen',
+      dailyRecords: (date, cafeteriaId, fileType) =>
+        `${baseUrl()}/records/${date}?cafeteriaId=${cafeteriaId}&fileType=${fileType}`,
     },
   },
 };
