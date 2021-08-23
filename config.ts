@@ -1,7 +1,7 @@
 import {isProduction} from '@/utils/nodeEnv';
 
 const serverUrl = {
-  dev: 'http://localhost:8081',
+  dev: 'http://localhost:8090',
   production: 'https://console-api.inu-cafeteria.app',
 };
 
@@ -59,7 +59,7 @@ export default {
     endpoints: {
       login: `${baseUrl()}/login`,
       checkIn: `${baseUrl()}/checkin`,
-      checkInContext: `${baseUrl()}/checkin/context`,
+      checkInContext: (cafeteriaId: number) => `${baseUrl()}/checkin/context?cafeteriaId=${cafeteriaId}`,
       graphql: `${baseUrl()}/graphql`,
       version: `${baseUrl()}/version`,
       zen: 'https://api.github.com/zen',

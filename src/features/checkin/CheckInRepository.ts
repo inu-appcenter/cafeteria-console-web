@@ -3,10 +3,8 @@ import Context from '@/features/checkin/Context';
 import http from '@/core/request/http';
 
 class CheckInRepository {
-  async fetchContext(): Promise<Context> {
-    //     return Context.of({capacity: 20, expected: 18, actual: 16, total: 30});
-
-    const result = await http.get(config.api.endpoints.checkInContext);
+  async fetchContext(cafeteriaId: number): Promise<Context> {
+    const result = await http.get(config.api.endpoints.checkInContext(cafeteriaId));
 
     const {capacity, expected, actual, total} = await result.json();
 

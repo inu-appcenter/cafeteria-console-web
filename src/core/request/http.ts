@@ -13,7 +13,10 @@ async function post(path: string, body: Record<string, any>, headers?: Record<st
     fetch(path, {
       method: 'post',
       credentials: 'include',
-      headers,
+      headers: {
+        'content-type': 'application/json',
+        ...headers,
+      },
       body: JSON.stringify(body),
     }),
   );
@@ -24,6 +27,8 @@ async function assertOk(responsePromise: Promise<Response>): Promise<Response> {
 
   if (!response.ok) {
     const body = await response.json();
+
+    console.log(body);
 
     throw new Error(body.message);
   }
