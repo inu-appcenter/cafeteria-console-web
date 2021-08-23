@@ -50,6 +50,7 @@
 <script>
 import config from '../../../config';
 import EventBus from '@/event-bus';
+import http from '@/core/request/http';
 
 export default {
   name: 'Login',
@@ -100,16 +101,9 @@ export default {
 
     async getLoginResult(username, password) {
       try {
-        const params = {
+        const result = await http.post(config.api.endpoints.login, {
           username,
           password,
-        };
-
-        const result = await fetch(config.api.endpoints.login, {
-          method: 'POST',
-          credentials: 'include',
-          headers: {'content-type': 'application/x-www-form-urlencoded'},
-          body: new URLSearchParams(params).toString(),
         });
 
         return result.ok;

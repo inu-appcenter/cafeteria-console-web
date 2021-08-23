@@ -1,5 +1,6 @@
 import config from '../../../config';
 import {GraphQLQuery} from '@/core/graphql/GraphQLQuery';
+import http from '@/core/request/http';
 
 class GraphQLRepository {
   private endpoint = config.api.endpoints.graphql;
@@ -26,17 +27,9 @@ class GraphQLRepository {
 
   private async getResponse({query, variables}: GraphQLQuery) {
     try {
-      return await fetch(this.endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-          query,
-          variables,
-        }),
+      return await http.post(this.endpoint, {
+        query,
+        variables,
       });
     } catch (e) {
       console.log(e);

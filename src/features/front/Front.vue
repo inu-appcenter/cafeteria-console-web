@@ -64,6 +64,7 @@
 import config from '../../../config';
 import packageInfo from '../../../package.json';
 import {formatDateYYYYMMDD} from '@/utils/date';
+import http from '@/core/request/http';
 
 export default {
   name: 'Front',
@@ -98,12 +99,12 @@ export default {
     },
 
     async _fetchVersion() {
-      const response = await fetch(config.api.endpoints.version);
+      const response = await http.get(config.api.endpoints.version);
       this.server.version = await response.text();
     },
 
     async _fetchZen() {
-      const response = await fetch(config.api.endpoints.zen);
+      const response = await http.get(config.api.endpoints.zen);
       const text = await response.text();
       this.zen = text.length > 50 ? `Something went wrong...` : text;
     },
