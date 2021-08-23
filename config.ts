@@ -19,6 +19,11 @@ export default {
       subtitle: 'QR 체크인',
     },
     {
+      name: 'Booking',
+      icon: 'mdi-bookmark',
+      subtitle: '예약 관리',
+    },
+    {
       name: 'Notices',
       icon: 'mdi-bullhorn',
       subtitle: '공지사항',

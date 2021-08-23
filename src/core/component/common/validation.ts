@@ -29,3 +29,7 @@ export function numberOverZero(value: any) {
 export function numberNonNegative(value: any) {
   return (exists(value) && isNumber(value) && value >= 0) || 'Should be over zero';
 }
+
+export function timeRangeString(timeRangeString: any) {
+  return /^[0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9]$/.test(timeRangeString) || "Should be in 'mm:hh-mm:hh' format.";
+}
