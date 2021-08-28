@@ -19,7 +19,7 @@
         >
           <template v-slot:item="{item}">
             <tr>
-              <td>{{ item.timestamp }}</td>
+              <td>{{ item.timestamp | format_date }}</td>
               <td class="truncate">{{ item.message }}</td>
             </tr>
           </template>

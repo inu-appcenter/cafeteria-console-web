@@ -17,6 +17,9 @@
             :search="search"
             loading-text="로드 중... 잠시만 기다려 주세요"
           >
+            <template v-slot:item.timestamp="{item}">
+              {{ item.timestamp | format_date }}
+            </template>
             <template v-slot:item.failedAt="{item}">
               <v-chip :color="failureColor(item.failedAt)" dark>
                 {{ item.failedAt }}

@@ -1,6 +1,7 @@
 import BaseEntity from '@/core/entity/BaseEntity';
 import Entity from '@/core/entity/decorator/Entity';
 import Field from '@/core/entity/decorator/Field';
+import TransformDate from '@/core/entity/decorator/TransformDate';
 
 @Entity({displayName: '바코드 태그 기록'})
 export default class DiscountProcessHistory extends BaseEntity {
@@ -8,9 +9,10 @@ export default class DiscountProcessHistory extends BaseEntity {
   id: number;
 
   @Field({displayName: '날짜', mutable: false})
+  @TransformDate()
   timestamp: Date;
 
-  @Field({displayName: '유형(Verify | Commit | Cancel)', mutable: false})
+  @Field({displayName: '유형(Verify | Confirm | Cancel)', mutable: false})
   type: 'Verify' | 'Commit' | 'Cancel' | string;
 
   @Field({displayName: '학번', mutable: false})
