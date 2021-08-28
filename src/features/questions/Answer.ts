@@ -20,10 +20,10 @@ export default class Answer extends BaseEntity {
 
   @Field({mutable: false, visible: false})
   @TransformDate()
-  answeredAt: Date = new Date();
+  answeredAt: Date;
 
   @Field({mutable: false, visible: false})
-  read: boolean = false;
+  read: boolean;
 
   @Field({mutable: false, visible: false})
   @TransformDate()

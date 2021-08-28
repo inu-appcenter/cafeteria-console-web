@@ -30,8 +30,10 @@ export default Vue.extend({
       this.newItem.loading = true;
 
       const result = await this.showResult(this.onAdd(this.newItem), '추가되었습니다');
-      if (!result) {
-        this.allItems = this.allItems.filter(item => item !== this.newItem); // Cancel addition.
+      if (result) {
+        await this.load(); // 잘 됐으면 새로고침해서 id 받아옵니다.
+      } else {
+        this.allItems = this.allItems.filter(item => item !== this.newItem); // 잘 안됐으면 추가를 취소합니다.
       }
 
       this.newItem.loading = false;
