@@ -22,6 +22,11 @@ Vue.filter('format_date', value => {
   if (!value) {
     return '';
   }
+
+  if (!(value instanceof Date)) {
+    return 'NON-DATE';
+  }
+
   return value.toLocaleString();
 });
 
@@ -30,8 +35,12 @@ Vue.filter('format_time_diff', value => {
     return '';
   }
 
+  if (!(value instanceof Date)) {
+    return 'NON-DATE';
+  }
+
   const now = Date.now();
-  const then = Number.parseInt(value);
+  const then = value.getTime();
 
   const diff = now - then;
   const calculatedHour = diff / 3600000;
@@ -39,7 +48,7 @@ Vue.filter('format_time_diff', value => {
   if (calculatedHour < 1) {
     return '1시간 미만';
   } else {
-    return `${calculatedHour}시간`;
+    return `${Math.floor(calculatedHour)}시간`;
   }
 });
 

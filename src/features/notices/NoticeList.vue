@@ -14,6 +14,7 @@ export default {
     return {
       noticeProps: {
         entityClass: Notice,
+        order: 'DESC',
       },
     };
   },

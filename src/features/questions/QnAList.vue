@@ -29,6 +29,8 @@ export default {
       qnaProps: {
         entityClass: Question,
         answerClass: Answer,
+        order: 'DESC',
+
         valueMapper,
       },
     };

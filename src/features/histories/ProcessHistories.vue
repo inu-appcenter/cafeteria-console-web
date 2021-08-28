@@ -14,6 +14,7 @@ export default {
     return {
       historyProps: {
         entityClass: DiscountProcessHistory,
+        order: 'DESC',
 
         failureColor: failure => (failure === 0 ? 'green' : 'red'),
       },

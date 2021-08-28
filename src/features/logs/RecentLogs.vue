@@ -19,6 +19,7 @@ export default {
     return {
       logProps: {
         entityClass: Log,
+        order: 'DESC',
       },
     };
   },

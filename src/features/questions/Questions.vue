@@ -1,6 +1,5 @@
 <template>
   <v-container fluid>
-    <!-- All QnAs -->
     <QnAList />
   </v-container>
 </template>
