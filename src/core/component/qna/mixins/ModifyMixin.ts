@@ -22,6 +22,7 @@ export default Vue.extend({
     async onClickDoneWriteAnswer() {
       this.editAnswerDialogVisible = false;
       this.answerNowEditing.modified = false;
+      this.answerNowEditing.questionId = this.currentlyAnsweringQuestion.id; // TODO 직접대입 말고 다른 방법 찾자..ㅠ
 
       this.currentlyAnsweringQuestion.loading = true;
       const success = await this.showResult(this.onWriteAnswer(this.answerNowEditing), '반영되었습니다.');

@@ -9,6 +9,9 @@ export default class Answer extends BaseEntity {
   @Field({visible: false, mutable: false})
   id: number;
 
+  @Field({visible: false, mutable: false})
+  questionId: number;
+
   @Field({displayName: '제목', validate: stringNotEmpty})
   title: string;
 
@@ -17,10 +20,10 @@ export default class Answer extends BaseEntity {
 
   @Field({mutable: false, visible: false})
   @TransformDate()
-  answeredAt: Date;
+  answeredAt: Date = new Date();
 
   @Field({mutable: false, visible: false})
-  read: boolean;
+  read: boolean = false;
 
   @Field({mutable: false, visible: false})
   @TransformDate()
