@@ -4,7 +4,7 @@
     <v-flex d-flex>
       <v-layout wrap>
         <v-flex v-for="n in [1, 2, 3, 4]" :key="n" lg4 md6 sm6 xs12>
-          <v-skeleton-loader v-show="loading" :elevation="2" :type="skeletonType" class="mx-2" />
+          <v-skeleton-loader v-show="loading" :elevation="2" :type="skeletonType" class="ma-2" />
         </v-flex>
       </v-layout>
     </v-flex>
