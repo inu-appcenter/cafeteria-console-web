@@ -12,7 +12,7 @@ export default class Notice extends BaseEntity {
   @Field({displayName: '제목', validate: stringNotEmpty})
   title: string;
 
-  @Field({displayName: '내용', validate: stringNotEmpty})
+  @Field({type: 'text', displayName: '내용', validate: stringNotEmpty})
   body: string;
 
   @Field({displayName: '타겟 운영체제', validate: stringNotEmpty})
