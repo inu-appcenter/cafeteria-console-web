@@ -1,7 +1,18 @@
 <template>
-  <div>
-    <qrcode-stream :camera="camera" :track="paintOutline" @decode="onDecode" @init="onInit">
-      <div v-show="showScanConfirmation" class="scan-confirmation">❤️</div>
+  <div
+    ref="wrapper"
+    class="qrcode-scanner-wrapper"
+    @click="fullscreen = !fullscreen"
+    @fullscreenchange="onFullscreenChange"
+  >
+    <qrcode-stream
+      class="qrcode-scanner-surface"
+      :camera="camera"
+      :track="paintOutline"
+      @decode="onDecode"
+      @init="onInit"
+    >
+      <div v-show="showScanConfirmation" class="scan-confirmation">{{ confirmationText }}</div>
     </qrcode-stream>
 
     <div class="overlay">
@@ -55,6 +66,7 @@ export default {
   justify-content: center;
 
   font-size: 36px;
+  color: #222222;
 }
 .overlay {
   position: absolute;
@@ -89,5 +101,16 @@ export default {
 }
 .section-value {
   font-weight: bold;
+}
+
+.qrcode-scanner-wrapper {
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.qrcode-scanner-surface {
+  flex: 1;
 }
 </style>

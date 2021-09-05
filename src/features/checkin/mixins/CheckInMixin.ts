@@ -32,12 +32,6 @@ export default Vue.extend({
   },
 
   watch: {
-    scanResult(newVal) {
-      if (newVal) {
-        this.checkIn(newVal);
-      }
-    },
-
     error(newVal) {
       if (newVal) {
         alert(newVal);
@@ -84,13 +78,13 @@ export default Vue.extend({
       }
     },
 
-    async checkIn(ticket: string) {
+    async handleDecodeResult(ticket: string) {
       try {
         await CheckInRepository.checkIn(ticket);
-        this.success('통과');
-        await this.fetchContext();
+        this.fetchContext().then();
+        return '😄️';
       } catch (e) {
-        this.fail(e.message);
+        return '😫';
       }
     },
   },
