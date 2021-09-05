@@ -178,7 +178,8 @@ export default {
 }
 .scanner-frame {
   width: 40%;
-  aspect-ratio: 1;
+  padding-bottom: 40%;
+
   border: 3px dashed #ffc341;
   outline: 10000px solid #00000040;
   background: transparent;
