@@ -1,7 +1,7 @@
 <template>
   <div
     ref="wrapper"
-    class="qrcode-scanner-wrapper"
+    :class="{fullscreen: fullscreen, 'qrcode-scanner-wrapper': !fullscreen}"
     @click="fullscreen = !fullscreen"
     @fullscreenchange="onFullscreenChange"
   >
@@ -12,10 +12,30 @@
       @decode="onDecode"
       @init="onInit"
     >
-      <div v-show="showScanConfirmation" class="scan-confirmation">{{ confirmationText }}</div>
+      <!-- 네모 프레임 -->
+      <div class="scanner-frame-container">
+        <div class="scanner-frame"></div>
+      </div>
+
+      <!-- 카메라 전환 버튼 -->
+      <button v-show="!(noRearCamera || noFrontCamera)" class="bottom-right-button" @click="switchCamera">🔄</button>
+
+      <!-- 성공 메시지 오버레이 -->
+      <transition name="fade">
+        <div v-show="result && result.success" class="success-overlay">
+          {{ result ? result.message : '' }}
+        </div>
+      </transition>
+
+      <!-- 실패 메시지 오버레이 -->
+      <transition name="fade">
+        <div v-show="result && !result.success" class="result-confirmation dark-blur-backdrop">
+          {{ result ? result.message : '' }}
+        </div>
+      </transition>
     </qrcode-stream>
 
-    <div class="overlay">
+    <div class="overlay dark-blur-backdrop">
       <div class="overlay-top">
         <span>
           {{ new Date().toLocaleTimeString() }}
@@ -53,12 +73,10 @@ export default {
 </script>
 
 <style scoped>
-.scan-confirmation {
+.result-confirmation {
   position: absolute;
   width: 100%;
   height: 100%;
-
-  background-color: rgba(255, 255, 255, 0.8);
 
   display: flex;
   flex-flow: row nowrap;
@@ -66,15 +84,31 @@ export default {
   justify-content: center;
 
   font-size: 36px;
-  color: #222222;
+}
+.success-overlay {
+  z-index: 1000;
+
+  position: fixed;
+  top: 200px;
+  left: 50%;
+  /* 가운데에 두려는 발악 */
+  transform: translateX(-50%);
+
+  color: white;
+  padding: 6px;
+  font-size: 18px;
+  background: #3e8801ff;
+  border-radius: 12px;
+}
+.dark-blur-backdrop {
+  color: white;
+  background: #00000099;
+  backdrop-filter: blur(5px);
 }
 .overlay {
   position: absolute;
   top: 0;
   width: 100%;
-  color: white;
-  background: #00000099;
-  backdrop-filter: blur(5px);
 }
 .overlay-top {
   display: flex;
@@ -102,15 +136,51 @@ export default {
 .section-value {
   font-weight: bold;
 }
-
 .qrcode-scanner-wrapper {
   flex: 1;
   flex-direction: column;
   width: 100%;
   height: 100%;
 }
-
 .qrcode-scanner-surface {
+  display: flex;
+
   flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.fullscreen {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+.bottom-right-button {
+  position: absolute;
+  font-size: 36px;
+  padding: 4px;
+  right: 12px;
+  bottom: 12px;
+}
+.scanner-frame-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.scanner-frame {
+  width: 40%;
+  aspect-ratio: 1;
+  border: 3px dashed #ffc341;
+  outline: 10000px solid #00000040;
+  background: transparent;
 }
 </style>
