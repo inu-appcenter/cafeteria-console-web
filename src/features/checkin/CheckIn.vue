@@ -90,7 +90,8 @@ export default {
   position: fixed;
   z-index: 1000;
   top: 30%;
-  margin: 0 12px;
+  margin-left: 12px;
+  margin-right: 12px;
 
   color: white;
   padding: 4px 6px;

@@ -6,6 +6,7 @@ import ApiMixin from '@/core/component/common/mixins/ApiMixin';
 import Cafeteria from '@/features/cafeteria/Cafeteria';
 import ScannerMixin from '@/features/checkin/mixins/ScannerMixin';
 import {HandleDecodeResult} from '@/features/checkin/mixins/ScannerResultMixin';
+import {playSound} from '@/utils/audio';
 
 export default Vue.extend({
   mixins: [ApiMixin, ScannerMixin],
@@ -82,11 +83,16 @@ export default Vue.extend({
       try {
         await CheckInRepository.checkIn(ticket);
         this.fetchContext().then();
+
+        playSound('/sounds/success.mp3').then();
+
         return {
           success: true,
           message: '체크인이 완료되었습니다.',
         };
       } catch (e) {
+        playSound('/sounds/fail.mp3').then();
+
         return {
           success: false,
           message: e.message,

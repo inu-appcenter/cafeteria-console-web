@@ -26,6 +26,7 @@ import DrawerList from './components/DrawerList';
 import config from '../config';
 import colors from '@/res/colors';
 import EventBus from '@/event-bus';
+import {unlockAudio} from '@/utils/audio';
 
 function setDarkInternal(context, dark) {
   context.$vuetify.theme.dark = dark;
@@ -43,13 +44,9 @@ export default {
     };
   },
 
-  methods: {
-    setDark(dark) {
-      setDarkInternal(this, dark);
-    },
-  },
-
   created() {
+    unlockAudio();
+
     setDarkInternal(this, true);
 
     EventBus.$on('drawer', openOrNot => {

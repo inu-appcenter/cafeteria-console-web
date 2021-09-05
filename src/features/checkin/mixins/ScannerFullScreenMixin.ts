@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import ScannerBaseMixin from '@/features/checkin/mixins/ScannerBaseMixin';
+import {playSound} from '@/utils/audio';
 
 export default Vue.extend({
   mixins: [ScannerBaseMixin],
@@ -12,6 +13,8 @@ export default Vue.extend({
 
   watch: {
     fullscreen(enterFullscreen) {
+      playSound('/sounds/click.mp3').then();
+
       if (enterFullscreen) {
         this.requestFullscreen();
       } else {
