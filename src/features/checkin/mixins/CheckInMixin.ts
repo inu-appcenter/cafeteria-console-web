@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import {QrcodeStream} from 'vue-qrcode-reader';
-import stringifyError from '@/features/checkin/stringifyError';
 import Context from '@/features/checkin/Context';
 import CheckInRepository from '@/features/checkin/CheckInRepository';
 import ApiMixin from '@/core/component/common/mixins/ApiMixin';
 import Cafeteria from '@/features/cafeteria/Cafeteria';
+import ScannerMixin from '@/features/checkin/mixins/ScannerMixin';
 
 export default Vue.extend({
-  mixins: [ApiMixin],
+  mixins: [ApiMixin, ScannerMixin],
 
   components: {QrcodeStream},
 
@@ -40,12 +40,6 @@ export default Vue.extend({
   },
 
   methods: {
-    init(promise: Promise<unknown>) {
-      promise.catch(e => {
-        alert(stringifyError(e));
-      });
-    },
-
     async fetchCafeteria() {
       const allCafeteria = await Cafeteria.find();
       const cafeteriaSupportingBooking = allCafeteria.filter(c => c.supportBooking);
@@ -84,13 +78,13 @@ export default Vue.extend({
       }
     },
 
-    async checkIn(ticket: string) {
+    async handleDecodeResult(ticket: string) {
       try {
         await CheckInRepository.checkIn(ticket);
-        this.success('통과');
-        await this.fetchContext();
+        this.fetchContext().then();
+        return '😄️';
       } catch (e) {
-        this.fail(e.message);
+        return '😫';
       }
     },
   },
