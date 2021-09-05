@@ -14,18 +14,19 @@
     >
       <!-- 네모 프레임 -->
       <div class="scanner-frame-container">
+        <!-- 네모 -->
         <div class="scanner-frame"></div>
+
+        <!-- 성공 메시지 오버레이 -->
+        <transition name="fade">
+          <div v-show="result && result.success" class="success-overlay">
+            {{ result ? result.message : '' }}
+          </div>
+        </transition>
       </div>
 
       <!-- 카메라 전환 버튼 -->
       <button v-show="!(noRearCamera || noFrontCamera)" class="bottom-right-button" @click="switchCamera">🔄</button>
-
-      <!-- 성공 메시지 오버레이 -->
-      <transition name="fade">
-        <div v-show="result && result.success" class="success-overlay">
-          {{ result ? result.message : '' }}
-        </div>
-      </transition>
 
       <!-- 실패 메시지 오버레이 -->
       <transition name="fade">
@@ -86,19 +87,16 @@ export default {
   font-size: 36px;
 }
 .success-overlay {
-  z-index: 1000;
-
   position: fixed;
-  top: 200px;
-  left: 50%;
-  /* 가운데에 두려는 발악 */
-  transform: translateX(-50%);
+  z-index: 1000;
+  top: 30%;
+  margin: 0 12px;
 
   color: white;
-  padding: 6px;
-  font-size: 18px;
+  padding: 4px 6px;
+  font-size: 16px;
   background: #3e8801ff;
-  border-radius: 12px;
+  border-radius: 8px;
 }
 .dark-blur-backdrop {
   color: white;
