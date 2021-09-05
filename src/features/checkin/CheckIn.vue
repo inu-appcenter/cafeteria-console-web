@@ -1,6 +1,9 @@
 <template>
   <div>
-    <qrcode-stream @decode="checkIn" @init="init" />
+    <qrcode-stream :camera="camera" :track="paintOutline" @decode="onDecode" @init="onInit">
+      <div v-show="showScanConfirmation" class="scan-confirmation">❤️</div>
+    </qrcode-stream>
+
     <div class="overlay">
       <div class="overlay-top">
         <span>
@@ -29,7 +32,7 @@
 </template>
 
 <script>
-import CheckInMixin from '@/features/checkin/CheckInMixin';
+import CheckInMixin from '@/features/checkin/mixins/CheckInMixin';
 
 export default {
   mixins: [CheckInMixin],
@@ -39,6 +42,20 @@ export default {
 </script>
 
 <style scoped>
+.scan-confirmation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(255, 255, 255, 0.8);
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 36px;
+}
 .overlay {
   position: absolute;
   top: 0;

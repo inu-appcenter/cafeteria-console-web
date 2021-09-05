@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import {QrcodeStream} from 'vue-qrcode-reader';
-import stringifyError from '@/features/checkin/stringifyError';
 import Context from '@/features/checkin/Context';
 import CheckInRepository from '@/features/checkin/CheckInRepository';
 import ApiMixin from '@/core/component/common/mixins/ApiMixin';
 import Cafeteria from '@/features/cafeteria/Cafeteria';
+import ScannerMixin from '@/features/checkin/mixins/ScannerMixin';
 
 export default Vue.extend({
-  mixins: [ApiMixin],
+  mixins: [ApiMixin, ScannerMixin],
 
   components: {QrcodeStream},
 
@@ -32,6 +32,12 @@ export default Vue.extend({
   },
 
   watch: {
+    scanResult(newVal) {
+      if (newVal) {
+        this.checkIn(newVal);
+      }
+    },
+
     error(newVal) {
       if (newVal) {
         alert(newVal);
@@ -40,12 +46,6 @@ export default Vue.extend({
   },
 
   methods: {
-    init(promise: Promise<unknown>) {
-      promise.catch(e => {
-        alert(stringifyError(e));
-      });
-    },
-
     async fetchCafeteria() {
       const allCafeteria = await Cafeteria.find();
       const cafeteriaSupportingBooking = allCafeteria.filter(c => c.supportBooking);
