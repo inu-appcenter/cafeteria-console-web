@@ -1,6 +1,9 @@
 import Vue from 'vue';
+import ScannerBaseMixin from '@/features/checkin/mixins/ScannerBaseMixin';
 
 export default Vue.extend({
+  mixins: [ScannerBaseMixin],
+
   data() {
     return {
       fullscreen: false,

@@ -5,6 +5,7 @@ import CheckInRepository from '@/features/checkin/CheckInRepository';
 import ApiMixin from '@/core/component/common/mixins/ApiMixin';
 import Cafeteria from '@/features/cafeteria/Cafeteria';
 import ScannerMixin from '@/features/checkin/mixins/ScannerMixin';
+import {HandleDecodeResult} from '@/features/checkin/mixins/ScannerResultMixin';
 
 export default Vue.extend({
   mixins: [ApiMixin, ScannerMixin],
@@ -26,7 +27,6 @@ export default Vue.extend({
       selectedCafeteria: undefined,
 
       timer: undefined,
-      error: undefined,
       context: Context.of({}),
     };
   },
@@ -78,13 +78,19 @@ export default Vue.extend({
       }
     },
 
-    async handleDecodeResult(ticket: string) {
+    async handleDecodeResult(ticket: string): Promise<HandleDecodeResult> {
       try {
         await CheckInRepository.checkIn(ticket);
         this.fetchContext().then();
-        return '😄️';
+        return {
+          success: true,
+          message: '체크인이 완료되었습니다.',
+        };
       } catch (e) {
-        return '😫';
+        return {
+          success: false,
+          message: e.message,
+        };
       }
     },
   },
