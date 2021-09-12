@@ -11,6 +11,9 @@
         <span class="pa-1 light-blue--text">BETA</span>
       </v-btn>
       <v-spacer />
+      <v-btn class="pa-0" href="/#/Visit" text>
+        <v-icon>mdi-file-document-edit</v-icon>
+      </v-btn>
       <v-btn class="pa-0" href="/#/CheckIn" text>
         <v-icon>mdi-qrcode</v-icon>
       </v-btn>
