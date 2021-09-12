@@ -14,6 +14,11 @@ export default {
 
   services: [
     {
+      name: 'Visit',
+      icon: 'mdi-file-document-edit',
+      subtitle: '수기 체크인',
+    },
+    {
       name: 'CheckIn',
       icon: 'mdi-qrcode',
       subtitle: 'QR 체크인',
@@ -63,6 +68,7 @@ export default {
   api: {
     endpoints: {
       login: `${baseUrl()}/login`,
+      visit: `${baseUrl()}/visit`,
       checkIn: `${baseUrl()}/checkin`,
       checkInContext: (cafeteriaId: number) => `${baseUrl()}/checkin/context?cafeteriaId=${cafeteriaId}`,
       graphql: `${baseUrl()}/graphql`,

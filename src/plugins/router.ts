@@ -7,6 +7,7 @@ import Rules from '@/features/rules/Rules.vue';
 import Cafeteria from '@/features/cafeteria/Cafeteria.vue';
 import Parsing from '@/features/parsing/Parsing.vue';
 import Login from '@/features/login/Login.vue';
+import Visit from '@/features/visit/Visit.vue';
 import CheckIn from '@/features/checkin/CheckIn.vue';
 import Booking from '@/features/booking/Booking.vue';
 import Notices from '@/features/notices/Notices.vue';
@@ -19,6 +20,7 @@ function createRouter() {
   const routes = [
     {path: '/', component: Front, meta: {authRequired: true}},
 
+    {path: '/Visit', component: Visit, meta: {authRequired: true}},
     {path: '/CheckIn', component: CheckIn, meta: {authRequired: true}},
     {path: '/Booking', component: Booking, meta: {authRequired: true}},
     {path: '/Notices', component: Notices, meta: {authRequired: true}},
