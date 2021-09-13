@@ -1,42 +1,58 @@
 <template>
-  <v-list dense nav two-line>
-    <!-- User profile -->
-    <v-list-item v-show="userName">
+  <v-list nav dense expand>
+    <!-- 사용자 프로필 -->
+    <v-list-item v-show="username">
       <v-list-item-action>
         <v-icon>account_circle</v-icon>
       </v-list-item-action>
 
       <v-list-item-content>
-        <v-list-item-title class="font-weight-medium body-1">{{ userName }}</v-list-item-title>
+        <v-list-item-title class="font-weight-medium body-1">{{ username }}</v-list-item-title>
         <v-list-item-subtitle>로그인됨</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 
-    <v-divider v-show="userName" class="my-1"></v-divider>
+    <!-- 구분선 -->
+    <v-divider v-show="username" class="my-1"></v-divider>
 
-    <!-- Services -->
-    <v-list-item-group v-model="selected">
-      <!-- A single item -->
-      <v-list-item v-for="service in services" :key="service.name" :to="service.name" link>
-        <!-- Icon -->
+    <!-- 서비스 메뉴 -->
+    <v-list-group v-for="serviceGroup in services" :key="serviceGroup.displayName" :group="serviceGroup.name">
+      <template v-slot:activator>
+        <!-- 서비스 그룹의 아이콘 -->
         <v-list-item-action>
-          <v-icon>{{ service.icon }}</v-icon>
+          <v-icon>{{ serviceGroup.icon }}</v-icon>
         </v-list-item-action>
 
-        <!-- Name and subtitle -->
+        <!-- 서비스 그룹의 이름 -->
         <v-list-item-content>
-          <v-list-item-title>{{ service.name }}</v-list-item-title>
-          <v-list-item-subtitle>{{ service.subtitle }}</v-list-item-subtitle>
+          <v-list-item-title class="font-weight-bold">{{ serviceGroup.displayName }}</v-list-item-title>
         </v-list-item-content>
-      </v-list-item>
-    </v-list-item-group>
+      </template>
+
+      <v-list-item-group :v-model="selected">
+        <v-list-item
+          v-for="serviceItem in serviceGroup.items"
+          :key="serviceItem.name"
+          :to="`/${serviceGroup.name}/${serviceItem.name}`"
+          link
+        >
+          <!-- 서비스 아이템의 아이콘 -->
+          <v-list-item-action></v-list-item-action>
+
+          <!-- 서비스 아이템의 이름과 설명 -->
+          <v-list-item-content>
+            <v-list-item-title class="font-weight-bold">{{ serviceItem.displayName }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list-group>
   </v-list>
 </template>
 
 <script>
-import config from '../../config';
-import EventBus from '@/event-bus';
 import JWT from 'jsonwebtoken';
+import EventBus from '@/event-bus';
+import services from '../../services';
 
 export default {
   name: 'Drawer',
@@ -52,9 +68,9 @@ export default {
   },
 
   data: () => ({
-    services: config.services,
+    services: services,
     selected: null,
-    userName: null,
+    username: null,
   }),
 
   methods: {
@@ -68,7 +84,7 @@ export default {
         return;
       }
 
-      this.userName = payload.userName;
+      this.username = payload['username'];
     },
   },
 };

@@ -1,37 +1,26 @@
-import EventBus from '@/event-bus';
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import Front from '@/features/front/Front.vue';
-import Histories from '@/features/histories/Histories.vue';
-import Rules from '@/features/rules/Rules.vue';
-import Cafeteria from '@/features/cafeteria/Cafeteria.vue';
-import Parsing from '@/features/parsing/Parsing.vue';
 import Login from '@/features/login/Login.vue';
-import Visit from '@/features/visit/Visit.vue';
-import CheckIn from '@/features/checkin/CheckIn.vue';
-import Booking from '@/features/booking/Booking.vue';
-import Notices from '@/features/notices/Notices.vue';
-import Questions from '@/features/questions/Questions.vue';
-import Logs from '@/features/logs/Logs.vue';
+import EventBus from '@/event-bus';
+import services from '../../services';
+import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
 function createRouter() {
   const routes = [
     {path: '/', component: Front, meta: {authRequired: true}},
-
-    {path: '/Visit', component: Visit, meta: {authRequired: true}},
-    {path: '/CheckIn', component: CheckIn, meta: {authRequired: true}},
-    {path: '/Booking', component: Booking, meta: {authRequired: true}},
-    {path: '/Notices', component: Notices, meta: {authRequired: true}},
-    {path: '/Logs', component: Logs, meta: {authRequired: true}},
-    {path: '/Histories', component: Histories, meta: {authRequired: true}},
-    {path: '/Questions', component: Questions, meta: {authRequired: true}},
-    {path: '/Rules', component: Rules, meta: {authRequired: true}},
-    {path: '/Cafeteria', component: Cafeteria, meta: {authRequired: true}},
-    {path: '/Parsing', component: Parsing, meta: {authRequired: true}},
-
     {path: '/login', component: Login},
+
+    ...services
+      .map(group =>
+        group.items.map(item => ({
+          path: `/${group.name}/${item.name}`,
+          component: item.component,
+          meta: {authRequired: true},
+        })),
+      )
+      .flat(),
   ];
   const mode = 'hash';
 

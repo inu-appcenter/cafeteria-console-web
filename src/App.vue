@@ -11,10 +11,10 @@
         <span class="pa-1 light-blue--text">BETA</span>
       </v-btn>
       <v-spacer />
-      <v-btn class="pa-0" href="/#/Visit" text>
+      <v-btn class="pa-0" href="/#/admin/visit" text>
         <v-icon>mdi-file-document-edit</v-icon>
       </v-btn>
-      <v-btn class="pa-0" href="/#/CheckIn" text>
+      <v-btn class="pa-0" href="/#/admin/checkin" text>
         <v-icon>mdi-qrcode</v-icon>
       </v-btn>
     </v-app-bar>
@@ -42,7 +42,7 @@ export default {
 
   data() {
     return {
-      drawer: false,
+      drawer: true,
       title: config.pageTitle,
     };
   },

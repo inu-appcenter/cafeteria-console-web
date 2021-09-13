@@ -1,46 +1,58 @@
 <template>
   <v-container fill-height>
-    <!-- Greetings -->
+    <!-- 인사 -->
     <v-row align="center" class="mt-8" justify="center">
-      <!-- Title -->
+      <!-- 타이틀 -->
       <p class="display-1 text--primary">안녕하세요 :)</p>
     </v-row>
 
-    <!-- Primary features -->
+    <!-- 주 기능 -->
     <v-row align="center" class="mt-4" justify="center">
-      <!-- Logs download(txt)-->
+      <!-- 할인 기록 다운로드(txt)-->
       <v-list-item :href="dailyRecordsUrlTxt">
         <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold"
           >{{ todayString }} 학식당 할인 기록 보기(텍스트)
         </v-list-item-content>
       </v-list-item>
 
-      <!-- Logs download(xls)-->
+      <!-- 할인 기록 다운로드(xls)-->
       <v-list-item :href="dailyRecordsUrlXls">
         <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold"
           >{{ todayString }} 학식당 할인 기록 보기(엑셀)
         </v-list-item-content>
       </v-list-item>
 
-      <!-- Call admin! -->
+      <!-- 관리자 호출(전화)! -->
       <v-list-item href="tel:01029222661">
         <v-list-item-content class="d-flex justify-center light-blue--text">관리자 소환(휴대전화)</v-list-item-content>
       </v-list-item>
 
-      <!-- KakaoTalk admin! -->
+      <!-- 관리자 호출(카카오톡)! -->
       <v-list-item href="https://open.kakao.com/o/s6UdqU2c">
         <v-list-item-content class="d-flex justify-center light-blue--text">관리자 소환(카카오톡)</v-list-item-content>
       </v-list-item>
     </v-row>
 
-    <!-- Services -->
-    <v-row align="center" class="mt-4" justify="center">
-      <v-list-item v-for="service in services" :key="service.name" :to="service.name">
-        <v-list-item-content class="d-flex justify-center light-blue--text">{{ service.subtitle }}</v-list-item-content>
+    <!-- 서비스 목록 -->
+    <v-row
+      v-for="serviceGroup in services"
+      :key="serviceGroup.displayName"
+      align="center"
+      justify="center"
+      class="mt-4"
+    >
+      <v-list-item
+        v-for="serviceItem in serviceGroup.items"
+        :key="serviceItem.name"
+        :to="`/${serviceGroup.name}/${serviceItem.name}`"
+      >
+        <v-list-item-content class="d-flex justify-center light-blue--text">{{
+          serviceItem.displayName
+        }}</v-list-item-content>
       </v-list-item>
     </v-row>
 
-    <!-- Footer -->
+    <!-- 하단 -->
     <v-row align="center" class="mt-12" justify="center">
       <div class="metadata-div grey--text">
         <p class="ma-0">{{ packageName }} v{{ packageVersion }}</p>
@@ -65,6 +77,7 @@ import config from '../../../config';
 import packageInfo from '../../../package.json';
 import {formatDateYYYYMMDD} from '@/utils/date';
 import http from '@/core/request/http';
+import services from '../../../services';
 
 export default {
   name: 'Front',
@@ -82,7 +95,7 @@ export default {
       todayString: formatDateYYYYMMDD(),
       dailyRecordsUrlTxt: config.api.endpoints.dailyRecords(formatDateYYYYMMDD(), 4 /* 학생식당 */, 'txt'),
       dailyRecordsUrlXls: config.api.endpoints.dailyRecords(formatDateYYYYMMDD(), 4 /* 학생식당 */, 'xls'),
-      services: config.services,
+      services: services,
 
       zen: null,
     };

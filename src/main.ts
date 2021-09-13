@@ -5,6 +5,7 @@ import App from './App.vue';
 import router from './plugins/router';
 import vuetify from './plugins/vuetify';
 import Toasted from 'vue-toasted';
+import VTooltip from 'v-tooltip';
 import DatetimePicker from 'vuetify-datetime-picker';
 import {VueMasonryPlugin} from 'vue-masonry';
 
@@ -59,6 +60,8 @@ Vue.use(Toasted, {
 Vue.use(VueMasonryPlugin);
 
 Vue.use(DatetimePicker);
+
+Vue.use(VTooltip);
 
 new Vue({
   render: h => h(App),
