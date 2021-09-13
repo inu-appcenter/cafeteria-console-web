@@ -117,15 +117,23 @@ export default {
     },
 
     async _fetchZen() {
-      const response = await http.get(config.api.endpoints.zen);
-      const text = await response.text();
-      this.zen = text.length > 50 ? `Something went wrong...` : text;
+      setTimeout(() => {
+        this.zen = '© 2021 INU Appcenter';
+      }, 700);
     },
   },
 };
 </script>
 
 <style>
+/* 쓸모없어 보여도 fade를 위해 다 쓰이고 있음. */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 .metadata-div {
   text-align: center;
   height: 100px;
