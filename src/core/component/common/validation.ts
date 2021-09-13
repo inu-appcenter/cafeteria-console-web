@@ -11,11 +11,11 @@ function isString(value: any) {
 }
 
 export function required(value: any) {
-  return exists(value) || 'Required.';
+  return exists(value) || '필수입니다.';
 }
 
 export function stringNotEmpty(value: any) {
-  return (exists(value) && isString(value) && value.length > 0) || 'Should not be empty.';
+  return (exists(value) && isString(value) && value.length > 0) || '비어 있지 않아야 합니다.';
 }
 
 export function number(value: any) {
@@ -23,13 +23,13 @@ export function number(value: any) {
 }
 
 export function numberOverZero(value: any) {
-  return (exists(value) && isNumber(value) && value > 0) || 'Should be over zero';
+  return (exists(value) && isNumber(value) && value > 0) || '0보다 커야 합니다.';
 }
 
 export function numberNonNegative(value: any) {
-  return (exists(value) && isNumber(value) && value >= 0) || 'Should be over zero';
+  return (exists(value) && isNumber(value) && value >= 0) || '음수가 아니어야 합니다.';
 }
 
 export function timeRangeString(timeRangeString: any) {
-  return /^[0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9]$/.test(timeRangeString) || "Should be in 'mm:hh-mm:hh' format.";
+  return /^[0-2][0-9]:[0-5][0-9]-[0-2][0-9]:[0-5][0-9]$/.test(timeRangeString) || "'mm:hh-mm:hh' 형태를 가져야 합니다.";
 }

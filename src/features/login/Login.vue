@@ -15,7 +15,7 @@
                     <v-text-field
                       v-model="username"
                       :rules="usernameRules"
-                      label="ID"
+                      label="사용자 이름"
                       required
                       type="text"
                     ></v-text-field>
@@ -61,7 +61,7 @@ export default {
     errorMessage: '',
 
     username: null,
-    usernameRules: [v => !!v || 'ID를 입력해 주세요'],
+    usernameRules: [v => !!v || '사용자 이름을 입력해 주세요'],
 
     password: null,
     passwordRules: [v => !!v || '비밀번호를 입력해 주세요'],
@@ -125,7 +125,7 @@ export default {
     },
 
     async onLoginFail() {
-      this.errorMessage = 'ID와 비밀번호를 확인해 주세요';
+      this.errorMessage = '사용자 이름과 비밀번호를 확인해 주세요';
     },
   },
 };
