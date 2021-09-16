@@ -36,7 +36,7 @@ export default Vue.extend({
 
   methods: {
     isThisANewAnswer() {
-      return this.answerNowEditing[this.keyName] != null;
+      return this.answerNowEditing[this.keyName] == null;
     },
 
     backupAnswer() {
