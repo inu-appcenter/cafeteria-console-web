@@ -47,7 +47,7 @@ export default class GraphQLQueryBuilder<T extends BaseEntity> {
         }
       `,
       variables: {
-        values: this.ownFieldsOnly(entity),
+        values: this.ownDefinedFieldsOnly(entity),
       },
     };
   }
@@ -78,7 +78,10 @@ export default class GraphQLQueryBuilder<T extends BaseEntity> {
     }
   }
 
-  private ownFieldsOnly(entity: T) {
+  /**
+   * 관계 칼럼이 아닌 직접 소유한 칼럼이고, 그 값이 undefined가 아닌 것들만 가져옵니다.
+   */
+  private ownDefinedFieldsOnly(entity: T) {
     const result: Record<string, unknown> = {};
 
     const fields = this.meta.fields;
@@ -86,6 +89,11 @@ export default class GraphQLQueryBuilder<T extends BaseEntity> {
     for (const field of fields) {
       if (field.entityClass) {
         // 엔티티 클래스가 있는 필드는 관계 필드이므로 패쓰!
+        continue;
+      }
+
+      if (entity[field.name] === undefined) {
+        // 설정되지 않은 필드는 서버쪽의 기본값을 사용하도록 패쓰!
         continue;
       }
 
