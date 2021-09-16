@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import GenericMixin from '@/core/component/common/mixins/GenericMixin';
+import {classToClass} from 'class-transformer';
 
 export default Vue.extend({
   mixins: [GenericMixin],
@@ -39,12 +40,20 @@ export default Vue.extend({
       return this.answerNowEditing[this.keyName] == null;
     },
 
+    isThisAnExistingAnswer() {
+      return !this.isThisANewAnswer();
+    },
+
     backupAnswer() {
-      this.answerBeforeEdit = this.answerNowEditing;
+      // answerBeforeEdit 인스턴스는 레퍼런스가 하나밖에 없어야 합니다.
+      // 그래서 deep copy로 백업합니다.
+      this.answerBeforeEdit = classToClass(this.answerNowEditing);
     },
 
     restoreAnswer() {
-      this.answerNowEditing = this.answerBeforeEdit;
+      // answerNowEditing 인스턴스는 여기저기 엮인 레퍼런스가 많습니다.
+      // 인스턴스 자체는 유지하면서 내용만 바꿔주어야 합니다.
+      Object.assign(this.answerNowEditing, this.answerBeforeEdit);
     },
   },
 });

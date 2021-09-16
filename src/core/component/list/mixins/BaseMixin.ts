@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import GenericMixin from '@/core/component/common/mixins/GenericMixin';
 import BaseEntity from '@/core/entity/BaseEntity';
+import {classToClass} from 'class-transformer';
 
 /**
  * GenericList의 CRUD 믹스인의 공통 부분입니다.
@@ -41,10 +42,12 @@ export default Vue.extend({
     },
 
     backupItem<T extends BaseEntity>(item: T) {
-      this.itemBeforeEdit[item[this.keyName]] = Object.assign({}, item);
+      // 백업할 때에는 새 deep copy를 만들어 줍니다.
+      this.itemBeforeEdit[item[this.keyName]] = classToClass(item);
     },
 
     restoreItem<T extends BaseEntity>(item: T) {
+      // 복원할 때에는 이미 존재하는 인스턴스에 값만 넣어 줍니다.
       Object.assign(item, this.itemBeforeEdit[item[this.keyName]]);
     },
 
