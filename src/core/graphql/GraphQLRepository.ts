@@ -27,12 +27,20 @@ class GraphQLRepository {
 
   private async getResponse({query, variables}: GraphQLQuery) {
     try {
-      return await http.post(this.endpoint, {
+      const result = await http.post(this.endpoint, {
         query,
         variables,
       });
+
+      const {errors} = await result.clone().json();
+
+      if (errors != null) {
+        throw new Error(`서버가 요청을 처리하였으나 오류를 돌려주었습니다: ${JSON.stringify(errors)}`);
+      }
+
+      return result;
     } catch (e) {
-      console.log(e);
+      console.error(e);
       throw e;
     }
   }
