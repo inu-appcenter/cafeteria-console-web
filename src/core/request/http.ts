@@ -26,9 +26,9 @@ async function assertOk(responsePromise: Promise<Response>): Promise<Response> {
   const response = await responsePromise;
 
   if (!response.ok) {
-    const body = await response.json();
+    const body = await response.clone().json();
 
-    console.log(body);
+    console.error(body);
 
     throw new Error(body.message);
   }
