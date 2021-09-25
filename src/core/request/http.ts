@@ -1,3 +1,5 @@
+import HttpError from '@/core/request/HttpError';
+
 async function get(path: string, headers?: Record<string, any>): Promise<Response> {
   return await assertOk(
     fetch(path, {
@@ -30,7 +32,7 @@ async function assertOk(responsePromise: Promise<Response>): Promise<Response> {
 
     console.error(body);
 
-    throw new Error(body.message);
+    throw new HttpError(body.error, body.message);
   }
 
   return response;

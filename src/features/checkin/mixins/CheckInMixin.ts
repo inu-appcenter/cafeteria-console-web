@@ -82,20 +82,22 @@ export default Vue.extend({
     async handleDecodeResult(ticket: string): Promise<HandleDecodeResult> {
       try {
         await CheckInRepository.checkIn(ticket);
+
         this.fetchContext().then();
 
         playSound('/sounds/success.mp3').then();
 
         return {
-          success: true,
-          message: '체크인이 완료되었습니다.',
+          error: undefined,
         };
       } catch (e) {
         playSound('/sounds/fail.mp3').then();
 
         return {
-          success: false,
-          message: e.message,
+          error: {
+            error: e.error,
+            message: e.message,
+          },
         };
       }
     },
