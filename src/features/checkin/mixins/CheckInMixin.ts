@@ -7,6 +7,8 @@ import Cafeteria from '@/features/cafeteria/Cafeteria';
 import ScannerMixin from '@/features/checkin/mixins/ScannerMixin';
 import {HandleDecodeResult} from '@/features/checkin/mixins/ScannerResultMixin';
 import {playSound} from '@/utils/audio';
+import HttpError from '@/core/request/HttpError';
+import assert from 'assert';
 
 export default Vue.extend({
   mixins: [ApiMixin, ScannerMixin],
@@ -91,13 +93,12 @@ export default Vue.extend({
           error: undefined,
         };
       } catch (e) {
+        assert(e instanceof HttpError);
+
         playSound('/sounds/fail.mp3').then();
 
         return {
-          error: {
-            error: e.error,
-            message: e.message,
-          },
+          error: e,
         };
       }
     },
