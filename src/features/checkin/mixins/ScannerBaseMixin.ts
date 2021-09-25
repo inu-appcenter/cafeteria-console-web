@@ -4,8 +4,9 @@ export default Vue.extend({
   data() {
     return {
       scannerError: null,
+
       camera: 'rear',
-      initialized: false,
+      cameraOriginal: null,
     };
   },
 
@@ -18,6 +19,15 @@ export default Vue.extend({
 
         console.error(e);
       }
+    },
+
+    suspendCamera() {
+      this.cameraOriginal = this.camera;
+      this.camera = null;
+    },
+
+    resumeCamera() {
+      this.camera = this.cameraOriginal;
     },
   },
 });
