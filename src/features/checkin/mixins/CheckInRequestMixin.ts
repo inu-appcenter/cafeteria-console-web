@@ -25,7 +25,7 @@ export default Vue.extend({
       this.suspendCamera();
       this.startLoading();
 
-      const {error} = await this.tryCheckInAndGetResult(ticket, gracefulInTime);
+      const error = await this.tryCheckInAndGetError(ticket, gracefulInTime);
 
       this.finishLoading();
       this.resumeCamera();
@@ -34,18 +34,35 @@ export default Vue.extend({
     },
 
     startLoading() {
-      this.loading = true;
+      this.checkInLoading = true;
+    },
+
+    /**
+     * 서버와 통신하고, 결과를 반환만 하면 나머지는 다른 친구들이 다 해줍니다.
+     *
+     * @param ticket
+     * @param gracefulInTime
+     */
+    async tryCheckInAndGetError(ticket: string, gracefulInTime: boolean): Promise<HttpError | undefined> {
+      try {
+        await CheckInRepository.checkIn(ticket, gracefulInTime);
+
+        this.fetchContext().then();
+
+        await playSound('/sounds/success.mp3');
+
+        return undefined;
+      } catch (e) {
+        assert(e instanceof HttpError);
+
+        await playSound('/sounds/fail.mp3');
+
+        return e;
+      }
     },
 
     finishLoading() {
-      this.loading = false;
-    },
-
-    showSuccessAndAutoDismiss() {
-      this.success = true;
-      setTimeout(() => {
-        this.success = null;
-      }, 750);
+      this.checkInLoading = false;
     },
 
     async dealWithResult(error: HttpError | undefined, ticket: string) {
@@ -83,28 +100,11 @@ export default Vue.extend({
       }
     },
 
-    /**
-     * 서버와 통신하고, 결과를 반환만 하면 나머지는 다른 친구들이 다 해줍니다.
-     *
-     * @param ticket
-     * @param gracefulInTime
-     */
-    async tryCheckInAndGetError(ticket: string, gracefulInTime: boolean): Promise<HttpError | undefined> {
-      try {
-        await CheckInRepository.checkIn(ticket, gracefulInTime);
-
-        this.fetchContext().then();
-
-        await playSound('/sounds/success.mp3');
-
-        return undefined;
-      } catch (e) {
-        assert(e instanceof HttpError);
-
-        await playSound('/sounds/fail.mp3');
-
-        return e;
-      }
+    showSuccessAndAutoDismiss() {
+      this.success = true;
+      setTimeout(() => {
+        this.success = null;
+      }, 750);
     },
   },
 });

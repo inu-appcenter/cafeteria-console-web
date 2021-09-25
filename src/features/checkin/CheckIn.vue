@@ -77,7 +77,7 @@ export default {
   align-items: center;
   justify-content: center;
 
-  font-size: 36px;
+  font-size: 24px;
 }
 .dark-blur-backdrop {
   color: white;
