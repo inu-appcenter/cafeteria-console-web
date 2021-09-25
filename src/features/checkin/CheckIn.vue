@@ -36,6 +36,7 @@
       </transition>
     </qrcode-stream>
 
+    <!-- 화면 상단에 위치한 반투명 오버레이 -->
     <div class="overlay dark-blur-backdrop">
       <div class="overlay-top">
         <span>
