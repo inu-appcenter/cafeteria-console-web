@@ -2,38 +2,27 @@
   <div
     ref="wrapper"
     :class="{fullscreen: fullscreen, 'qrcode-scanner-wrapper': !fullscreen}"
-    @click="fullscreen = !fullscreen"
+    @click="toggleFullScreen"
     @fullscreenchange="onFullscreenChange"
   >
-    <qrcode-stream
-      class="qrcode-scanner-surface"
-      :camera="camera"
-      :track="paintOutline"
-      @decode="onDecode"
-      @init="onInit"
-    >
+    <qrcode-stream class="qrcode-scanner-surface" :camera="camera" @decode="onDecode" @init="onInit">
       <!-- 네모 프레임 -->
       <div class="scanner-frame-container">
         <!-- 네모 -->
         <div class="scanner-frame"></div>
-
-        <!-- 성공 메시지 오버레이 -->
-        <transition name="fade">
-          <div v-show="result && result.success" class="success-overlay">
-            {{ result ? result.message : '' }}
-          </div>
-        </transition>
       </div>
 
       <!-- 카메라 전환 버튼 -->
       <button v-show="!(noRearCamera || noFrontCamera)" class="bottom-right-button" @click="switchCamera">🔄</button>
 
-      <!-- 실패 메시지 오버레이 -->
-      <transition name="fade">
-        <div v-show="result && !result.success" class="result-confirmation dark-blur-backdrop">
-          {{ result ? result.message : '' }}
-        </div>
-      </transition>
+      <!-- 로딩 오버레이 -->
+      <div v-show="checkInLoading" class="informative-overlay-content dark-blur-backdrop">
+        <v-progress-circular indeterminate />
+        서버와 통신중입니다.
+      </div>
+
+      <!-- 성공 메시지 오버레이 -->
+      <div v-show="checkInSuccess" class="informative-overlay-content dark-blur-backdrop">✅ 체크인 성공</div>
     </qrcode-stream>
 
     <!-- 화면 상단에 위치한 반투명 오버레이 -->
@@ -66,16 +55,19 @@
 
 <script>
 import CheckInMixin from '@/features/checkin/mixins/CheckInMixin';
+// noinspection ES6CheckImport
+import {QrcodeStream} from 'vue-qrcode-reader';
 
 export default {
   mixins: [CheckInMixin],
-
   name: 'CheckIn',
+
+  components: {QrcodeStream},
 };
 </script>
 
 <style scoped>
-.result-confirmation {
+.informative-overlay-content {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -86,19 +78,6 @@ export default {
   justify-content: center;
 
   font-size: 36px;
-}
-.success-overlay {
-  position: fixed;
-  z-index: 1000;
-  top: 30%;
-  margin-left: 12px;
-  margin-right: 12px;
-
-  color: white;
-  padding: 4px 6px;
-  font-size: 16px;
-  background: #3e8801ff;
-  border-radius: 8px;
 }
 .dark-blur-backdrop {
   color: white;

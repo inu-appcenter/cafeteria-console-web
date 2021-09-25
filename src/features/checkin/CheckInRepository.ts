@@ -11,8 +11,8 @@ class CheckInRepository {
     return Context.of({capacity, expected, actual, total});
   }
 
-  async checkIn(ticket: string) {
-    await http.post(config.api.endpoints.checkIn, {ticket});
+  async checkIn(ticket: string, gracefulInTime: boolean) {
+    await http.post(config.api.endpoints.checkIn, {ticket, gracefulInTime});
   }
 }
 

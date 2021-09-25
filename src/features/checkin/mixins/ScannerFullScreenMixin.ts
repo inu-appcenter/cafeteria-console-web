@@ -11,19 +11,19 @@ export default Vue.extend({
     };
   },
 
-  watch: {
-    fullscreen(enterFullscreen) {
+  methods: {
+    toggleFullScreen() {
+      this.fullscreen = !this.fullscreen;
+
       playSound('/sounds/click.mp3').then();
 
-      if (enterFullscreen) {
+      if (this.fullscreen) {
         this.requestFullscreen();
       } else {
         this.exitFullscreen();
       }
     },
-  },
 
-  methods: {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onFullscreenChange(event) {
       /**
