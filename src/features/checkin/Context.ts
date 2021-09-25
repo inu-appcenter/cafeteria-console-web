@@ -22,6 +22,16 @@ export default class Context {
    */
   total?: number;
 
+  /**
+   * 현재 타임슬롯
+   */
+  timeSlot?: Date;
+
+  /**
+   * 현재 타임슬롯의 바로 다음 타임슬롯
+   */
+  nextTimeSlot?: Date;
+
   static of(properties: Partial<Context>) {
     return Object.assign(new Context(), properties);
   }

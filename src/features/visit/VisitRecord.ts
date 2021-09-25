@@ -12,8 +12,8 @@ export default class VisitRecord extends BaseEntity {
   @Field({displayName: '휴대전화 번호'})
   phoneNumber?: string;
 
-  @Field({displayName: '방문한 학식당의 식별자', validate: numberOverZero})
-  cafeteriaId: number;
+  @Field({visible: false, displayName: '방문한 학식당의 식별자', validate: numberOverZero})
+  cafeteriaId: number = 1;
 
   async save(): Promise<this> {
     // 여기서는 GraphQL을 통해 직접 엔티티 저장 요청을 보내지 않고,

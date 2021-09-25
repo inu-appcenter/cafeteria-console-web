@@ -2,9 +2,9 @@
   <div
     ref="wrapper"
     :class="{fullscreen: fullscreen, 'qrcode-scanner-wrapper': !fullscreen}"
-    @click="toggleFullScreen"
     @fullscreenchange="onFullscreenChange"
   >
+    <!-- 모든걸 여기 안에 넣어둠 -->
     <qrcode-stream class="qrcode-scanner-surface" :camera="camera" @decode="onDecode" @init="onInit">
       <!-- 네모 프레임 -->
       <div class="scanner-frame-container">
@@ -13,7 +13,10 @@
       </div>
 
       <!-- 카메라 전환 버튼 -->
-      <button v-show="!(noRearCamera || noFrontCamera)" class="bottom-right-button" @click="switchCamera">🔄</button>
+      <button v-show="!(noRearCamera || noFrontCamera)" class="bottom-left-button" @click="switchCamera">⟳</button>
+
+      <!-- 전체화면 토글 버튼 -->
+      <button class="bottom-right-button" @click="toggleFullScreen">{{ fullscreen ? '⇱' : '⇲' }}</button>
 
       <!-- 로딩 오버레이 -->
       <div v-show="checkInLoading" class="informative-overlay-content dark-blur-backdrop">
@@ -26,27 +29,31 @@
     </qrcode-stream>
 
     <!-- 화면 상단에 위치한 반투명 오버레이 -->
-    <div class="overlay dark-blur-backdrop">
+    <div @click="giveSomeHelp" class="overlay dark-blur-backdrop">
       <div class="overlay-top">
-        <span>
-          {{ new Date().toLocaleTimeString() }}
+        <!-- v-if를 써야 안쪽 evaluation을 막을 수 있다. v-show는 다 계산하고 가리기만 함. -->
+        <span v-if="context.timeSlot == null">
+          지금은 {{ selectedCafeteria ? selectedCafeteria.displayName : '-' }}이(가) 예약을 운영하지 않습니다.
+        </span>
+        <span v-else>
           {{ selectedCafeteria ? selectedCafeteria.displayName : '-' }}
+          {{ context.timeSlot.toLocaleTimeString() }} ~
+          {{ context.nextTimeSlot.toLocaleTimeString() }}
+          사이에
         </span>
       </div>
       <div class="overlay-section-container">
         <div class="overlay-section">
           <div class="section-label">예약</div>
-          <div class="section-value">
-            {{ context.expected == null ? '-' : context.expected }}/{{ context.capacity }}
-          </div>
+          <div class="section-value">{{ context.expected == null ? '-' : context.expected }}명</div>
         </div>
         <div class="overlay-section">
           <div class="section-label">입장</div>
-          <div class="section-value">{{ context.actual == null ? '-' : context.actual }}/{{ context.capacity }}</div>
+          <div class="section-value">{{ context.actual == null ? '-' : context.actual }}명</div>
         </div>
         <div class="overlay-section">
           <div class="section-label">총원</div>
-          <div class="section-value">{{ context.total }}</div>
+          <div class="section-value">{{ context.total }}명</div>
         </div>
       </div>
     </div>
@@ -63,6 +70,21 @@ export default {
   name: 'CheckIn',
 
   components: {QrcodeStream},
+
+  methods: {
+    giveSomeHelp() {
+      this.$dialog.info({
+        title: '현황 표시 안내',
+        text: `"예약"은 현재 시간대에 예약한 사람 수를 나타냅니다.<br/>
+        "입장"은 현재 시간대에 예약 및 입장한 사람 수를 나타냅니다.<br/>
+        "총원"은 최근 30분 내에 예약증을 제시한 모든 사람의 수를 나타냅니다.`,
+        showClose: false,
+        actions: {
+          ok: '확인',
+        },
+      });
+    },
+  },
 };
 </script>
 
@@ -136,6 +158,13 @@ export default {
   bottom: 0;
   right: 0;
   left: 0;
+}
+.bottom-left-button {
+  position: absolute;
+  font-size: 36px;
+  padding: 4px;
+  left: 12px;
+  bottom: 12px;
 }
 .bottom-right-button {
   position: absolute;
