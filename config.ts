@@ -21,8 +21,8 @@ export default {
       graphql: `${baseUrl()}/graphql`,
       version: `${baseUrl()}/version`,
       zen: 'https://api.github.com/zen',
-      dailyRecords: (date, cafeteriaId, fileType) =>
-        `${baseUrl()}/records/${date}?cafeteriaId=${cafeteriaId}&fileType=${fileType}`,
+      discountRecords: (date, cafeteriaId, fileType) =>
+        `${baseUrl()}/records/discount/${date}?cafeteriaId=${cafeteriaId}&fileType=${fileType}`,
     },
   },
 };
