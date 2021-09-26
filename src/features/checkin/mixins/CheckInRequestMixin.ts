@@ -101,9 +101,9 @@ export default Vue.extend({
     },
 
     showSuccessAndAutoDismiss() {
-      this.success = true;
+      this.checkInSuccess = true;
       setTimeout(() => {
-        this.success = null;
+        this.checkInSuccess = null;
       }, 750);
     },
   },
