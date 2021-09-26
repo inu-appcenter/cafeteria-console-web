@@ -21,8 +21,9 @@ export default {
       graphql: `${baseUrl()}/graphql`,
       version: `${baseUrl()}/version`,
       zen: 'https://api.github.com/zen',
-      discountRecords: (date, cafeteriaId, fileType) =>
+      discountRecords: (date: string, cafeteriaId: number, fileType: string) =>
         `${baseUrl()}/records/discount/${date}?cafeteriaId=${cafeteriaId}&fileType=${fileType}`,
+      visitRecords: (from: string, until: string) => `${baseUrl()}/records/visit?from=${from}&until=${until}`,
     },
   },
 };

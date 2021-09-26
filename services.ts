@@ -9,6 +9,7 @@ import Notices from '@/features/notices/Notices.vue';
 import Questions from '@/features/questions/Questions.vue';
 import Histories from '@/features/histories/Histories.vue';
 import Cafeteria from '@/features/cafeteria/Cafeteria.vue';
+import VisitRecords from '@/features/visitRecords/VisitRecords.vue';
 
 /**
  * 기능에 대한 것은 여기에 모두 정의합니다.
@@ -76,6 +77,12 @@ const services: ServiceGroup[] = [
         displayName: '할인 바코드 태그 기록',
         description: '사용자가 바코드를 태그한 기록',
         component: Histories,
+      },
+      {
+        name: 'visit-record',
+        displayName: '교내 식당 입장 기록',
+        description: '사용자가 교내 식당에 입장한 기록',
+        component: VisitRecords,
       },
     ],
   },
