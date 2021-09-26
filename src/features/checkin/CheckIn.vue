@@ -153,7 +153,7 @@ export default {
 }
 .fullscreen {
   position: fixed;
-  z-index: 1000;
+  z-index: 99;
   top: 0;
   bottom: 0;
   right: 0;
