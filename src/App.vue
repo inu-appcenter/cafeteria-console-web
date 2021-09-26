@@ -42,7 +42,7 @@ export default {
 
   data() {
     return {
-      drawer: true,
+      drawer: false,
       title: config.pageTitle,
     };
   },
