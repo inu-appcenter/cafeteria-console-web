@@ -93,8 +93,8 @@ export default {
       },
 
       todayString: formatDateYYYYMMDD(),
-      discountRecordsUrlTxt: config.api.endpoints.discountRecords(formatDateYYYYMMDD(), 4 /* 학생식당 */, 'txt'),
-      discountRecordsUrlXls: config.api.endpoints.discountRecords(formatDateYYYYMMDD(), 4 /* 학생식당 */, 'xls'),
+      discountRecordsUrlTxt: config.api.endpoints.discountRecords(formatDateYYYYMMDD(), 1 /* 학생식당 */, 'txt'),
+      discountRecordsUrlXls: config.api.endpoints.discountRecords(formatDateYYYYMMDD(), 1 /* 학생식당 */, 'xls'),
       services: services,
 
       zen: null,
