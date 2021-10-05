@@ -5,9 +5,16 @@ export default Vue.extend({
     return {
       scannerError: null,
 
-      camera: 'rear',
+      camera: 'front',
+      inverted: true,
       cameraOriginal: null,
     };
+  },
+
+  watch: {
+    camera() {
+      console.log(`카메라는 이제 ${this.camera}!`);
+    },
   },
 
   methods: {
@@ -28,6 +35,10 @@ export default Vue.extend({
 
     resumeCamera() {
       this.camera = this.cameraOriginal;
+    },
+
+    invertCamera() {
+      this.inverted = !this.inverted;
     },
   },
 });

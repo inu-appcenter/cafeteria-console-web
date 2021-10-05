@@ -1,11 +1,10 @@
 <template>
-  <div
-    ref="wrapper"
-    :class="{fullscreen: fullscreen, 'qrcode-scanner-wrapper': !fullscreen}"
-    @fullscreenchange="onFullscreenChange"
-  >
-    <!-- 모든걸 여기 안에 넣어둠 -->
-    <qrcode-stream class="qrcode-scanner-surface" :camera="camera" @decode="onDecode" @init="onInit">
+  <div ref="wrapper" class="qrcode-scanner-wrapper">
+    <!-- 스캐너 표면 -->
+    <qrcode-stream :class="{'inverse-horizontal': inverted}" :camera="camera" @decode="onDecode" @init="onInit" />
+
+    <!-- 그 위를 덮고 있는 나머지들 -->
+    <div class="qrcode-scanner-surface">
       <!-- 네모 프레임 -->
       <div class="scanner-frame-container">
         <!-- 네모 -->
@@ -15,8 +14,8 @@
       <!-- 카메라 전환 버튼 -->
       <button v-show="!(noRearCamera || noFrontCamera)" class="bottom-left-button" @click="switchCamera">⟳</button>
 
-      <!-- 전체화면 토글 버튼 -->
-      <button class="bottom-right-button" @click="toggleFullScreen">{{ fullscreen ? '⇱' : '⇲' }}</button>
+      <!-- 카메라 좌우반전 버튼 -->
+      <button class="bottom-right-button" @click="invertCamera">⇔</button>
 
       <!-- 로딩 오버레이 -->
       <div v-show="checkInLoading" class="informative-overlay-content dark-blur-backdrop">
@@ -26,7 +25,7 @@
 
       <!-- 성공 메시지 오버레이 -->
       <div v-show="checkInSuccess" class="informative-overlay-content dark-blur-backdrop">✅ 체크인 성공</div>
-    </qrcode-stream>
+    </div>
 
     <!-- 화면 상단에 위치한 반투명 오버레이 -->
     <div @click="giveSomeHelp" class="overlay dark-blur-backdrop">
@@ -144,20 +143,18 @@ export default {
   height: 100%;
 }
 .qrcode-scanner-surface {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
   display: flex;
 
   flex: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-.fullscreen {
-  position: fixed;
-  z-index: 99;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
 }
 .bottom-left-button {
   position: absolute;
@@ -191,5 +188,11 @@ export default {
   border: 3px dashed #ffc341;
   outline: 10000px solid #00000040;
   background: transparent;
+}
+.inverse-horizontal {
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 </style>

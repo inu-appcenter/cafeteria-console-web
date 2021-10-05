@@ -24,13 +24,13 @@ export default Vue.extend({
       const triedFrontCamera = this.camera === 'front';
       const triedRearCamera = this.camera === 'rear';
 
-      if (triedRearCamera) {
-        console.log('오우, 후면 카메라가 없군요.');
-        this.noRearCamera = true;
-      }
       if (triedFrontCamera) {
         console.log('오우, 전면 카메라가 없군요.');
         this.noFrontCamera = true;
+      }
+      if (triedRearCamera) {
+        console.log('오우, 후면 카메라가 없군요.');
+        this.noRearCamera = true;
       }
 
       this.switchCamera();
@@ -41,9 +41,10 @@ export default Vue.extend({
     switchCamera() {
       console.log('카메라를 교체합니다.');
 
-      if (this.noRearCamera || this.noFrontCamera) {
-        console.log('카메라가 하나 이상 없네요. 자동으로 돌립니다.');
+      if (this.noRearCamera && this.noFrontCamera) {
+        console.log('카메라가 없네요! 자동으로 돌립니다.');
         this.camera = 'auto';
+        return;
       }
 
       switch (this.camera) {
