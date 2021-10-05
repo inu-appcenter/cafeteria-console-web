@@ -4,7 +4,7 @@
     <qrcode-stream :class="{'inverse-horizontal': inverted}" :camera="camera" @decode="onDecode" @init="onInit" />
 
     <!-- 그 위를 덮고 있는 나머지들 -->
-    <div class="qrcode-scanner-surface">
+    <div class="qrcode-overlay-surface">
       <!-- 네모 프레임 -->
       <div class="scanner-frame-container">
         <!-- 네모 -->
@@ -142,7 +142,7 @@ export default {
   width: 100%;
   height: 100%;
 }
-.qrcode-scanner-surface {
+.qrcode-overlay-surface {
   position: absolute;
   top: 0;
   bottom: 0;
