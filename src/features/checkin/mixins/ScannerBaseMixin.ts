@@ -39,6 +39,8 @@ export default Vue.extend({
 
     invertCamera() {
       this.inverted = !this.inverted;
+
+      this.$toasted.show(`좌우 반전이 ${this.inverted ? '켜졌습니다' : '꺼졌습니다'}.`, {duration: 2000, icon: 'done'});
     },
   },
 });

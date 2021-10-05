@@ -12,7 +12,9 @@
       </div>
 
       <!-- 카메라 전환 버튼 -->
-      <button v-show="!(noRearCamera || noFrontCamera)" class="bottom-left-button" @click="switchCamera">⟳</button>
+      <button v-show="!(noRearCamera || noFrontCamera)" class="bottom-left-button" @click="() => switchCamera(true)">
+        ⟳
+      </button>
 
       <!-- 카메라 좌우반전 버튼 -->
       <button class="bottom-right-button" @click="invertCamera">⇔</button>

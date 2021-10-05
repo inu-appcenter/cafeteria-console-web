@@ -38,7 +38,7 @@ export default Vue.extend({
   },
 
   methods: {
-    switchCamera() {
+    switchCamera(showToast: boolean = false) {
       console.log('카메라를 교체합니다.');
 
       if (this.noRearCamera && this.noFrontCamera) {
@@ -56,6 +56,10 @@ export default Vue.extend({
           console.log('후면에서 전면으로 전환합니다.');
           this.camera = 'front';
           break;
+      }
+
+      if (showToast) {
+        this.$toasted.show(`카메라가 전환되었습니다(${this.camera}).`, {duration: 2000, icon: 'done'});
       }
     },
   },
