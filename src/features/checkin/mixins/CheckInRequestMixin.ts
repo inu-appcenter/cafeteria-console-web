@@ -39,6 +39,7 @@ export default Vue.extend({
 
     /**
      * 서버와 통신하고, 결과를 반환만 하면 나머지는 다른 친구들이 다 해줍니다.
+     * 네트워크 타고 처리 끝났으면 최대한 신속히 반환합니다.
      *
      * @param ticket
      * @param gracefulInTime
@@ -49,13 +50,13 @@ export default Vue.extend({
 
         this.fetchContext().then();
 
-        await playSound('/sounds/success.mp3');
+        playSound('/sounds/success.mp3').then();
 
         return undefined;
       } catch (e) {
         assert(e instanceof HttpError);
 
-        await playSound('/sounds/fail.mp3');
+        playSound('/sounds/fail.mp3').then();
 
         return e;
       }
