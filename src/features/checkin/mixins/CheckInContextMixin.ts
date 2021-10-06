@@ -49,16 +49,24 @@ export default Vue.extend({
     async fetchContext() {
       if (this.timer == null) {
         // 타이머가 없으면(멈췄으면) fetch 불능 상태인 것!
+        console.warn('타이머가 없어 fetch 불능!');
         return;
       }
 
       if (this.selectedCafeteria == null) {
         // 현재 선택된 식당이 없으면 fetch 불능 상태인 것!
+        console.warn('선택된 식당이 없어 fetch 불능!');
         return;
       }
 
       try {
-        this.context = await CheckInRepository.fetchContext(1);
+        this.context = await CheckInRepository.fetchContext(1 /*TODO*/);
+
+        if (this.context.isUnavailable()) {
+          console.warn('현재 예약 운영 시간이 아니라 fetch 중단!');
+
+          this.stopFetchingContext();
+        }
       } catch (e) {
         this.fail('입장 현황을 가져오는 데에 실패했습니다.');
         this.stopFetchingContext();

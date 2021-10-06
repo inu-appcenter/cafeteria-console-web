@@ -35,4 +35,15 @@ export default class Context {
   static of(properties: Partial<Context>) {
     return Object.assign(new Context(), properties);
   }
+
+  /**
+   * 현재 시간이 예약을 운영하는 시간대라면 true입니다.
+   */
+  isAvailable() {
+    return this.timeSlot != null;
+  }
+
+  isUnavailable() {
+    return !this.isAvailable();
+  }
 }

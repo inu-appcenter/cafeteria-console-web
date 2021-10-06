@@ -33,14 +33,14 @@
     <div @click="giveSomeHelp" class="overlay dark-blur-backdrop">
       <div class="overlay-top">
         <!-- v-if를 써야 안쪽 evaluation을 막을 수 있다. v-show는 다 계산하고 가리기만 함. -->
-        <span v-if="context.timeSlot == null">
-          지금은 {{ selectedCafeteria ? selectedCafeteria.displayName : '-' }}이(가) 예약을 운영하지 않습니다.
-        </span>
-        <span v-else>
+        <span v-if="context.isAvailable()">
           {{ selectedCafeteria ? selectedCafeteria.displayName : '-' }}
           {{ context.timeSlot.toLocaleTimeString() }} ~
           {{ context.nextTimeSlot.toLocaleTimeString() }}
           사이에
+        </span>
+        <span v-else>
+          지금은 {{ selectedCafeteria ? selectedCafeteria.displayName : '-' }}이(가) 예약을 운영하지 않습니다.
         </span>
       </div>
       <div class="overlay-section-container">
