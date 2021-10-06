@@ -51,15 +51,21 @@ export default Vue.extend({
         case 'front':
           console.log('전면에서 후면으로 전환합니다.');
           this.camera = 'rear';
+          this.invertCamera(false, false);
           break;
         case 'rear':
           console.log('후면에서 전면으로 전환합니다.');
           this.camera = 'front';
+          this.invertCamera(false, true);
           break;
       }
 
       if (showToast) {
-        this.$toasted.show(`카메라가 전환되었습니다(${this.camera}).`, {duration: 2000, icon: 'done'});
+        this.$toasted.show(`카메라가 전환되었습니다(${this.camera}).`, {
+          position: 'top-center',
+          duration: 2000,
+          icon: 'done',
+        });
       }
     },
   },

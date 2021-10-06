@@ -37,10 +37,33 @@ export default Vue.extend({
       this.camera = this.cameraOriginal;
     },
 
-    invertCamera() {
-      this.inverted = !this.inverted;
+    reloadCamera(showToast: boolean = false) {
+      this.suspendCamera();
+      this.reloadCamera();
 
-      this.$toasted.show(`좌우 반전이 ${this.inverted ? '켜졌습니다' : '꺼졌습니다'}.`, {duration: 2000, icon: 'done'});
+      if (showToast) {
+        this.$toasted.show(`카메라를 재시작합니다.`, {
+          position: 'top-center',
+          duration: 2000,
+          icon: 'done',
+        });
+      }
+    },
+
+    invertCamera(showToast: boolean = false, setTo?: boolean) {
+      if (setTo === undefined) {
+        this.inverted = !this.inverted;
+      } else {
+        this.inverted = setTo;
+      }
+
+      if (showToast) {
+        this.$toasted.show(`좌우 반전이 ${this.inverted ? '켜졌습니다' : '꺼졌습니다'}.`, {
+          position: 'top-center',
+          duration: 2000,
+          icon: 'done',
+        });
+      }
     },
   },
 });

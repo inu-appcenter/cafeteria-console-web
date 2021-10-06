@@ -4,7 +4,7 @@
     <qrcode-stream :class="{'inverse-horizontal': inverted}" :camera="camera" @decode="onDecode" @init="onInit" />
 
     <!-- 그 위를 덮고 있는 나머지들 -->
-    <div class="qrcode-overlay-surface">
+    <div @click="() => reloadCamera(true)" class="qrcode-overlay-surface">
       <!-- 네모 프레임 -->
       <div class="scanner-frame-container">
         <!-- 네모 -->
@@ -17,7 +17,7 @@
       </button>
 
       <!-- 카메라 좌우반전 버튼 -->
-      <button class="bottom-right-button" @click="invertCamera">⇔</button>
+      <button class="bottom-right-button" @click="() => invertCamera(true)">⇔</button>
 
       <!-- 로딩 오버레이 -->
       <div v-show="checkInLoading" class="informative-overlay-content dark-blur-backdrop">
