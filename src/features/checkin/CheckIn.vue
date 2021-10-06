@@ -4,9 +4,9 @@
     <qrcode-stream :class="{'inverse-horizontal': inverted}" :camera="camera" @decode="onDecode" @init="onInit" />
 
     <!-- 그 위를 덮고 있는 나머지들 -->
-    <div @click="() => reloadCamera(true)" class="qrcode-overlay-surface">
+    <div class="qrcode-overlay-surface">
       <!-- 네모 프레임 -->
-      <div class="scanner-frame-container">
+      <div @click="() => reloadCamera(true)" class="scanner-frame-container">
         <!-- 네모 -->
         <div class="scanner-frame"></div>
       </div>

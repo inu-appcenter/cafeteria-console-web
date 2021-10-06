@@ -38,9 +38,6 @@ export default Vue.extend({
     },
 
     reloadCamera(showToast: boolean = false) {
-      this.suspendCamera();
-      this.reloadCamera();
-
       if (showToast) {
         this.$toasted.show(`카메라를 재시작합니다.`, {
           position: 'top-center',
@@ -48,6 +45,12 @@ export default Vue.extend({
           icon: 'done',
         });
       }
+
+      this.suspendCamera();
+
+      this.$nextTick(() => {
+        this.resumeCamera();
+      });
     },
 
     invertCamera(showToast: boolean = false, setTo?: boolean) {
