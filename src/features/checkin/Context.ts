@@ -23,14 +23,14 @@ export default class Context {
   total?: number;
 
   /**
-   * 현재 타임슬롯
+   * 현재 타임슬롯 시작
    */
-  timeSlot?: Date;
+  timeSlotStart?: Date;
 
   /**
-   * 현재 타임슬롯의 바로 다음 타임슬롯
+   * 현재 타임슬롯 끝
    */
-  nextTimeSlot?: Date;
+  timeSlotEnd?: Date;
 
   static of(properties: Partial<Context>) {
     return Object.assign(new Context(), properties);
@@ -40,7 +40,7 @@ export default class Context {
    * 현재 시간이 예약을 운영하는 시간대라면 true입니다.
    */
   isAvailable() {
-    return this.timeSlot != null;
+    return this.timeSlotStart != null;
   }
 
   isUnavailable() {

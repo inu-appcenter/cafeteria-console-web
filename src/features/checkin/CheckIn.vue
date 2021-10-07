@@ -35,8 +35,8 @@
         <!-- v-if를 써야 안쪽 evaluation을 막을 수 있다. v-show는 다 계산하고 가리기만 함. -->
         <span v-if="context.isAvailable()">
           {{ selectedCafeteria ? selectedCafeteria.displayName : '-' }}
-          {{ context.timeSlot.toLocaleTimeString() }} ~
-          {{ context.nextTimeSlot.toLocaleTimeString() }}
+          {{ context.timeSlotStart.toLocaleTimeString() }} ~
+          {{ context.timeSlotEnd.toLocaleTimeString() }}
           사이에
         </span>
         <span v-else>
@@ -54,7 +54,7 @@
         </div>
         <div class="overlay-section">
           <div class="section-label">총원</div>
-          <div class="section-value">{{ context.total }}명</div>
+          <div class="section-value">{{ context.total == null ? '-' : context.total }}명</div>
         </div>
       </div>
     </div>

@@ -6,15 +6,15 @@ class CheckInRepository {
   async fetchContext(cafeteriaId: number): Promise<Context> {
     const result = await http.get(config.api.endpoints.checkInContext(cafeteriaId));
 
-    const {capacity, expected, actual, total, timeSlot, nextTimeSlot} = await result.json();
+    const {capacity, expected, actual, total, timeSlotStart, timeSlotEnd} = await result.json();
 
     return Context.of({
       capacity,
       expected,
       actual,
       total,
-      timeSlot: timeSlot ? new Date(timeSlot) : undefined,
-      nextTimeSlot: nextTimeSlot ? new Date(nextTimeSlot) : undefined,
+      timeSlotStart: timeSlotStart ? new Date(timeSlotStart) : undefined,
+      timeSlotEnd: timeSlotEnd ? new Date(timeSlotEnd) : undefined,
     });
   }
 
