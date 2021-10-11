@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import assert from 'assert';
 import HttpError from '@/core/request/HttpError';
+import BigDialog from '@/core/component/dialog/BigDialog.vue';
 import {playSound} from '@/utils/audio';
 import CheckInBaseMixin from '@/features/checkin/mixins/CheckInBaseMixin';
 import CheckInRepository from '@/features/checkin/CheckInRepository';
@@ -71,31 +72,25 @@ export default Vue.extend({
         this.showSuccessAndAutoDismiss();
       } else {
         if (error.error === 'check_in_not_in_time') {
-          const allow = await this.$dialog.confirm({
-            text: `${error.message} 체크인을 허용할까요?`,
+          const allow = await this.$dialog.showAndWait(BigDialog, {
+            level: 2,
+            title: '⚠️ 앗 잠시만요...!',
+            text: `${error.message} 체크인을 진행할까요?`,
+            positiveButtonText: '진행',
+            neutralButtonText: '중단',
             showClose: false,
-            actions: {
-              false: {
-                text: '비허용',
-                color: 'red',
-              },
-              true: {
-                text: '허용',
-                color: 'blue',
-              },
-            },
           });
 
-          if (allow) {
+          if (allow === true) {
             await this.requestCheckIn(ticket, true);
           }
         } else {
-          await this.$dialog.warning({
-            text: error.message,
+          await this.$dialog.showAndWait(BigDialog, {
+            level: 3,
+            title: '체크인을 진행할 수 없습니다.',
+            text: `${error.message}`,
+            neutralButtonText: '닫기',
             showClose: false,
-            actions: {
-              ok: '확인',
-            },
           });
         }
       }
