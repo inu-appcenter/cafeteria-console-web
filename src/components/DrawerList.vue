@@ -53,6 +53,7 @@
 import JWT from 'jsonwebtoken';
 import EventBus from '@/event-bus';
 import services from '../../services';
+import {getCookie} from '@/utils/cookie';
 
 export default {
   name: 'Drawer',
@@ -75,7 +76,7 @@ export default {
 
   methods: {
     resolveUserName() {
-      const jwtInCookie = window.document.cookie.split('=')[1];
+      const jwtInCookie = getCookie('cafeteria-console-server-token');
       const payload = JWT.decode(jwtInCookie);
 
       console.log(`토큰을 풀어보니 ${JSON.stringify(payload)}이군요`);
