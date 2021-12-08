@@ -4,6 +4,9 @@ import Login from '@/features/login/Login.vue';
 import EventBus from '@/event-bus';
 import services from '../../services';
 import VueRouter from 'vue-router';
+import {isFuture} from 'date-fns';
+import {getCookie} from '@/utils/cookie';
+import JWT, {JwtPayload} from 'jsonwebtoken';
 
 Vue.use(VueRouter);
 
@@ -51,7 +54,20 @@ function routeRequiresAuth(route) {
 }
 
 function isLoggedIn() {
-  return document.cookie.includes('cafeteria-console-server-token');
+  const jwt = getCookie('cafeteria-console-server-token');
+
+  if (jwt == null) {
+    return false;
+  }
+
+  const decoded = JWT.decode(jwt) as JwtPayload;
+  const expiration = decoded.exp;
+
+  if (expiration == null) {
+    return true;
+  }
+
+  return isFuture(expiration * 1000);
 }
 
 const router = createRouter();
