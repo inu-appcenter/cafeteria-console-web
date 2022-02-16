@@ -66,7 +66,10 @@ export default Vue.extend({
      */
     async tryCheckInAndGetError(ticket: string, gracefulInTime: boolean): Promise<HttpError | undefined> {
       try {
-        await CheckInRepository.checkIn(ticket, gracefulInTime);
+        const cafeteriaId = this.selectedCafeteria?.id;
+        assert(cafeteriaId);
+
+        await CheckInRepository.checkIn(ticket, cafeteriaId, gracefulInTime);
 
         playSound('/sounds/success.mp3').then();
 

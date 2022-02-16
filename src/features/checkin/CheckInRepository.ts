@@ -38,8 +38,8 @@ class CheckInRepository {
     this.previousEventSource = eventSource;
   }
 
-  async checkIn(ticket: string, gracefulInTime: boolean) {
-    await http.post(config.api.endpoints.checkIn, {ticket, gracefulInTime});
+  async checkIn(ticket: string, cafeteriaId: number, gracefulInTime: boolean) {
+    await http.post(config.api.endpoints.checkIn, {ticket, cafeteriaId, gracefulInTime});
   }
 }
 

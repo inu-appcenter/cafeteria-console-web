@@ -49,7 +49,7 @@
     </div>
 
     <!-- 화면 상단에 위치한 반투명 오버레이 -->
-    <div @click="openSettings" class="overlay dark-blur-backdrop">
+    <div @click="openSelection" class="overlay dark-blur-backdrop">
       <div class="overlay-section-container">
         <div class="overlay-section">
           <div class="section-label">예약</div>
@@ -67,7 +67,7 @@
     </div>
 
     <!-- 오버레이를 누르면 나오는, 설정 팝업 -->
-    <v-dialog v-model="settingsDialog">
+    <v-dialog v-model="selectionDialog">
       <v-card>
         <v-toolbar dark color="dark">
           <v-btn icon dark>
@@ -75,9 +75,6 @@
           </v-btn>
           <v-toolbar-title>QR 스캐너 설정</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn icon dark @click="closeSettings">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
         </v-toolbar>
 
         <v-list>
@@ -99,7 +96,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" block @click="closeSettings">확인</v-btn>
+          <v-btn color="blue darken-1" block @click="closeSelection">확인</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

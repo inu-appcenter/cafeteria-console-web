@@ -18,31 +18,39 @@
  */
 
 import Vue from 'vue';
-import CheckInBaseMixin from '@/features/checkin/mixins/CheckInBaseMixin';
-import Context from '@/features/checkin/Context';
 import Cafeteria from '@/features/cafeteria/Cafeteria';
-import CheckInRepository from '@/features/checkin/CheckInRepository';
 
 export default Vue.extend({
-  mixins: [CheckInBaseMixin],
+  mounted() {
+    this.fetchCafeteria();
+  },
 
   data() {
     return {
-      context: Context.of({}),
+      selectionDialog: true,
+
+      allCafeteria: undefined,
+      selectedCafeteria: undefined,
     };
   },
 
-  watch: {
-    selectedCafeteria(selected: Cafeteria) {
-      console.log(`카페테리아 ${selected.id}의 Context를 관찰하는 이벤트 소스 등록!`);
+  methods: {
+    openSelection() {
+      this.selectionDialog = true;
+    },
 
-      CheckInRepository.listenForContext(selected.id, context => {
-        console.log(`${selected.displayName}의 Context 업데이트!`);
+    closeSelection() {
+      this.selectionDialog = false;
+    },
 
-        this.context = context;
-      });
+    async fetchCafeteria() {
+      const allCafeteria = await Cafeteria.find();
+      const cafeteriaSupportingBooking = allCafeteria.filter(c => c.supportBooking);
 
-      localStorage.setItem('qr-scanner-selected-cafeteria', selected.id.toString());
+      const previouslySelectedId = Number.parseInt(localStorage.getItem('qr-scanner-selected-cafeteria') ?? '1');
+
+      this.allCafeteria = cafeteriaSupportingBooking;
+      this.selectedCafeteria = cafeteriaSupportingBooking.find(c => c.id === previouslySelectedId); // TODO
     },
   },
 });
