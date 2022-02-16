@@ -99,7 +99,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" @click="closeSettings">확인</v-btn>
+          <v-btn color="blue darken-1" block @click="closeSettings">확인</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
