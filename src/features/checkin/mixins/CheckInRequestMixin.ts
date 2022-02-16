@@ -68,8 +68,6 @@ export default Vue.extend({
       try {
         await CheckInRepository.checkIn(ticket, gracefulInTime);
 
-        this.fetchContext().then();
-
         playSound('/sounds/success.mp3').then();
 
         return undefined;

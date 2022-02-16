@@ -49,19 +49,7 @@
     </div>
 
     <!-- 화면 상단에 위치한 반투명 오버레이 -->
-    <div @click="giveSomeHelp" class="overlay dark-blur-backdrop">
-      <div class="overlay-top">
-        <!-- v-if를 써야 안쪽 evaluation을 막을 수 있다. v-show는 다 계산하고 가리기만 함. -->
-        <span v-if="context.isAvailable()">
-          {{ selectedCafeteria ? selectedCafeteria.displayName : '-' }}
-          {{ context.timeSlotStart.toLocaleTimeString() }} ~
-          {{ context.timeSlotEnd.toLocaleTimeString() }}
-          사이에
-        </span>
-        <span v-else>
-          지금은 {{ selectedCafeteria ? selectedCafeteria.displayName : '-' }}이(가) 예약을 운영하지 않습니다.
-        </span>
-      </div>
+    <div @click="openSettings" class="overlay dark-blur-backdrop">
       <div class="overlay-section-container">
         <div class="overlay-section">
           <div class="section-label">예약</div>
@@ -77,6 +65,44 @@
         </div>
       </div>
     </div>
+
+    <!-- 오버레이를 누르면 나오는, 설정 팝업 -->
+    <v-dialog v-model="settingsDialog">
+      <v-card>
+        <v-toolbar dark color="dark">
+          <v-btn icon dark>
+            <v-icon>mdi-cog</v-icon>
+          </v-btn>
+          <v-toolbar-title>QR 스캐너 설정</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon dark @click="closeSettings">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar>
+
+        <v-list>
+          <v-list-item>
+            <v-list-item-action>위치</v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
+                <v-select
+                  v-model="selectedCafeteria"
+                  :items="allCafeteria"
+                  item-text="displayName"
+                  :hint="`${selectedCafeteria ? selectedCafeteria.displayName : '-'}에서 입장을 운영합니다.`"
+                  return-object
+                ></v-select>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" @click="closeSettings">확인</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -90,21 +116,6 @@ export default {
   name: 'CheckIn',
 
   components: {QrcodeStream},
-
-  methods: {
-    giveSomeHelp() {
-      this.$dialog.info({
-        title: '현황 표시 안내',
-        text: `"예약"은 현재 시간대에 예약한 사람 수를 나타냅니다.<br/>
-        "입장"은 현재 시간대에 예약 및 입장한 사람 수를 나타냅니다.<br/>
-        "총원"은 최근 30분 내에 예약증을 제시한 모든 사람의 수를 나타냅니다.`,
-        showClose: false,
-        actions: {
-          ok: '확인',
-        },
-      });
-    },
-  },
 };
 </script>
 
@@ -121,16 +132,19 @@ export default {
 
   font-size: 24px;
 }
+
 .dark-blur-backdrop {
   color: white;
   background: #00000099;
   backdrop-filter: blur(5px);
 }
+
 .overlay {
   position: absolute;
   top: 0;
   width: 100%;
 }
+
 .overlay-top {
   display: flex;
   flex-direction: row;
@@ -139,30 +153,36 @@ export default {
   padding: 5px 8px 0;
   font-size: 12px;
 }
+
 .overlay-section-container {
   display: flex;
   flex: 1;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  padding: 2px 6px 6px;
+  padding: 6px 6px 6px;
 }
+
 .overlay-section {
   font-size: 18px;
   text-align: center;
 }
+
 .section-label {
   font-size: 14px;
 }
+
 .section-value {
   font-weight: bold;
 }
+
 .qrcode-scanner-wrapper {
   flex: 1;
   flex-direction: column;
   width: 100%;
   height: 100%;
 }
+
 .qrcode-overlay-surface {
   position: absolute;
   top: 0;
@@ -177,6 +197,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 .bottom-left-button {
   position: absolute;
   font-size: 36px;
@@ -184,6 +205,7 @@ export default {
   left: 12px;
   bottom: 12px;
 }
+
 .bottom-right-button {
   position: absolute;
   font-size: 36px;
@@ -191,6 +213,7 @@ export default {
   right: 12px;
   bottom: 12px;
 }
+
 .scanner-frame-container {
   position: absolute;
   width: 100%;
@@ -202,6 +225,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
+
 .scanner-frame {
   width: 40%;
   padding-bottom: 40%;
@@ -210,6 +234,7 @@ export default {
   outline: 10000px solid #00000040;
   background: transparent;
 }
+
 .inverse-horizontal {
   -moz-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);

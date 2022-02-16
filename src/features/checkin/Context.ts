@@ -55,6 +55,19 @@ export default class Context {
     return Object.assign(new Context(), properties);
   }
 
+  static fromResponse(raw: Record<string, any>) {
+    const {capacity, expected, actual, total, timeSlotStart, timeSlotEnd} = raw;
+
+    return Context.of({
+      capacity,
+      expected,
+      actual,
+      total,
+      timeSlotStart: timeSlotStart ? new Date(timeSlotStart) : undefined,
+      timeSlotEnd: timeSlotEnd ? new Date(timeSlotEnd) : undefined,
+    });
+  }
+
   /**
    * 현재 시간이 예약을 운영하는 시간대라면 true입니다.
    */

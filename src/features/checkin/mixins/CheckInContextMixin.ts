@@ -28,15 +28,12 @@ export default Vue.extend({
 
   mounted() {
     this.fetchCafeteria();
-    this.startFetchingContext();
-  },
-
-  beforeDestroy() {
-    this.stopFetchingContext();
   },
 
   data() {
     return {
+      settingsDialog: true,
+
       allCafeteria: undefined,
       selectedCafeteria: undefined,
 
@@ -45,51 +42,37 @@ export default Vue.extend({
     };
   },
 
+  watch: {
+    selectedCafeteria(selected: Cafeteria) {
+      console.log(`카페테리아 ${selected.id}의 Context를 관찰하는 이벤트 소스 등록!`);
+
+      CheckInRepository.listenForContext(selected.id, context => {
+        console.log(`${selected.displayName}의 Context 업데이트!`);
+
+        this.context = context;
+      });
+
+      localStorage.setItem('qr-scanner-selected-cafeteria', selected.id.toString());
+    },
+  },
+
   methods: {
+    openSettings() {
+      this.settingsDialog = true;
+    },
+
+    closeSettings() {
+      this.settingsDialog = false;
+    },
+
     async fetchCafeteria() {
       const allCafeteria = await Cafeteria.find();
       const cafeteriaSupportingBooking = allCafeteria.filter(c => c.supportBooking);
 
+      const previouslySelectedId = Number.parseInt(localStorage.getItem('qr-scanner-selected-cafeteria') ?? '1');
+
       this.allCafeteria = cafeteriaSupportingBooking;
-      this.selectedCafeteria = cafeteriaSupportingBooking[0]; // TODO
-    },
-
-    startFetchingContext() {
-      this.timer = setInterval(this.fetchContext, 1000);
-    },
-
-    stopFetchingContext() {
-      if (this.timer) {
-        clearInterval(this.timer);
-        this.timer = undefined;
-      }
-    },
-
-    async fetchContext() {
-      if (this.timer == null) {
-        // 타이머가 없으면(멈췄으면) fetch 불능 상태인 것!
-        console.warn('타이머가 없어 fetch 불능!');
-        return;
-      }
-
-      if (this.selectedCafeteria == null) {
-        // 현재 선택된 식당이 없으면 fetch 불능 상태인 것!
-        console.warn('선택된 식당이 없어 fetch 불능!');
-        return;
-      }
-
-      try {
-        this.context = await CheckInRepository.fetchContext(1 /*TODO*/);
-
-        if (this.context.isUnavailable()) {
-          console.warn('현재 예약 운영 시간이 아니라 fetch 중단!');
-
-          this.stopFetchingContext();
-        }
-      } catch (e) {
-        this.fail('입장 현황을 가져오는 데에 실패했습니다.');
-        this.stopFetchingContext();
-      }
+      this.selectedCafeteria = cafeteriaSupportingBooking.find(c => c.id === previouslySelectedId); // TODO
     },
   },
 });

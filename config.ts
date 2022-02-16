@@ -36,7 +36,7 @@ export default {
       login: `${baseUrl()}/login`,
       visit: `${baseUrl()}/visit`,
       checkIn: `${baseUrl()}/checkin`,
-      checkInContext: (cafeteriaId: number) => `${baseUrl()}/checkin/context?cafeteriaId=${cafeteriaId}`,
+      checkInContext: (cafeteriaId: number) => `${baseUrl()}/checkin/context?cafeteriaId=${cafeteriaId}&sse=true`,
       graphql: `${baseUrl()}/graphql`,
       version: `${baseUrl()}/version`,
       zen: 'https://api.github.com/zen',

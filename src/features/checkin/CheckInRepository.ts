@@ -22,19 +22,20 @@ import Context from '@/features/checkin/Context';
 import http from '@/core/request/http';
 
 class CheckInRepository {
-  async fetchContext(cafeteriaId: number): Promise<Context> {
-    const result = await http.get(config.api.endpoints.checkInContext(cafeteriaId));
+  private previousEventSource?: EventSource = undefined;
 
-    const {capacity, expected, actual, total, timeSlotStart, timeSlotEnd} = await result.json();
+  listenForContext(cafeteriaId: number, onContext: (context: Context) => void) {
+    this.previousEventSource?.close();
 
-    return Context.of({
-      capacity,
-      expected,
-      actual,
-      total,
-      timeSlotStart: timeSlotStart ? new Date(timeSlotStart) : undefined,
-      timeSlotEnd: timeSlotEnd ? new Date(timeSlotEnd) : undefined,
+    const eventSource = new EventSource(config.api.endpoints.checkInContext(cafeteriaId), {withCredentials: true});
+
+    eventSource.addEventListener('context', event => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      onContext(Context.fromResponse(JSON.parse(event.data)));
     });
+
+    this.previousEventSource = eventSource;
   }
 
   async checkIn(ticket: string, gracefulInTime: boolean) {
