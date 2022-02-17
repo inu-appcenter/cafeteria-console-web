@@ -55,7 +55,7 @@ export default class Context {
     return Object.assign(new Context(), properties);
   }
 
-  static fromResponse(raw: Record<string, any>) {
+  static fromResponse(raw: Record<string, never>) {
     const {capacity, expected, actual, total, timeSlotStart, timeSlotEnd} = raw;
 
     return Context.of({

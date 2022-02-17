@@ -33,6 +33,12 @@ export default Vue.extend({
   },
 
   watch: {
+    /**
+     * selectedCafeteria가 변할 때마다,
+     * 해당 식당에 대한 Context를 구독하는 새로운 이벤트 소스를 등록합니다.
+     *
+     * @param selected 선택된 식당.
+     */
     selectedCafeteria(selected: Cafeteria) {
       console.log(`카페테리아 ${selected.id}의 Context를 관찰하는 이벤트 소스 등록!`);
 

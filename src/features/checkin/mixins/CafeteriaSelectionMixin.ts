@@ -43,6 +43,10 @@ export default Vue.extend({
       this.selectionDialog = false;
     },
 
+    /**
+     * 서버로부터 예약을 지원하는 식당 목록을 불러온 다음,
+     * 현재 선택된 식당을 복구(또는 초기화)합니다.
+     */
     async fetchCafeteria() {
       const allCafeteria = await Cafeteria.find();
       const cafeteriaSupportingBooking = allCafeteria.filter(c => c.supportBooking);

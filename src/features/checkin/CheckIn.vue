@@ -142,15 +142,6 @@ export default {
   width: 100%;
 }
 
-.overlay-top {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 8px 0;
-  font-size: 12px;
-}
-
 .overlay-section-container {
   display: flex;
   flex: 1;

@@ -24,20 +24,33 @@ import http from '@/core/request/http';
 class CheckInRepository {
   private previousEventSource?: EventSource = undefined;
 
+  /**
+   * 특정 식당에 대해 체크인 Context를 관찰합니다.
+   *
+   * @param cafeteriaId 관찰할 식당의 식별자.
+   * @param onContext 새 context 도착시 실행할 콜백.
+   */
   listenForContext(cafeteriaId: number, onContext: (context: Context) => void) {
     this.previousEventSource?.close();
 
     const eventSource = new EventSource(config.api.endpoints.checkInContext(cafeteriaId), {withCredentials: true});
 
     eventSource.addEventListener('context', event => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      onContext(Context.fromResponse(JSON.parse(event.data)));
+      const context = Context.fromResponse(JSON.parse(event['data']));
+
+      onContext(context);
     });
 
     this.previousEventSource = eventSource;
   }
 
+  /**
+   * 체크인 요청을 날립니다.
+   *
+   * @param ticket 예약 티켓.
+   * @param cafeteriaId 요청을 보내는 현재 위치한 식당의 식별자.
+   * @param gracefulInTime "시간 봐줘" 모드.
+   */
   async checkIn(ticket: string, cafeteriaId: number, gracefulInTime: boolean) {
     await http.post(config.api.endpoints.checkIn, {ticket, cafeteriaId, gracefulInTime});
   }

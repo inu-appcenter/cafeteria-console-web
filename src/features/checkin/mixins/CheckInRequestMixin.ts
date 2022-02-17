@@ -61,8 +61,8 @@ export default Vue.extend({
      * 서버와 통신하고, 결과를 반환만 하면 나머지는 다른 친구들이 다 해줍니다.
      * 네트워크 타고 처리 끝났으면 최대한 신속히 반환합니다.
      *
-     * @param ticket
-     * @param gracefulInTime
+     * @param ticket 예약 티켓.
+     * @param gracefulInTime "시간 조금 다른건 봐줘" 모드.
      */
     async tryCheckInAndGetError(ticket: string, gracefulInTime: boolean): Promise<HttpError | undefined> {
       try {
@@ -87,40 +87,72 @@ export default Vue.extend({
       this.checkInLoading = false;
     },
 
+    /**
+     * 반환된 결과를 가지고 사용자에게 표시하거나 추가 조치를 취합니다.
+     * @param error (존재할 경우) 발생한 에러.
+     * @param ticket 요청에 포함된 티켓.
+     */
     async dealWithResult(error: HttpError | undefined, ticket: string) {
       if (error == null) {
-        this.showSuccessAndAutoDismiss();
+        await this.showSuccessAndAutoDismiss();
       } else {
-        if (error.error === 'check_in_not_in_time') {
-          const allow = await this.$dialog.showAndWait(BigDialog, {
-            level: 2,
-            title: '⚠️ 앗 잠시만요...!',
-            text: `${error.message} 체크인을 진행할까요?`,
-            positiveButtonText: '진행',
-            neutralButtonText: '중단',
-            showClose: false,
-          });
+        switch (error.error) {
+          case 'check_in_not_in_time':
+            await this.checkInNotInTime(error, ticket);
+            break;
 
-          if (allow === true) {
-            await this.requestCheckIn(ticket, true);
-          }
-        } else {
-          await this.$dialog.showAndWait(BigDialog, {
-            level: 3,
-            title: '체크인을 진행할 수 없습니다.',
-            text: `${error.message}`,
-            neutralButtonText: '닫기',
-            showClose: false,
-          });
+          case 'check_in_not_in_place':
+            await this.checkInNotInPlace(error);
+            break;
+
+          default:
+            await this.checkInUnavailable(error);
+            break;
         }
       }
     },
 
-    showSuccessAndAutoDismiss() {
+    async showSuccessAndAutoDismiss() {
       this.checkInSuccess = true;
+
       setTimeout(() => {
         this.checkInSuccess = null;
       }, 750);
+    },
+
+    async checkInNotInTime(error: HttpError, ticket: string) {
+      const allow = await this.$dialog.showAndWait(BigDialog, {
+        level: 2,
+        title: '⚠️ 앗 잠시만요...!',
+        text: `${error.message} 체크인을 진행할까요?`,
+        positiveButtonText: '진행',
+        neutralButtonText: '중단',
+        showClose: false,
+      });
+
+      if (allow === true) {
+        await this.requestCheckIn(ticket, true);
+      }
+    },
+
+    async checkInNotInPlace(error: HttpError) {
+      await this.$dialog.showAndWait(BigDialog, {
+        level: 3,
+        title: '다른 식당의 예약입니다.',
+        text: `${error.message}`,
+        neutralButtonText: '닫기',
+        showClose: false,
+      });
+    },
+
+    async checkInUnavailable(error: HttpError) {
+      await this.$dialog.showAndWait(BigDialog, {
+        level: 3,
+        title: '체크인을 진행할 수 없습니다.',
+        text: `${error.message}`,
+        neutralButtonText: '닫기',
+        showClose: false,
+      });
     },
   },
 });

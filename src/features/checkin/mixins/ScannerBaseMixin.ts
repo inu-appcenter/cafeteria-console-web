@@ -43,7 +43,7 @@ export default Vue.extend({
       } catch (e) {
         this.scannerError = e;
 
-        console.error(e);
+        console.log(`스캐너 에러 발생: ${e}`);
       }
     },
 
