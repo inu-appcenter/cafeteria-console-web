@@ -62,7 +62,7 @@ export default Vue.extend({
       }
 
       this.allCafeteria = cafeteriaSupportingBooking;
-      this.selectedCafeteria = selected;
+      this.selectedCafeteria = restored;
     },
   },
 });
