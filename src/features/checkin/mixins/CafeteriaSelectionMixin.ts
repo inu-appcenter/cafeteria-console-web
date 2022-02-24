@@ -51,10 +51,16 @@ export default Vue.extend({
       const allCafeteria = await Cafeteria.find();
       const cafeteriaSupportingBooking = allCafeteria.filter(c => c.supportBooking);
 
-      const previouslySelectedId = Number.parseInt(localStorage.getItem('qr-scanner-selected-cafeteria') ?? '1');
+      const savedIdString = localStorage.getItem('qr-scanner-selected-cafeteria');
+      const savedId = savedIdString ? Number.parseInt(savedIdString) : undefined;
+      const selected = savedId ? cafeteriaSupportingBooking.find(c => c.id === savedId) : cafeteriaSupportingBooking[0];
+
+      if (selected) {
+        localStorage.setItem('qr-scanner-selected-cafeteria', selected.id.toString());
+      }
 
       this.allCafeteria = cafeteriaSupportingBooking;
-      this.selectedCafeteria = cafeteriaSupportingBooking.find(c => c.id === previouslySelectedId); // TODO
+      this.selectedCafeteria = selected;
     },
   },
 });
