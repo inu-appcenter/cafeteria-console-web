@@ -25,10 +25,6 @@ import VisitRepository from '@/features/visit/VisitRepository';
 
 @Entity({displayName: '방문 기록'})
 export default class VisitRecord extends BaseEntity {
-  private validateIdentity = () => {
-    return this.studentId || this.phoneNumber;
-  };
-
   @Field({displayName: '학번'})
   studentId?: string;
 
