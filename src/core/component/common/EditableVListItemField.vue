@@ -22,7 +22,7 @@
     <!-- 필드 이름 -->
     <v-list-item-content class="pa-0 pre-line">
       <!-- text에만 달리는 위쪽 구분선 -->
-      <v-divider v-show="field.type === 'text'" class="mt-2 mb-3"></v-divider>
+      <v-divider v-show="field.type === 'text'" class="mt-2 mb-3" style="flex: 1 1 1px"></v-divider>
 
       <!-- 필드 이름과 설명 -->
       <v-list-item-title>{{ field.name }}</v-list-item-title>
@@ -47,7 +47,7 @@
       </div>
 
       <!-- text에만 달리는 아래쪽 구분선 -->
-      <v-divider v-show="field.type === 'text'" class="mb-1"></v-divider>
+      <v-divider v-show="field.type === 'text'" class="mb-1" style="flex: 1 1 1px"></v-divider>
     </v-list-item-content>
 
     <!-- 값 -->
