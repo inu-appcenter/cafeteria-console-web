@@ -21,7 +21,7 @@
   <v-row justify="center">
     <v-col cols="12" lg="12" md="8" sm="10" xs="12">
       <div>
-        <div class="row mx-2 my-1">
+        <div class="row mx-2 mt-3 mb-1">
           <h2>{{ itemDisplayName }}</h2>
         </div>
 
@@ -32,7 +32,7 @@
         />
         <EmptyView item-display-name="질문이 없습니다." :all-items="allItems" :fetching="fetching" :error="error" />
 
-        <v-layout class="pl-6 pr-6 pt-0 pb-0" row>
+        <v-layout class="pl-6 pr-6 pt-0 pb-0 mt-3 mb-1" row>
           <v-row v-masonry item-selector=".item" transition-duration="0.3s">
             <v-col
               v-for="question in allItems"

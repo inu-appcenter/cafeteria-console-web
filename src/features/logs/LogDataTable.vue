@@ -20,7 +20,7 @@
 <template>
   <v-row justify="center">
     <v-col cols="12">
-      <v-card class="mx-2" outlined raised>
+      <v-card class="mx-2 mt-3" outlined raised>
         <v-card-title>
           <h4>{{ itemDisplayName }}</h4>
           <v-spacer />

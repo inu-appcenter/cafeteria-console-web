@@ -18,7 +18,7 @@
   -->
 
 <template>
-  <v-row align="center" justify="center">
+  <v-row align="center" justify="center" class="mt-0">
     <div class="metadata-div">
       <!-- 안내 -->
       <p class="ma-6 text--secondary">QR 체크인이 어려운 경우 방문 기록을 수기로 남겨 주세요.</p>

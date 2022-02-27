@@ -20,7 +20,7 @@
 <template>
   <v-card :loading="question.loading" :raised="question.editing" :shaped="question.editing" outlined>
     <!-- 헤더 -->
-    <div class="row mx-0">
+    <div class="row ma-0">
       <!-- 질문 상태 -->
       <v-card-title v-show="!answer" class="body-1 orange--text">답변 대기중</v-card-title>
       <v-card-title v-show="answer && !answerRead" class="body-1 light-blue--text">답변됨</v-card-title>

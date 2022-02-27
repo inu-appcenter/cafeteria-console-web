@@ -19,7 +19,7 @@
 
 <template>
   <v-container fluid>
-    <v-card>
+    <v-card class="mx-2 mt-3" outlined>
       <v-card-title class="font-weight-bold">교내 식당 방문 기록 액셀 다운로드</v-card-title>
 
       <v-row class="ma-2">
