@@ -67,7 +67,7 @@ export default Vue.extend({
     async tryCheckInAndGetError(ticket: string, gracefulInTime: boolean): Promise<HttpError | undefined> {
       try {
         const cafeteriaId = this.selectedCafeteria?.id;
-        assert(cafeteriaId);
+        assert(cafeteriaId, new HttpError('no_selected_cafeteria', '선택된 식당 정보가 없습니다!'));
 
         await CheckInRepository.checkIn(ticket, cafeteriaId, gracefulInTime);
 
@@ -75,11 +75,11 @@ export default Vue.extend({
 
         return undefined;
       } catch (e) {
-        assert(e instanceof HttpError);
-
         playSound('/sounds/fail.mp3').then();
 
-        return e;
+        return e instanceof HttpError
+          ? e
+          : new HttpError(`fucked_up`, `죄송합니다. 정말 심각한 문제가 발생했습니다. 관리자에게 문의해주세요. ${e}`);
       }
     },
 
