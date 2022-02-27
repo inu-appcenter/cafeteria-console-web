@@ -17,8 +17,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+const webpack = require('webpack');
+
 module.exports = {
   transpileDependencies: ['vuetify'],
+
+  configureWebpack: {
+    resolve: {
+      fallback: {
+        crypto: require.resolve('crypto-browserify'),
+        stream: require.resolve('stream-browserify'),
+        assert: require.resolve('assert'),
+        util: require.resolve('util'),
+      },
+    },
+    plugins: [
+      new webpack.ProvidePlugin({
+        process: 'process/browser',
+      }),
+    ],
+  },
 
   // 휴 프로덕션 webpack 빌드에서는 minify가 들어가기 때무네
   // 클래스 이름을 기반으로 하는 reflection이 망할수밖에 없다!
