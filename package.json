@@ -1,6 +1,6 @@
 {
   "name": "cafeteria-console-web",
-  "version": "1.7.19",
+  "version": "1.8.0",
   "scripts": {
     "test": "jest test/unit",
     "dev": "vue-cli-service serve --port 9090",
