@@ -26,7 +26,7 @@
     </v-row>
 
     <!-- 주 기능 -->
-    <v-row align="center" class="mt-4" justify="center">
+    <v-row align="center" class="mt-7" justify="center">
       <!-- 할인 기록 다운로드(txt)-->
       <v-list-item :href="discountRecordsUrlTxt">
         <v-list-item-content class="d-flex justify-center light-blue--text font-weight-bold"
@@ -58,7 +58,7 @@
       :key="serviceGroup.displayName"
       align="center"
       justify="center"
-      class="mt-4"
+      class="mt-7"
     >
       <v-list-item
         v-for="serviceItem in serviceGroup.items"
