@@ -26,8 +26,8 @@ module.exports = {
     'plugin:vue/essential',
     'eslint:recommended',
     '@vue/typescript/recommended',
-    '@vue/prettier',
-    '@vue/prettier/@typescript-eslint',
+    '@vue/eslint-config-prettier',
+    '@vue/eslint-config-typescript',
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -37,5 +37,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
+    'vue/no-mutating-props': 'off',
+    'vue/multi-word-component-names': 'off',
+    'vue/valid-v-slot': 'off',
   },
 };
