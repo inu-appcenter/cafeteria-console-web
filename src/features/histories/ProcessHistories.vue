@@ -34,6 +34,7 @@ export default {
       historyProps: {
         entityClass: DiscountProcessHistory,
         order: 'DESC',
+        limit: 500,
 
         failureColor: failure => (failure === 0 ? 'green' : 'red'),
       },

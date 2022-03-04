@@ -34,9 +34,15 @@ export default Vue.extend({
       required: false,
     },
 
-    // 데이터를 표시할 순서입니다. 필수는아님.
+    // 데이터를 표시할 순서입니다. 필수는 아님.
     order: {
       type: String,
+      required: false,
+    },
+
+    // 가져올 데이터의 수입니다. 필수는 아님.
+    limit: {
+      type: Number,
       required: false,
     },
   },
@@ -53,7 +59,7 @@ export default Vue.extend({
       itemDisplayName: meta.displayName,
       domainFields: meta.fields,
 
-      onFetch: () => entityClass.find({order: this.order}),
+      onFetch: () => entityClass.find({order: this.order, limit: this.limit}),
       onAdd: entity => entity.save(),
       onUpdate: entity => entity.save(),
       onDelete: entity => entity.remove(),
