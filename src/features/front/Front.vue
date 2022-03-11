@@ -112,8 +112,8 @@ export default {
       },
 
       todayString: formatDateYYYYMMDD(),
-      discountRecordsUrlTxt: config.api.endpoints.discountRecords(formatDateYYYYMMDD(), 1 /* 학생식당 */, 'txt'),
-      discountRecordsUrlXls: config.api.endpoints.discountRecords(formatDateYYYYMMDD(), 1 /* 학생식당 */, 'xls'),
+      discountRecordsUrlTxt: config.api.endpoints.discountRecords(formatDateYYYYMMDD(), 4 /* 제1기숙사식당 */, 'txt'),
+      discountRecordsUrlXls: config.api.endpoints.discountRecords(formatDateYYYYMMDD(), 4 /* 제1기숙사식당 */, 'xls'),
       services: services,
 
       zen: null,
